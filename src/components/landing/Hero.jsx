@@ -46,12 +46,7 @@ const Section = styled(Box)(({ theme }) => ({
   display: "grid",
   placeItems: "center",
   color: "#e8e8e8",
-  background: `
-    radial-gradient(1200px 600px at 70% 10%, ${alpha("#89a", 0.15)} 0%, transparent 60%),
-    radial-gradient(900px 500px at 20% 20%, ${alpha("#6cf", 0.12)} 0%, transparent 60%),
-    radial-gradient(800px 500px at 50% 120%, ${alpha("#39c", 0.16)} 0%, transparent 60%),
-    ${CANVAS}
-  `,
+  background: '#666',
   overflow: "hidden",
 }));
 
