@@ -10,7 +10,7 @@ const ACCENT_HOVER = "#ffd95a";
 
 /* ---- Styled ---- */
 const Section = styled(Box)(({ theme }) => ({
-  background: "#222",
+  background: "#0e0f10",
   color: alpha("#fff", 0.92),
   paddingBlock: theme.spacing(8, 12),
 }));

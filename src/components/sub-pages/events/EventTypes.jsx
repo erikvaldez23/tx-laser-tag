@@ -1,0 +1,262 @@
+// src/components/events/TypesOfEvents.jsx
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Box,
+  Container,
+  Typography,
+  Button,
+  Stack,
+  Paper,
+} from "@mui/material";
+import { styled, alpha } from "@mui/material/styles";
+
+/* --------------------------- Styled --------------------------- */
+const Section = styled(Box)({
+  width: "100%",
+  background: "#0e0f10",
+  color: "#eee",
+  paddingBlock: 48,
+});
+
+const Title = (props) => (
+  <Typography variant="h4" fontWeight={800} sx={{ mb: 2 }} {...props} />
+);
+const Subhead = (props) => (
+  <Typography variant="h6" fontWeight={700} sx={{ mb: 1.5 }} {...props} />
+);
+
+/* First row: 3 cards visible + a peek of the 4th */
+const ScrollRow = styled(Box)(({ theme }) => ({
+  "--gap": theme.spacing(2),
+  position: "relative",
+  display: "grid",
+  gridAutoFlow: "column",
+  gap: "var(--gap)",
+  overflowX: "auto",
+  paddingBottom: theme.spacing(1),
+  scrollSnapType: "x mandatory",
+  scrollPadding: "var(--gap)",
+  WebkitOverflowScrolling: "touch",
+  overscrollBehaviorX: "contain",
+  // 3.05 columns per view => ~10% of next card peeks in
+  gridAutoColumns: "calc((100% - (var(--gap) * 2)) / 3.05)",
+  [theme.breakpoints.down("md")]: {
+    gridAutoColumns: "calc((100% - var(--gap)) / 2.1)", // 2 + peek
+  },
+  [theme.breakpoints.down("sm")]: {
+    gridAutoColumns: "88%", // ~1 + peek
+    scrollSnapType: "x proximity",
+  },
+  // hide native scrollbar, keep trackpad/touch scroll
+  scrollbarWidth: "none",
+  msOverflowStyle: "none",
+  "&::-webkit-scrollbar": { display: "none" },
+}));
+
+/* Full-width overlay scrollbar (Apple-like) */
+const OverlayBar = styled("div")({
+  pointerEvents: "none",
+  position: "absolute",
+  left: 0,
+  right: 0,
+  bottom: 6, // floats just beneath the row
+});
+const OverlayTrack = styled("div")(({ visible }) => ({
+  position: "relative",
+  height: 6,
+  width: "100%",              // spans the whole container
+  borderRadius: 999,
+  background: "transparent",
+  transition: "opacity 220ms ease",
+  opacity: visible ? 1 : 0,
+}));
+const OverlayThumb = styled("div")({
+  position: "absolute",
+  top: 0,
+  left: 0,
+  height: 6,
+  borderRadius: 999,
+  background:
+    "linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.85))",
+  boxShadow: "0 0.5px 0 rgba(0,0,0,0.35) inset, 0 2px 6px rgba(0,0,0,0.25)",
+});
+
+const ThreeCol = styled(Box)(({ theme }) => ({
+  display: "grid",
+  gap: theme.spacing(2),
+  gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+  [theme.breakpoints.down("md")]: {
+    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+  },
+  [theme.breakpoints.down("sm")]: {
+    gridTemplateColumns: "1fr",
+  },
+}));
+
+const Tile = styled(Paper)(({ theme }) => ({
+  position: "relative",
+  borderRadius: 10,
+  background: "#8d8d8d",
+  boxShadow: "none",
+  overflow: "hidden",
+  scrollSnapAlign: "start",
+  display: "grid",
+  placeItems: "center",
+  aspectRatio: "16/10",
+  color: alpha("#000", 0.65),
+  fontSize: 12,
+  userSelect: "none",
+}));
+
+const Caption = (props) => (
+  <Typography
+    variant="caption"
+    sx={{ display: "block", mt: 0.75, color: alpha("#fff", 0.9) }}
+    {...props}
+  />
+);
+
+const Cta = styled(Button)({
+  alignSelf: "center",
+  borderRadius: 999,
+  textTransform: "none",
+  fontWeight: 700,
+  padding: "8px 16px",
+  backgroundColor: "#c6a045",
+  color: "#1a1a1a",
+  boxShadow: "none",
+  "&:hover": { backgroundColor: "#af8e3e", boxShadow: "none" },
+});
+
+/* --------------------------- Data --------------------------- */
+const PARTY_EVENTS = [
+  { id: "bday", label: "Birthday Parties", image: "" },
+  { id: "bachelor", label: "Bachelor Parties", image: "" },
+  { id: "grad", label: "Graduation Celebrations", image: "" },
+  { id: "holiday", label: "Holiday Parties", image: "" },
+  { id: "team", label: "Team Building", image: "" },
+  { id: "reunion", label: "Reunions", image: "" },
+];
+
+const OPEN_PLAY = [
+  { id: "families", label: "Families", image: "" },
+  { id: "solo", label: "Solo Players", image: "" },
+  { id: "girls", label: "Girls Night", image: "" },
+];
+
+/* ------------------------- Component ------------------------- */
+export default function TypesOfEvents({
+  heading = "Types of events",
+  partyEvents = PARTY_EVENTS,
+  openPlay = OPEN_PLAY,
+  onTileClick,
+  onBook,
+}) {
+  const rowRef = useRef(null);
+
+  // overlay scrollbar state
+  const [thumb, setThumb] = useState({ widthPct: 0, leftPct: 0 });
+  const [visible, setVisible] = useState(false);
+  const hideTimer = useRef(null);
+
+  const updateThumb = () => {
+    const el = rowRef.current;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    const widthPct = Math.max((clientWidth / scrollWidth) * 100, 8); // min thumb size
+    const maxLeft = 100 - widthPct;
+    const leftPct =
+      scrollWidth > clientWidth
+        ? Math.min((scrollLeft / (scrollWidth - clientWidth)) * maxLeft, maxLeft)
+        : 0;
+    setThumb({ widthPct, leftPct });
+  };
+
+  const showThenFade = () => {
+    setVisible(true);
+    if (hideTimer.current) clearTimeout(hideTimer.current);
+    hideTimer.current = setTimeout(() => setVisible(false), 900);
+  };
+
+  useEffect(() => {
+    updateThumb();
+    const el = rowRef.current;
+    if (!el) return;
+
+    const onScroll = () => {
+      updateThumb();
+      showThenFade();
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+
+    const ro = new ResizeObserver(updateThumb);
+    ro.observe(el);
+
+    // brief show on mount
+    showThenFade();
+
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      ro.disconnect();
+      if (hideTimer.current) clearTimeout(hideTimer.current);
+    };
+  }, []);
+
+  return (
+    <Section>
+      <Container maxWidth="xl">
+        <Title>{heading}</Title>
+
+        {/* Parties — horizontal scroll (3 visible + peek) */}
+        <Subhead>Parties</Subhead>
+        <Box position="relative">
+          <ScrollRow ref={rowRef} aria-label="Parties">
+            {partyEvents.map((ev) => (
+              <Box key={ev.id} sx={{ minWidth: 0 }}>
+                <Tile
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => onTileClick?.(ev)}
+                  // For real images:
+                  // sx={{ backgroundImage: `url(${ev.image})`, backgroundSize:'cover', backgroundPosition:'center' }}
+                >
+                  [Image placeholder]
+                </Tile>
+                <Caption>{ev.label}</Caption>
+              </Box>
+            ))}
+          </ScrollRow>
+
+          {/* Full-width Apple-like overlay scrollbar */}
+          <OverlayBar aria-hidden>
+            <OverlayTrack visible={visible}>
+              <OverlayThumb
+                style={{
+                  width: `${thumb.widthPct}%`,
+                  left: `${thumb.leftPct}%`,
+                }}
+              />
+            </OverlayTrack>
+          </OverlayBar>
+        </Box>
+
+        {/* Open Play — static grid (3 in view) */}
+        <Subhead sx={{ mt: 3 }}>Open Play</Subhead>
+        <ThreeCol>
+          {openPlay.map((ev) => (
+            <Box key={ev.id}>
+              <Tile role="button" tabIndex={0} onClick={() => onTileClick?.(ev)}>
+                [Image placeholder]
+              </Tile>
+              <Caption>{ev.label}</Caption>
+            </Box>
+          ))}
+        </ThreeCol>
+
+        <Stack alignItems="center" sx={{ mt: 3 }}>
+          <Cta onClick={onBook}>Book online now</Cta>
+        </Stack>
+      </Container>
+    </Section>
+  );
+}

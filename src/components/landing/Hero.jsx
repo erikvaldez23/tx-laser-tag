@@ -46,7 +46,7 @@ const Section = styled(Box)(({ theme }) => ({
   display: "grid",
   placeItems: "center",
   color: "#e8e8e8",
-  background: '#666',
+  background: '#222',
   overflow: "hidden",
 }));
 

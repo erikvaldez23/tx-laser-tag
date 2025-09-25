@@ -3,7 +3,7 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import "./App.css";
 
 // Key Components
-// import Topbar from "./components/key-components/Topbar"
+import Topbar from "./components/key-components/Topbar"
 import Footer from "./components/key-components/Footer";
 
 // Landing Page
@@ -14,7 +14,9 @@ import Offer from "./components/landing/Offer";
 import Apply from "./components/landing/Apply";
 
 // Sub Pages
-
+import AboutPage from "./components/sub-pages/about/About";
+import EventsPage from "./components/sub-pages/events/Events"
+import ExperiencePage from "./components/sub-pages/experience/Experience"
 
 const theme = createTheme({
   palette: {
@@ -27,7 +29,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         {/* <ScrollToTop behavior="auto" /> */}
-        {/* <Topbar /> */}
+        <Topbar />
         <Routes>
           <Route
             path="/"
@@ -46,7 +48,9 @@ function App() {
               </>
             }
           />
-          {/* <Route path="/gallery" element={<Gallery />} /> */}
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/events" element={<EventsPage />} />
+          <Route path="/experience" element={<ExperiencePage />} />
         </Routes>
         <Footer />
       </Router>

@@ -105,7 +105,7 @@ const items = [
 /* ----------------------------- Component ----------------------------- */
 const About = () => {
   return (
-    <Box sx={{ py: { xs: 4, md: 10 }, background: "#222" }}>
+    <Box sx={{ py: { xs: 4, md: 10 }, background: "#0e0f10" }}>
       <Container maxWidth="lg">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
