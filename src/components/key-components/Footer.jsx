@@ -18,7 +18,7 @@ import XIcon from "@mui/icons-material/X"; // fallback to Twitter if needed
 import { Link as RouterLink } from "react-router-dom";
 
 /* ----------------------------- Design tokens ----------------------------- */
-const BG = "#222";
+const BG = `transparent`;
 const FG = alpha("#fff", 0.88);
 const MUTED = alpha("#fff", 0.72);
 const LINE = "rgba(255,255,255,0.10)";

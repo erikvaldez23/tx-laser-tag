@@ -30,7 +30,6 @@ function useCountdown(targetDate) {
   }, [target]);
 
   const total = diff;
-
   const days = Math.floor(total / (1000 * 60 * 60 * 24));
   const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
   const mins = Math.floor((total / (1000 * 60)) % 60);
@@ -42,12 +41,18 @@ function useCountdown(targetDate) {
 /* --------------------------------- Styles -------------------------------- */
 const Section = styled(Box)(({ theme }) => ({
   position: "relative",
-  minHeight: "88vh",
+  height: "100vh",
   display: "grid",
   placeItems: "center",
   color: "#e8e8e8",
-  background: '#222',
+  background: 'transparent',
   overflow: "hidden",
+  // Mobile-only: use small viewport height + safe areas to avoid iOS chrome jumps
+  [theme.breakpoints.down("sm")]: {
+    height: "100svh",
+    paddingTop: "max(12px, env(safe-area-inset-top))",
+    paddingBottom: "max(12px, env(safe-area-inset-bottom))",
+  },
 }));
 
 // Subtle tech grid overlay
@@ -60,6 +65,11 @@ const GridOverlay = styled(Box)(({ theme }) => ({
   maskImage:
     "radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.95) 65%, rgba(0,0,0,1) 100%)",
   pointerEvents: "none",
+  [theme.breakpoints.down("sm")]: {
+    backgroundSize: "28px 28px, 28px 28px",
+    maskImage:
+      "radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.85) 58%, rgba(0,0,0,1) 100%)",
+  },
 }));
 
 const GlassCard = styled(Box)(({ theme }) => ({
@@ -68,6 +78,11 @@ const GlassCard = styled(Box)(({ theme }) => ({
   background: alpha("#ffffff", 0.06),
   backdropFilter: "blur(10px)",
   boxShadow: `0 20px 60px ${alpha("#000", 0.45)}, inset 0 1px 0 ${alpha("#fff", 0.06)}`,
+  [theme.breakpoints.down("sm")]: {
+    borderRadius: 20,
+    background: alpha("#ffffff", 0.07),
+    boxShadow: `0 12px 36px ${alpha("#000", 0.5)}, inset 0 1px 0 ${alpha("#fff", 0.05)}`,
+  },
 }));
 
 const Digit = styled(Typography)(({ theme }) => ({
@@ -85,6 +100,10 @@ const Label = styled(Typography)(({ theme }) => ({
   fontSize: "12px",
   opacity: 0.75,
   textTransform: "uppercase",
+  [theme.breakpoints.down("sm")]: {
+    letterSpacing: "0.18em",
+    fontSize: 11,
+  },
 }));
 
 const Separator = styled(Typography)(({ theme }) => ({
@@ -92,6 +111,26 @@ const Separator = styled(Typography)(({ theme }) => ({
   fontSize: "clamp(32px, 7vw, 82px)",
   opacity: 0.7,
   transform: "translateY(-4px)",
+  // Hide separators on phones to save horizontal space; countdown will wrap cleanly
+  [theme.breakpoints.down("sm")]: {
+    display: "none",
+  },
+}));
+
+const CountdownRow = styled(Stack)(({ theme }) => ({
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "flex-end",
+  textAlign: "center",
+  gap: theme.spacing(2.5),
+  [theme.breakpoints.up("sm")]: {
+    gap: theme.spacing(4),
+  },
+  // Phones: allow wrapping so digits don't squish
+  [theme.breakpoints.down("sm")]: {
+    flexWrap: "wrap",
+    rowGap: theme.spacing(1.75),
+  },
 }));
 
 /* -------------------------------- Component ------------------------------- */
@@ -99,7 +138,8 @@ export default function HeroCountdown({
   title = "TX LASER COMBAT",
   subtitle = "Grand Opening Countdown",
   ctaText = "Join our VIPs waitlist",
-  onCtaClick = () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }),
+  onCtaClick = () =>
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }),
 }) {
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down("sm"));
@@ -110,10 +150,17 @@ export default function HeroCountdown({
 
   return (
     <Section>
-      <GridOverlay />
+      {/* <GridOverlay /> */}
 
-      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
-        <Stack spacing={{ xs: 4, md: 6 }} alignItems="center">
+      <Container
+        maxWidth="lg"
+        sx={{
+          position: "relative",
+          zIndex: 1,
+          px: { xs: 2.25, sm: 3, md: 4 },
+        }}
+      >
+        <Stack spacing={{ xs: 3.5, md: 6 }} alignItems="center">
           {/* Title */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -124,7 +171,7 @@ export default function HeroCountdown({
               <Typography
                 variant="overline"
                 sx={{
-                  letterSpacing: "0.28em",
+                  letterSpacing: { xs: "0.2em", sm: "0.28em" },
                   opacity: 0.85,
                   color: alpha("#fff", 0.85),
                 }}
@@ -135,13 +182,13 @@ export default function HeroCountdown({
                 variant="h2"
                 sx={{
                   fontWeight: 900,
-                  fontSize: { xs: 28, md: 40 },
+                  fontSize: { xs: 26, sm: 30, md: 40 },
                   lineHeight: 1.15,
                 }}
               >
                 {subtitle}
               </Typography>
-              <Typography sx={{ opacity: 0.7 }}>
+              <Typography sx={{ opacity: 0.7, fontSize: { xs: 14, sm: 15 } }}>
                 Opening day: <strong>October 1, 2025</strong>
               </Typography>
             </Stack>
@@ -157,16 +204,10 @@ export default function HeroCountdown({
             <GlassCard
               sx={{
                 px: { xs: 2, md: 4 },
-                py: { xs: 2.5, md: 4 },
+                py: { xs: 2, md: 4 },
               }}
             >
-              <Stack
-                direction="row"
-                justifyContent="center"
-                alignItems="flex-end"
-                spacing={{ xs: 2, sm: 2.5, md: 4 }}
-                sx={{ textAlign: "center" }}
-              >
+              <CountdownRow>
                 {/* Days */}
                 <TimeBlock value={pad2(days)} label="Days" />
                 <Separator variant="h2">:</Separator>
@@ -181,7 +222,7 @@ export default function HeroCountdown({
 
                 {/* Seconds */}
                 <TimeBlock value={pad2(secs)} label="Seconds" />
-              </Stack>
+              </CountdownRow>
             </GlassCard>
           </motion.div>
 
@@ -195,8 +236,8 @@ export default function HeroCountdown({
               onClick={onCtaClick}
               size={isSm ? "medium" : "large"}
               sx={{
-                px: 3.5,
-                py: 1.5,
+                px: { xs: 3, sm: 3.5 },
+                py: { xs: 1.25, sm: 1.5 },
                 borderRadius: 999,
                 fontWeight: 800,
                 textTransform: "none",
@@ -219,7 +260,7 @@ export default function HeroCountdown({
       </Container>
 
       {/* Soft vignette */}
-      <Box
+      {/* <Box
         aria-hidden
         sx={{
           position: "absolute",
@@ -227,7 +268,7 @@ export default function HeroCountdown({
           pointerEvents: "none",
           boxShadow: "inset 0 0 220px rgba(0,0,0,.55)",
         }}
-      />
+      /> */}
     </Section>
   );
 }
@@ -235,7 +276,11 @@ export default function HeroCountdown({
 /* ------------------------------ Subcomponents ----------------------------- */
 function TimeBlock({ value, label }) {
   return (
-    <Stack alignItems="center" spacing={0.75} minWidth={{ xs: 72, sm: 96, md: 120 }}>
+    <Stack
+      alignItems="center"
+      spacing={0.75}
+      minWidth={{ xs: 64, sm: 92, md: 120 }}
+    >
       <Digit variant="h1">{value}</Digit>
       <Label component="span">{label}</Label>
     </Stack>

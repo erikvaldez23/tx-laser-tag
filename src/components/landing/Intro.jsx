@@ -20,7 +20,7 @@ const CTA_HOVER = "#ffd24a";
 const Section = styled(Box)(({ theme }) => ({
   position: "relative",
   color: alpha("#fff", 0.92),
-  background: `#0e0f10`,
+  background: `transparent`,
   overflow: "hidden",
   paddingBlock: theme.spacing(8, 12),
 }));
