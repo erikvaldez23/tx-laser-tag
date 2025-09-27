@@ -1,4 +1,3 @@
-// src/components/hero/HeroCountdown.jsx
 import React, { useEffect, useMemo, useState } from "react";
 import {
   Box,
@@ -12,42 +11,35 @@ import {
 import { styled, alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
 
-/* ----------------------------- Design Tokens ----------------------------- */
-const ACCENT = "#f2c230"; // warm tactical yellow (CTA)
-const CANVAS = "#0e0f11"; // deep charcoal
+const ACCENT = "#f2c230";
+const CANVAS = "#0e0f11";
 const ACCENT_TEXT = "#0e0f11";
 
-/* ------------------------------- Utilities ------------------------------- */
 const pad2 = (n) => String(n).padStart(2, "0");
 
 function useCountdown(targetDate) {
   const target = useMemo(() => targetDate.getTime(), [targetDate]);
   const [diff, setDiff] = useState(() => Math.max(0, target - Date.now()));
-
   useEffect(() => {
     const id = setInterval(() => setDiff(Math.max(0, target - Date.now())), 1000);
     return () => clearInterval(id);
   }, [target]);
-
   const total = diff;
   const days = Math.floor(total / (1000 * 60 * 60 * 24));
   const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
   const mins = Math.floor((total / (1000 * 60)) % 60);
   const secs = Math.floor((total / 1000) % 60);
-
   return { days, hours, mins, secs, finished: total === 0 };
 }
 
-/* --------------------------------- Styles -------------------------------- */
 const Section = styled(Box)(({ theme }) => ({
   position: "relative",
   height: "100vh",
   display: "grid",
   placeItems: "center",
   color: "#e8e8e8",
-  background: 'transparent',
+  background: "transparent",
   overflow: "hidden",
-  // Mobile-only: use small viewport height + safe areas to avoid iOS chrome jumps
   [theme.breakpoints.down("sm")]: {
     height: "100svh",
     paddingTop: "max(12px, env(safe-area-inset-top))",
@@ -55,7 +47,6 @@ const Section = styled(Box)(({ theme }) => ({
   },
 }));
 
-// Subtle tech grid overlay
 const GridOverlay = styled(Box)(({ theme }) => ({
   position: "absolute",
   inset: 0,
@@ -87,7 +78,7 @@ const GlassCard = styled(Box)(({ theme }) => ({
 
 const Digit = styled(Typography)(({ theme }) => ({
   fontWeight: 900,
-  fontSize: "clamp(42px, 9vw, 120px)",
+  fontSize: "clamp(34px, 9vw, 120px)",
   lineHeight: 1,
   letterSpacing: "0.02em",
   fontVariantNumeric: "tabular-nums lining-nums",
@@ -111,7 +102,6 @@ const Separator = styled(Typography)(({ theme }) => ({
   fontSize: "clamp(32px, 7vw, 82px)",
   opacity: 0.7,
   transform: "translateY(-4px)",
-  // Hide separators on phones to save horizontal space; countdown will wrap cleanly
   [theme.breakpoints.down("sm")]: {
     display: "none",
   },
@@ -126,14 +116,13 @@ const CountdownRow = styled(Stack)(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {
     gap: theme.spacing(4),
   },
-  // Phones: allow wrapping so digits don't squish
   [theme.breakpoints.down("sm")]: {
-    flexWrap: "wrap",
-    rowGap: theme.spacing(1.75),
+    flexWrap: "nowrap",
+    overflow: "hidden",
+    gap: theme.spacing(2),
   },
 }));
 
-/* -------------------------------- Component ------------------------------- */
 export default function HeroCountdown({
   title = "TX LASER COMBAT",
   subtitle = "Grand Opening Countdown",
@@ -143,15 +132,11 @@ export default function HeroCountdown({
 }) {
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down("sm"));
-
-  // Oct 1, 2025 00:00:00 (local time)
   const targetDate = useMemo(() => new Date(2025, 9, 1, 0, 0, 0), []);
   const { days, hours, mins, secs, finished } = useCountdown(targetDate);
 
   return (
     <Section>
-      {/* <GridOverlay /> */}
-
       <Container
         maxWidth="lg"
         sx={{
@@ -161,7 +146,6 @@ export default function HeroCountdown({
         }}
       >
         <Stack spacing={{ xs: 3.5, md: 6 }} alignItems="center">
-          {/* Title */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -194,7 +178,6 @@ export default function HeroCountdown({
             </Stack>
           </motion.div>
 
-          {/* Countdown */}
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -208,25 +191,17 @@ export default function HeroCountdown({
               }}
             >
               <CountdownRow>
-                {/* Days */}
                 <TimeBlock value={pad2(days)} label="Days" />
                 <Separator variant="h2">:</Separator>
-
-                {/* Hours */}
                 <TimeBlock value={pad2(hours)} label="Hours" />
                 <Separator variant="h2">:</Separator>
-
-                {/* Minutes */}
                 <TimeBlock value={pad2(mins)} label="Mins" />
                 <Separator variant="h2">:</Separator>
-
-                {/* Seconds */}
                 <TimeBlock value={pad2(secs)} label="Seconds" />
               </CountdownRow>
             </GlassCard>
           </motion.div>
 
-          {/* CTA */}
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -258,28 +233,17 @@ export default function HeroCountdown({
           </motion.div>
         </Stack>
       </Container>
-
-      {/* Soft vignette */}
-      {/* <Box
-        aria-hidden
-        sx={{
-          position: "absolute",
-          inset: 0,
-          pointerEvents: "none",
-          boxShadow: "inset 0 0 220px rgba(0,0,0,.55)",
-        }}
-      /> */}
     </Section>
   );
 }
 
-/* ------------------------------ Subcomponents ----------------------------- */
 function TimeBlock({ value, label }) {
   return (
     <Stack
       alignItems="center"
       spacing={0.75}
-      minWidth={{ xs: 64, sm: 92, md: 120 }}
+      minWidth={{ xs: 52, sm: 92, md: 120 }}
+      sx={{ flex: { xs: "1 1 0", sm: "0 0 auto" } }}
     >
       <Digit variant="h1">{value}</Digit>
       <Label component="span">{label}</Label>
