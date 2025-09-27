@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
+import Waitlist from "../forms/Waitlist";
 
 const ACCENT = "#f2c230";
 const CANVAS = "#0e0f11";
@@ -127,23 +128,27 @@ export default function HeroCountdown({
   title = "TX LASER COMBAT",
   subtitle = "Grand Opening Countdown",
   ctaText = "Join our VIPs waitlist",
-  onCtaClick = () =>
-    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }),
 }) {
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down("sm"));
+  const [openDialog, setOpenDialog] = useState(false);
   const targetDate = useMemo(() => new Date(2025, 9, 1, 0, 0, 0), []);
   const { days, hours, mins, secs, finished } = useCountdown(targetDate);
 
+  const handleJoin = () => setOpenDialog(true);
+  const handleClose = () => setOpenDialog(false);
+  const handleSubmit = async (data) => {
+    // TODO: replace with your API call
+    console.log("Waitlist submission:", data);
+    setOpenDialog(false);
+  };
+
   return (
     <Section>
+      {/* <GridOverlay /> */}
       <Container
         maxWidth="lg"
-        sx={{
-          position: "relative",
-          zIndex: 1,
-          px: { xs: 2.25, sm: 3, md: 4 },
-        }}
+        sx={{ position: "relative", zIndex: 1, px: { xs: 2.25, sm: 3, md: 4 } }}
       >
         <Stack spacing={{ xs: 3.5, md: 6 }} alignItems="center">
           <motion.div
@@ -164,11 +169,7 @@ export default function HeroCountdown({
               </Typography>
               <Typography
                 variant="h2"
-                sx={{
-                  fontWeight: 900,
-                  fontSize: { xs: 26, sm: 30, md: 40 },
-                  lineHeight: 1.15,
-                }}
+                sx={{ fontWeight: 900, fontSize: { xs: 26, sm: 30, md: 40 }, lineHeight: 1.15 }}
               >
                 {subtitle}
               </Typography>
@@ -184,12 +185,7 @@ export default function HeroCountdown({
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
             style={{ width: "100%" }}
           >
-            <GlassCard
-              sx={{
-                px: { xs: 2, md: 4 },
-                py: { xs: 2, md: 4 },
-              }}
-            >
+            <GlassCard sx={{ px: { xs: 2, md: 4 }, py: { xs: 2, md: 4 } }}>
               <CountdownRow>
                 <TimeBlock value={pad2(days)} label="Days" />
                 <Separator variant="h2">:</Separator>
@@ -208,7 +204,7 @@ export default function HeroCountdown({
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
           >
             <Button
-              onClick={onCtaClick}
+              onClick={finished ? undefined : handleJoin}
               size={isSm ? "medium" : "large"}
               sx={{
                 px: { xs: 3, sm: 3.5 },
@@ -217,14 +213,10 @@ export default function HeroCountdown({
                 fontWeight: 800,
                 textTransform: "none",
                 letterSpacing: "0.02em",
-                color: ACCENT_TEXT,
+                color: "#0e0f11",
                 backgroundColor: ACCENT,
                 boxShadow: `0 10px 30px ${alpha(ACCENT, 0.45)}`,
-                "&:hover": {
-                  backgroundColor: "#ffd24a",
-                  boxShadow: `0 14px 36px ${alpha(ACCENT, 0.55)}`,
-                  transform: "translateY(-1px)",
-                },
+                "&:hover": { backgroundColor: "#ffd24a", boxShadow: `0 14px 36px ${alpha(ACCENT, 0.55)}`, transform: "translateY(-1px)" },
                 transition: "all .25s ease",
               }}
             >
@@ -233,6 +225,8 @@ export default function HeroCountdown({
           </motion.div>
         </Stack>
       </Container>
+
+      <Waitlist open={openDialog} onClose={handleClose} onSubmit={handleSubmit} />
     </Section>
   );
 }

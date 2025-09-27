@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Container, Typography, Button } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
+import ApplyForm from "../forms/Apply";
 
 const ACCENT = "#f2c230";
 const ACCENT_HOVER = "#ffd95a";
@@ -19,10 +20,7 @@ const Media = styled(Box)(({ theme }) => ({
   overflow: "hidden",
   background: "#9b9b9b",
   border: `1px solid ${alpha("#fff", 0.12)}`,
-  boxShadow: `0 24px 60px ${alpha("#000", 0.55)}, inset 0 1px 0 ${alpha(
-    "#fff",
-    0.06
-  )}`,
+  boxShadow: `0 24px 60px ${alpha("#000", 0.55)}, inset 0 1px 0 ${alpha("#fff", 0.06)}`,
 }));
 
 const CTA = styled(Button)(({ theme }) => ({
@@ -34,25 +32,24 @@ const CTA = styled(Button)(({ theme }) => ({
   color: "#101113",
   boxShadow: `0 12px 32px ${ACCENT}55`,
   transition: "all .25s ease",
-  "&:hover": {
-    background: ACCENT_HOVER,
-    boxShadow: `0 16px 40px ${ACCENT}66`,
-    transform: "translateY(-1px)",
-  },
+  "&:hover": { background: ACCENT_HOVER, boxShadow: `0 16px 40px ${ACCENT}66`, transform: "translateY(-1px)" },
 }));
 
-/* ---- Component ---- */
 export default function Apply({
   title = "Join our team!",
   description = `We're opening our first laser tag arena and looking for energetic, customer-focused team members to create unforgettable experiences for our guests.`,
   imageSrc = "/apply/apply.png",
   imageAlt = "Hiring banner",
-  onApply = () => {},
+  onApply,
 }) {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const handleSubmit = async (data) => { await onApply?.(data); };
+
   return (
     <Section>
       <Container maxWidth="xl">
-        {/* Title */}
         <Typography
           component={motion.h2}
           initial={{ opacity: 0, y: 12 }}
@@ -65,40 +62,18 @@ export default function Apply({
           {title}
         </Typography>
 
-        {/* Media */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55 }}
-        >
+        <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.55 }}>
           <Media>
             {imageSrc ? (
-              <Box
-                component="img"
-                alt={imageAlt}
-                src={imageSrc}
-                sx={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
+              <Box component="img" alt={imageAlt} src={imageSrc} sx={{ width: "100%", height: "100%", objectFit: "cover" }} />
             ) : (
-              <Box
-                sx={{
-                  width: "100%",
-                  height: "100%",
-                  display: "grid",
-                  placeItems: "center",
-                  color: "#222",
-                  fontSize: 14,
-                  letterSpacing: 0.2,
-                }}
-              >
+              <Box sx={{ width: "100%", height: "100%", display: "grid", placeItems: "center", color: "#222", fontSize: 14, letterSpacing: 0.2 }}>
                 [Image placeholder]
               </Box>
             )}
           </Media>
         </motion.div>
 
-        {/* Copy + CTA */}
         <Box
           component={motion.div}
           initial={{ opacity: 0, y: 10 }}
@@ -107,22 +82,14 @@ export default function Apply({
           transition={{ duration: 0.5, delay: 0.1 }}
           sx={{ textAlign: "center", mt: 4 }}
         >
-          <Typography
-            sx={{
-              maxWidth: 980,
-              mx: "auto",
-              opacity: 0.9,
-              fontSize: { xs: 16, md: 18 },
-              lineHeight: 1.7,
-              mb: 3,
-            }}
-          >
+          <Typography sx={{ maxWidth: 980, mx: "auto", opacity: 0.9, fontSize: { xs: 16, md: 18 }, lineHeight: 1.7, mb: 3 }}>
             {description}
           </Typography>
-
-          <CTA onClick={onApply}>Apply now</CTA>
+          <CTA onClick={handleOpen}>Apply now</CTA>
         </Box>
       </Container>
+
+      <ApplyForm open={open} onClose={handleClose} onSubmit={handleSubmit} roles={["Entry Ops Specialist", "Squad Instructor", "Director/Manager"]} jobDescriptionsHref="/jobs/descriptions" />
     </Section>
   );
 }
