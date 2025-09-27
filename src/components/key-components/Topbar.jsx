@@ -181,7 +181,7 @@ function useElevateOnScroll() {
 /* ------------------------------ Component ------------------------------ */
 export default function TopbarResponsiveNav({
   logoSrc = "/logo.png",
-  logoAlt = "Company",
+  logoAlt = "TX Laser Tag",
   links = [
     { label: "Home", to: "/" },
     { label: "About", to: "/about" },

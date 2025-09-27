@@ -1,4 +1,3 @@
-// src/components/layout/Footer.jsx
 import React from "react";
 import {
   Box,
@@ -14,10 +13,9 @@ import { styled, alpha } from "@mui/material/styles";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import XIcon from "@mui/icons-material/X"; // fallback to Twitter if needed
+import XIcon from "@mui/icons-material/X";
 import { Link as RouterLink } from "react-router-dom";
 
-/* ----------------------------- Design tokens ----------------------------- */
 const BG = `transparent`;
 const FG = alpha("#fff", 0.88);
 const MUTED = alpha("#fff", 0.72);
@@ -25,7 +23,6 @@ const LINE = "rgba(255,255,255,0.10)";
 const ACCENT = "#f2c230";
 const ACCENT_HOVER = "#ffd95a";
 
-/* ------------------------------- Styled ---------------------------------- */
 const Section = styled(Box)(({ theme }) => ({
   background: BG,
   color: FG,
@@ -84,8 +81,7 @@ const SubmitBtn = styled(Button)(({ theme }) => ({
   "&:hover": { background: ACCENT_HOVER, boxShadow: `0 12px 28px ${ACCENT}66` },
 }));
 
-/* -------------------------------- Component ------------------------------ */
-export default function Footer({ logoSrc = "/logo-white.svg" }) {
+export default function Footer({ logoSrc = "/logo.png" }) {
   const [email, setEmail] = React.useState("");
 
   const sitemap = [
@@ -166,7 +162,6 @@ export default function Footer({ logoSrc = "/logo-white.svg" }) {
           </Box>
         </GridWrap>
 
-        {/* Bottom bar */}
         <Box
           sx={{
             mt: 6,

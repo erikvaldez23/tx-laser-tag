@@ -1,14 +1,11 @@
-// src/components/sections/JoinOurTeam.jsx
 import React from "react";
 import { Box, Container, Typography, Button } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
 
-/* ---- Brand ---- */
 const ACCENT = "#f2c230";
 const ACCENT_HOVER = "#ffd95a";
 
-/* ---- Styled ---- */
 const Section = styled(Box)(({ theme }) => ({
   background: "transparent",
   color: alpha("#fff", 0.92),
@@ -17,7 +14,7 @@ const Section = styled(Box)(({ theme }) => ({
 
 const Media = styled(Box)(({ theme }) => ({
   width: "100%",
-  aspectRatio: "16 / 6.5", // wide banner look
+  aspectRatio: "16 / 6.5",
   borderRadius: 14,
   overflow: "hidden",
   background: "#9b9b9b",
@@ -48,9 +45,9 @@ const CTA = styled(Button)(({ theme }) => ({
 export default function Apply({
   title = "Join our team!",
   description = `We're opening our first laser tag arena and looking for energetic, customer-focused team members to create unforgettable experiences for our guests.`,
-  imageSrc = "",      // put an image/video poster here if you have one
+  imageSrc = "/apply/apply.png",
   imageAlt = "Hiring banner",
-  onApply = () => {}, // e.g., () => window.open('/careers', '_self')
+  onApply = () => {},
 }) {
   return (
     <Section>
