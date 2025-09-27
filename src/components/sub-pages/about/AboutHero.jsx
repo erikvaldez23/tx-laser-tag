@@ -1,14 +1,7 @@
-// src/components/hero/HeroEpic.jsx
 import React from "react";
 import { Box, Container, Button, Stack, useTheme, useMediaQuery } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
-
-/**
- * Optional: add a stencil-style display font in your index.html
- * <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
- * The component will fall back gracefully if you skip this.
- */
 
 const Wrap = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -16,7 +9,7 @@ const Wrap = styled(Box)(({ theme }) => ({
   minHeight: "50vh",
   display: "grid",
   placeItems: "center",
-  background: "#0e0f10", // close to the screenshot
+  background: "transparent", // close to the screenshot
   color: "#eee",
   overflow: "hidden",
 }));

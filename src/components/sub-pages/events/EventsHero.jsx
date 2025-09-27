@@ -1,14 +1,7 @@
-// src/components/hero/HeroEpic.jsx
 import React from "react";
 import { Box, Container, Button, Stack, useTheme, useMediaQuery } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
-
-/**
- * Optional: add a stencil-style display font in your index.html
- * <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
- * The component will fall back gracefully if you skip this.
- */
 
 const Wrap = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -16,7 +9,7 @@ const Wrap = styled(Box)(({ theme }) => ({
   minHeight: "70vh",
   display: "grid",
   placeItems: "center",
-  background: "#0e0f10", // close to the screenshot
+  background: "transparent",
   color: "#eee",
   overflow: "hidden",
 }));
@@ -28,10 +21,8 @@ const Headline = styled(motion.h1)(({ theme }) => ({
   fontWeight: 800,
   letterSpacing: "0.02em",
   textTransform: "uppercase",
-  // Stencil-ish look (works well with 'Staatliches' if you include it)
   fontFamily:
     "'Staatliches', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'",
-  // responsive sizing
   fontSize: "clamp(40px, 9vw, 120px)",
 }));
 
@@ -39,7 +30,6 @@ const Line = styled("span")(({ theme }) => ({
   position: "relative",
   display: "inline-block",
   paddingInline: theme.spacing(1),
-  // subtle tracking similar to the reference
   letterSpacing: "0.02em",
 }));
 
@@ -50,7 +40,7 @@ const Cta = styled(Button)(({ theme }) => ({
   fontWeight: 700,
   paddingInline: theme.spacing(3),
   paddingBlock: theme.spacing(1.25),
-  backgroundColor: "#c6a045", // gold
+  backgroundColor: "#c6a045",
   color: "#1a1a1a",
   "&:hover": {
     backgroundColor: "#af8e3e",

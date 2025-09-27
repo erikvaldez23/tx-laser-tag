@@ -1,4 +1,3 @@
-// src/components/events/TypesOfEvents.jsx
 import React, { useEffect, useRef, useState } from "react";
 import {
   Box,
@@ -10,10 +9,9 @@ import {
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 
-/* --------------------------- Styled --------------------------- */
 const Section = styled(Box)({
   width: "100%",
-  background: "#0e0f10",
+  background: "transparent",
   color: "#eee",
   paddingBlock: 48,
 });
@@ -25,7 +23,6 @@ const Subhead = (props) => (
   <Typography variant="h6" fontWeight={700} sx={{ mb: 1.5 }} {...props} />
 );
 
-/* First row: 3 cards visible + a peek of the 4th */
 const ScrollRow = styled(Box)(({ theme }) => ({
   "--gap": theme.spacing(2),
   position: "relative",
@@ -38,7 +35,6 @@ const ScrollRow = styled(Box)(({ theme }) => ({
   scrollPadding: "var(--gap)",
   WebkitOverflowScrolling: "touch",
   overscrollBehaviorX: "contain",
-  // 3.05 columns per view => ~10% of next card peeks in
   gridAutoColumns: "calc((100% - (var(--gap) * 2)) / 3.05)",
   [theme.breakpoints.down("md")]: {
     gridAutoColumns: "calc((100% - var(--gap)) / 2.1)", // 2 + peek
@@ -47,24 +43,22 @@ const ScrollRow = styled(Box)(({ theme }) => ({
     gridAutoColumns: "88%", // ~1 + peek
     scrollSnapType: "x proximity",
   },
-  // hide native scrollbar, keep trackpad/touch scroll
   scrollbarWidth: "none",
   msOverflowStyle: "none",
   "&::-webkit-scrollbar": { display: "none" },
 }));
 
-/* Full-width overlay scrollbar (Apple-like) */
 const OverlayBar = styled("div")({
   pointerEvents: "none",
   position: "absolute",
   left: 0,
   right: 0,
-  bottom: 6, // floats just beneath the row
+  bottom: 6,
 });
 const OverlayTrack = styled("div")(({ visible }) => ({
   position: "relative",
   height: 6,
-  width: "100%",              // spans the whole container
+  width: "100%",
   borderRadius: 999,
   background: "transparent",
   transition: "opacity 220ms ease",
@@ -128,7 +122,6 @@ const Cta = styled(Button)({
   "&:hover": { backgroundColor: "#af8e3e", boxShadow: "none" },
 });
 
-/* --------------------------- Data --------------------------- */
 const PARTY_EVENTS = [
   { id: "bday", label: "Birthday Parties", image: "" },
   { id: "bachelor", label: "Bachelor Parties", image: "" },
@@ -144,7 +137,6 @@ const OPEN_PLAY = [
   { id: "girls", label: "Girls Night", image: "" },
 ];
 
-/* ------------------------- Component ------------------------- */
 export default function TypesOfEvents({
   heading = "Types of events",
   partyEvents = PARTY_EVENTS,
@@ -154,7 +146,6 @@ export default function TypesOfEvents({
 }) {
   const rowRef = useRef(null);
 
-  // overlay scrollbar state
   const [thumb, setThumb] = useState({ widthPct: 0, leftPct: 0 });
   const [visible, setVisible] = useState(false);
   const hideTimer = useRef(null);
@@ -163,11 +154,14 @@ export default function TypesOfEvents({
     const el = rowRef.current;
     if (!el) return;
     const { scrollLeft, scrollWidth, clientWidth } = el;
-    const widthPct = Math.max((clientWidth / scrollWidth) * 100, 8); // min thumb size
+    const widthPct = Math.max((clientWidth / scrollWidth) * 100, 8);
     const maxLeft = 100 - widthPct;
     const leftPct =
       scrollWidth > clientWidth
-        ? Math.min((scrollLeft / (scrollWidth - clientWidth)) * maxLeft, maxLeft)
+        ? Math.min(
+            (scrollLeft / (scrollWidth - clientWidth)) * maxLeft,
+            maxLeft
+          )
         : 0;
     setThumb({ widthPct, leftPct });
   };
@@ -192,7 +186,6 @@ export default function TypesOfEvents({
     const ro = new ResizeObserver(updateThumb);
     ro.observe(el);
 
-    // brief show on mount
     showThenFade();
 
     return () => {
@@ -207,7 +200,6 @@ export default function TypesOfEvents({
       <Container maxWidth="xl">
         <Title>{heading}</Title>
 
-        {/* Parties — horizontal scroll (3 visible + peek) */}
         <Subhead>Parties</Subhead>
         <Box position="relative">
           <ScrollRow ref={rowRef} aria-label="Parties">
@@ -217,7 +209,6 @@ export default function TypesOfEvents({
                   role="button"
                   tabIndex={0}
                   onClick={() => onTileClick?.(ev)}
-                  // For real images:
                   // sx={{ backgroundImage: `url(${ev.image})`, backgroundSize:'cover', backgroundPosition:'center' }}
                 >
                   [Image placeholder]
@@ -227,7 +218,6 @@ export default function TypesOfEvents({
             ))}
           </ScrollRow>
 
-          {/* Full-width Apple-like overlay scrollbar */}
           <OverlayBar aria-hidden>
             <OverlayTrack visible={visible}>
               <OverlayThumb
@@ -240,12 +230,15 @@ export default function TypesOfEvents({
           </OverlayBar>
         </Box>
 
-        {/* Open Play — static grid (3 in view) */}
         <Subhead sx={{ mt: 3 }}>Open Play</Subhead>
         <ThreeCol>
           {openPlay.map((ev) => (
             <Box key={ev.id}>
-              <Tile role="button" tabIndex={0} onClick={() => onTileClick?.(ev)}>
+              <Tile
+                role="button"
+                tabIndex={0}
+                onClick={() => onTileClick?.(ev)}
+              >
                 [Image placeholder]
               </Tile>
               <Caption>{ev.label}</Caption>

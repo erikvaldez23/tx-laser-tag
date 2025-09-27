@@ -1,4 +1,3 @@
-// src/components/packages/PartyRoomPackages.jsx
 import React from "react";
 import {
   Box,
@@ -13,7 +12,7 @@ import { styled, alpha } from "@mui/material/styles";
 
 const Section = styled(Box)({
   width: "100%",
-  background: "#0e0f10",
+  background: "transparent",
   color: "#eee",
   paddingBlock: 48,
 });

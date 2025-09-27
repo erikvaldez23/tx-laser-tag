@@ -1,20 +1,17 @@
-// src/components/sections/IntroStaggeredSections.jsx
 import React from "react";
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 
-/* -------------------- Shell & Centering -------------------- */
 const Section = styled(Box)(({ theme }) => ({
   position: "relative",
   width: "100%",
-  background: "#0e0f10",
+  background: "transparent",
   color: alpha("#fff", 0.92),
   paddingBlock: theme.spacing(10),
   overflow: "hidden",
   isolation: "isolate",
 }));
 
-// force-centered, custom-xl cap
 const Center = styled(Box)({
   "--max": "1680px",
   width: "min(100% - 64px, var(--max))", // 32px gutters
@@ -22,7 +19,6 @@ const Center = styled(Box)({
   position: "relative",
 });
 
-/* -------------------- Vignette (glow) -------------------- */
 const Vignette = styled("div")(({ side = "right", color = "red" }) => {
   const colorMap = {
     red: "rgba(200,0,0,",
@@ -49,7 +45,6 @@ const Vignette = styled("div")(({ side = "right", color = "red" }) => {
   };
 });
 
-/* -------------------- Content Styles -------------------- */
 const Copy = styled(Box)(({ theme }) => ({
   maxWidth: 720,
   lineHeight: 1.65,
@@ -61,7 +56,6 @@ const Emphasis = styled("span")({
   fontWeight: 800,
 });
 
-/* -------------------- Media Card -------------------- */
 const ImageCard = styled(Paper)(({ theme }) => ({
   position: "relative",
   zIndex: 1,
@@ -84,7 +78,6 @@ const Media = styled(Box)(({ theme }) => ({
   backgroundPosition: "center",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
-  // soft overlay for readability
   "&::after": {
     content: '""',
     position: "absolute",
@@ -94,7 +87,6 @@ const Media = styled(Box)(({ theme }) => ({
   },
 }));
 
-/* -------------------- Default Demo Items (images optional) -------------------- */
 const ITEMS = [
   {
     id: "welcome",
@@ -113,7 +105,7 @@ const ITEMS = [
         players.
       </p>
     ),
-    image: "/assets/lasercombat/hero-arena.jpg", // ← replace with your asset (or leave undefined)
+    image: "/assets/lasercombat/hero-arena.jpg",
     imageAlt: "Players engaged in tactical laser combat in the arena",
   },
   {
@@ -164,16 +156,12 @@ const ITEMS = [
   },
 ];
 
-export default function IntroStaggeredSections({
-  items = ITEMS,
-  renderImage, // optional: (item) => ReactNode (overrides default media)
-}) {
-
+export default function IntroStaggeredSections({ items = ITEMS, renderImage }) {
   return (
     <>
       {items.map((item, idx) => {
         const textOnRight = item.side === "right";
-        const tilt = textOnRight ? -3 : 3; // tilt away from the copy
+        const tilt = textOnRight ? -3 : 3;
 
         return (
           <Section key={item.id || idx}>
@@ -189,73 +177,69 @@ export default function IntroStaggeredSections({
                 alignItems="center"
                 direction={textOnRight ? "row-reverse" : "row"}
               >
-                {/* Text */}
                 <Grid
                   item
                   xs={12}
                   md={6}
                   sx={{ position: "relative", zIndex: 1 }}
                 >
-                    <Copy>
-                      <Typography
-                        variant="h4"
-                        sx={{
-                          fontWeight: 800,
-                          letterSpacing: 0.2,
-                          color: "#fff",
-                          mb: 3,
-                          lineHeight: 1.25,
-                        }}
-                      >
-                        {item.title}
-                      </Typography>
-                      <Typography
-                        component="div"
-                        sx={{ fontSize: 18, opacity: 0.95 }}
-                      >
-                        {item.body}
-                      </Typography>
-                    </Copy>
+                  <Copy>
+                    <Typography
+                      variant="h4"
+                      sx={{
+                        fontWeight: 800,
+                        letterSpacing: 0.2,
+                        color: "#fff",
+                        mb: 3,
+                        lineHeight: 1.25,
+                      }}
+                    >
+                      {item.title}
+                    </Typography>
+                    <Typography
+                      component="div"
+                      sx={{ fontSize: 18, opacity: 0.95 }}
+                    >
+                      {item.body}
+                    </Typography>
+                  </Copy>
                 </Grid>
 
-                {/* Media */}
                 <Grid
                   item
                   xs={12}
                   md={6}
                   sx={{ position: "relative", zIndex: 1 }}
                 >
-                    <ImageCard>
-                      {renderImage ? (
-                        renderImage(item)
-                      ) : (
-                        <Media
-                          role="img"
-                          aria-label={item.imageAlt || item.title}
-                          sx={{
-                            backgroundImage: item.image
-                              ? `url(${item.image})`
-                              : // graceful fallback: soft gradient (no text)
-                                `radial-gradient(120% 120% at 70% 20%, rgba(255,255,255,.06) 0%, rgba(255,255,255,0) 60%), 
+                  <ImageCard>
+                    {renderImage ? (
+                      renderImage(item)
+                    ) : (
+                      <Media
+                        role="img"
+                        aria-label={item.imageAlt || item.title}
+                        sx={{
+                          backgroundImage: item.image
+                            ? `url(${item.image})`
+                            : `radial-gradient(120% 120% at 70% 20%, rgba(255,255,255,.06) 0%, rgba(255,255,255,0) 60%), 
                                  linear-gradient(135deg, ${alpha(
                                    "#fff",
                                    0.06
                                  )}, ${alpha("#000", 0.2)})`,
-                          }}
-                        />
-                      )}
-
-                      {/* soft border glow */}
-                      <Box
-                        sx={{
-                          position: "absolute",
-                          inset: 0,
-                          borderRadius: 16,
-                          boxShadow: `0 0 0 1px ${alpha("#fff", 0.06)} inset`,
-                          pointerEvents: "none",
                         }}
                       />
-                    </ImageCard>
+                    )}
+
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        inset: 0,
+                        borderRadius: 16,
+                        boxShadow: `0 0 0 1px ${alpha("#fff", 0.06)} inset`,
+                        pointerEvents: "none",
+                      }}
+                    />
+                  </ImageCard>
                 </Grid>
               </Grid>
             </Center>

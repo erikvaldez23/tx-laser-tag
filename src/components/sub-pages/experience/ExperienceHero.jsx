@@ -1,4 +1,3 @@
-// src/components/hero/HeroEpic.jsx
 import React from "react";
 import {
   Box,
@@ -18,7 +17,7 @@ const Wrap = styled(Box)(({ theme }) => ({
   minHeight: "70vh",
   display: "grid",
   placeItems: "center",
-  background: "#0e0f10",
+  background: "trasnparent",
   color: "#eee",
   overflow: "hidden",
 }));
@@ -32,7 +31,7 @@ const Headline = styled(motion.h1)(({ theme }) => ({
   textTransform: "uppercase",
   fontFamily:
     "'Staatliches', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans'",
-  fontSize: "clamp(40px, 9vw, 120px)", // BIG title
+  fontSize: "clamp(40px, 9vw, 120px)",
   color: "#fff",
 }));
 
@@ -42,7 +41,6 @@ const Subhead = styled(Typography)(({ theme }) => ({
   marginInline: "auto",
   color: alpha("#fff", 0.85),
   letterSpacing: "0.02em",
-  // clearly smaller than the headline
   fontSize: "clamp(14px, 2.2vw, 20px)",
   lineHeight: 1.7,
 }));

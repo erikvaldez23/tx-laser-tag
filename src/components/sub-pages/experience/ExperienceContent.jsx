@@ -1,20 +1,17 @@
-// src/components/sections/AmenitiesStaggered.jsx
 import React from "react";
 import { Box, Container, Grid, Paper, Typography, Button } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 
-/* ----------------------------- Styled ----------------------------- */
 const Section = styled(Box)(({ theme }) => ({
   position: "relative",
   width: "100%",
-  background: "#0e0f10",
+  background: "trasnsparent",
   color: alpha("#fff", 0.9),
   paddingTop: theme.spacing(8),
   paddingBottom: theme.spacing(10),
   overflow: "hidden",
 }));
 
-// Match theme xl width (1536px by default)
 const Shell = styled(Box)(({ theme }) => ({
   maxWidth: theme.breakpoints.values.xl,
   marginInline: "auto",
@@ -23,18 +20,16 @@ const Shell = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up("md")]: { paddingInline: theme.spacing(4) },
 }));
 
-// Top full-width banner image (within Shell)
 const Banner = styled(Box)(({ theme }) => ({
   position: "relative",
   width: "100%",
-  height: "clamp(260px, 34vw, 520px)",   // responsive height
+  height: "clamp(260px, 34vw, 520px)",   
   borderRadius: 16,
   overflow: "hidden",
   boxShadow: `0 28px 64px ${alpha("#000", 0.55)}`,
   marginBottom: theme.spacing(8),
 }));
 
-/* Consistent image size for row cards */
 const ImgCard = styled(Paper)(({ theme }) => ({
   position: "relative",
   width: "100%",
@@ -80,7 +75,6 @@ const Cta = styled(Button)(({ theme }) => ({
   "&:hover": { background: "#c89a1e" },
 }));
 
-/* ----------------------------- Helpers ----------------------------- */
 function Row({ children }) {
   return (
     <Grid
@@ -114,28 +108,18 @@ function TextBlock({ title, body, withCta }) {
   );
 }
 
-/* ----------------------------- Component ----------------------------- */
 export default function AmenitiesStaggered() {
   return (
     <Section>
-      {/* disableGutters so the Shell controls padding and the banner truly fills it */}
       <Container maxWidth={false} disableGutters>
         <Shell>
-          {/* Top full-width banner image */}
           <Banner>
             <Img
-              src="/experience.png"   // <-- replace with your image
+              src="/experience.png" 
               alt="Texas Laser Combat arena overview"
             />
-            {/* Optional gradient overlay:
-            <Box sx={{
-              position: 'absolute', inset: 0,
-              background: 'linear-gradient(180deg, rgba(0,0,0,.2), rgba(0,0,0,0))'
-            }} />
-            */}
           </Banner>
 
-          {/* Row 1: content LEFT, image RIGHT */}
           <Row>
             <Grid item xs={12} sm={6} sx={{ minWidth: 0, flexBasis: { sm: "50%" }, maxWidth: { sm: "50%" } }}>
               <TextBlock
@@ -150,7 +134,6 @@ export default function AmenitiesStaggered() {
             </Grid>
           </Row>
 
-          {/* Row 2: image LEFT, content RIGHT */}
           <Row>
             <Grid item xs={12} sm={6} sx={{ minWidth: 0, flexBasis: { sm: "50%" }, maxWidth: { sm: "50%" } }}>
               <ImgCard elevation={0}>
@@ -166,7 +149,6 @@ export default function AmenitiesStaggered() {
             </Grid>
           </Row>
 
-          {/* Row 3: content LEFT, image RIGHT */}
           <Row>
             <Grid item xs={12} sm={6} sx={{ minWidth: 0, flexBasis: { sm: "50%" }, maxWidth: { sm: "50%" } }}>
               <TextBlock

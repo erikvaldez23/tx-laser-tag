@@ -1,12 +1,10 @@
-// src/components/events/EventGroups.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Container, Typography, Paper, Button } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 
-/* --------------------------- Styled --------------------------- */
 const SectionWrap = styled(Box)({
   width: "100%",
-  background: "#0e0f10",
+  background: "transparent",
   color: "#eee",
   paddingBlock: 48,
 });
@@ -15,7 +13,6 @@ const GroupTitle = (props) => (
   <Typography variant="h6" fontWeight={700} sx={{ mb: 1.5 }} {...props} />
 );
 
-/* Static 3-up grid (used by Youth + Corporate) */
 const Grid3 = styled("div")(({ theme }) => ({
   display: "grid",
   gap: theme.spacing(2),
@@ -24,7 +21,6 @@ const Grid3 = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("sm")]: { gridTemplateColumns: "1fr" },
 }));
 
-/* Carousel row (3 visible + peek) */
 const ScrollRow = styled(Box)(({ theme }) => ({
   "--gap": theme.spacing(2),
   position: "relative",
@@ -37,7 +33,6 @@ const ScrollRow = styled(Box)(({ theme }) => ({
   scrollPadding: "var(--gap)",
   WebkitOverflowScrolling: "touch",
   overscrollBehaviorX: "contain",
-  // 3 visible with a small peek of the next card
   gridAutoColumns: "calc((100% - (var(--gap) * 2)) / 3.05)",
   [theme.breakpoints.down("md")]: {
     gridAutoColumns: "calc((100% - var(--gap)) / 2.1)",
@@ -46,13 +41,11 @@ const ScrollRow = styled(Box)(({ theme }) => ({
     gridAutoColumns: "88%",
     scrollSnapType: "x proximity",
   },
-  // hide native scrollbar, keep trackpad/touch scroll
   scrollbarWidth: "none",
   msOverflowStyle: "none",
   "&::-webkit-scrollbar": { display: "none" },
 }));
 
-/* Full-width overlay scrollbar (Apple-like) */
 const OverlayBar = styled("div")({
   pointerEvents: "none",
   position: "absolute",
@@ -63,7 +56,7 @@ const OverlayBar = styled("div")({
 const OverlayTrack = styled("div")(({ visible }) => ({
   position: "relative",
   height: 6,
-  width: "100%",              // full container width
+  width: "100%",
   borderRadius: 999,
   background: "transparent",
   transition: "opacity 220ms ease",
@@ -80,7 +73,6 @@ const OverlayThumb = styled("div")({
   boxShadow: "0 0.5px 0 rgba(0,0,0,0.35) inset, 0 2px 6px rgba(0,0,0,0.25)",
 });
 
-/* Card */
 const Tile = styled(Paper)(({ theme }) => ({
   position: "relative",
   borderRadius: 10,
@@ -93,10 +85,6 @@ const Tile = styled(Paper)(({ theme }) => ({
   color: alpha("#000", 0.65),
   fontSize: 12,
   userSelect: "none",
-  // Use image background if provided:
-  // backgroundImage: `url(${imageUrl})`,
-  // backgroundSize: "cover",
-  // backgroundPosition: "center",
 }));
 
 const Caption = (props) => (
@@ -119,7 +107,6 @@ const Cta = styled(Button)({
   "&:hover": { backgroundColor: "#af8e3e", boxShadow: "none" },
 });
 
-/* ----------------------------- Data ----------------------------- */
 const DATA_DEFAULT = [
   {
     id: "youth",
@@ -161,7 +148,6 @@ const DATA_DEFAULT = [
   },
 ];
 
-/* -------------- Reusable carousel row with full-width progress -------------- */
 function CarouselGroupRow({ items, onTileClick }) {
   const ref = useRef(null);
   const [thumb, setThumb] = useState({ widthPct: 0, leftPct: 0 });
@@ -172,7 +158,7 @@ function CarouselGroupRow({ items, onTileClick }) {
     const el = ref.current;
     if (!el) return;
     const { scrollLeft, scrollWidth, clientWidth } = el;
-    const widthPct = Math.max((clientWidth / scrollWidth) * 100, 8); // min thumb size
+    const widthPct = Math.max((clientWidth / scrollWidth) * 100, 8);
     const maxLeft = 100 - widthPct;
     const leftPct =
       scrollWidth > clientWidth
@@ -201,7 +187,6 @@ function CarouselGroupRow({ items, onTileClick }) {
     const ro = new ResizeObserver(updateThumb);
     ro.observe(el);
 
-    // brief show on mount
     showThenFade();
 
     return () => {
@@ -224,7 +209,6 @@ function CarouselGroupRow({ items, onTileClick }) {
         ))}
       </ScrollRow>
 
-      {/* Full-width overlay progress bar */}
       <OverlayBar aria-hidden>
         <OverlayTrack visible={visible}>
           <OverlayThumb
@@ -236,11 +220,10 @@ function CarouselGroupRow({ items, onTileClick }) {
   );
 }
 
-/* --------------------------- Component --------------------------- */
 export default function EventGroups({
   groups = DATA_DEFAULT,
-  onTileClick,     // (sectionId, item) => void
-  onContactClick,  // CTA
+  onTileClick,     
+  onContactClick,  
 }) {
   return (
     <SectionWrap>

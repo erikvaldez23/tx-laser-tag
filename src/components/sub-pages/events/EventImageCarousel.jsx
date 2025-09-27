@@ -1,4 +1,3 @@
-// src/components/events/EventPlannerCarousel.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Box,
@@ -12,10 +11,9 @@ import {
 import { styled, alpha } from "@mui/material/styles";
 import { motion, AnimatePresence } from "framer-motion";
 
-/* ---------------------------- Styled ---------------------------- */
 const Section = styled(Box)({
   width: "100%",
-  background: "#0e0f10",
+  background: "transparent",
   color: "#eee",
   paddingBlock: 48,
   overflow: "hidden",
@@ -24,7 +22,6 @@ const Section = styled(Box)({
 const Viewport = styled(Box)(({ theme }) => ({
   position: "relative",
   width: "100%",
-  // wide + shallow like your screenshot
   aspectRatio: "21 / 9",
   borderRadius: 10,
   overflow: "hidden",
@@ -62,7 +59,6 @@ const Dot = styled("button")(({ active }) => ({
   padding: 0,
 }));
 
-/* --------------------------- Component -------------------------- */
 export default function EventImageCarousel({
   title = "Plan the perfect event",
   blurb = "We take care of the planning, the gear, and the flow, so your event runs smoothly from start to finish.",
@@ -131,7 +127,6 @@ export default function EventImageCarousel({
           </AnimatePresence>
         </Viewport>
 
-        {/* Dots + blurb + CTA */}
         <Stack spacing={2} alignItems="center" sx={{ mt: 2 }}>
           <Box aria-label="carousel pagination" role="tablist">
             {images.map((_, i) => (

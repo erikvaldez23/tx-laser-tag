@@ -1,6 +1,5 @@
 import React from 'react'
 
-// About Components
 import ExperienceHero from './ExperienceHero'
 import ExperienceContent from './ExperienceContent';
 
