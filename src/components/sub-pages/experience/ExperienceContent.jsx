@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Container, Grid, Paper, Typography, Button } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
+import Weapons from "./Weapons";
 
 const Section = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -119,6 +120,8 @@ export default function AmenitiesStaggered() {
               alt="Texas Laser Combat arena overview"
             />
           </Banner>
+
+          <Weapons />
 
           <Row>
             <Grid item xs={12} sm={6} sx={{ minWidth: 0, flexBasis: { sm: "50%" }, maxWidth: { sm: "50%" } }}>
