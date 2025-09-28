@@ -17,15 +17,16 @@ const Section = styled(Box)(({ theme, bgimg }) => ({
   minHeight: "60vh",
   display: "grid",
   placeItems: "center",
-  background: bgimg ? `url(${bgimg}) center/cover no-repeat` : "#222",
+  background: bgimg ? `#f2c230` : "transparent",
   color: "#fff",
   overflow: "hidden",
   isolation: "isolate",
+  borderRadius: 40,
   "&::before": {
     content: '""',
     position: "absolute",
     inset: 0,
-    background: "linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.45))",
+    background: "linear-gradient(to bottom, rgba(0,0,0,.3), rgba(0,0,0,.3))",
     zIndex: 0,
   },
 }));
@@ -134,7 +135,7 @@ export default function CTA({
                   borderRadius: 999,
                   boxShadow: "none",
                   textTransform: "none",
-                  background: "yellow",
+                  background: "#f2c230",
                   color: "#000"
                 }}
               >

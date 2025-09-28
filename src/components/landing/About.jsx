@@ -66,7 +66,7 @@ const items = [
 const About = () => {
   return (
     <Box sx={{ py: { xs: 4, md: 10 }, background: "transparent" }}>
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
