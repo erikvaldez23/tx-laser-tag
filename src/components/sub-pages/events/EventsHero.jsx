@@ -23,7 +23,7 @@ const Headline = styled(motion.h1)(({ theme }) => ({
   textTransform: "uppercase",
   fontFamily:
     "'Staatliches', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'",
-  fontSize: "clamp(40px, 9vw, 120px)",
+  fontSize: "clamp(40px, 9vw, 100px)",
 }));
 
 const Line = styled("span")(({ theme }) => ({
@@ -58,7 +58,7 @@ export default function EventsHero({
 
   return (
     <Wrap>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{pt: 10}}>
         <Stack
           spacing={isMobile ? 4 : 6}
           alignItems="center"

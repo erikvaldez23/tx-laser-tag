@@ -17,7 +17,7 @@ import { motion } from "framer-motion";
 const Section = styled(Box)(({ theme }) => ({
   position: "relative",
   width: "100%",
-  background: "#0e0f10",
+  background: "transparent",
   paddingTop: theme.spacing(10),
   paddingBottom: theme.spacing(10),
   overflow: "hidden",
@@ -35,17 +35,11 @@ const Card = styled(motion.div)(({ theme }) => ({
   padding: theme.spacing(3),
   borderRadius: 18,
   color: theme.palette.text.primary,
-  background: alpha(theme.palette.common.white, theme.palette.mode === "dark" ? 0.06 : 0.45),
-  border: `1px solid ${alpha(
-    theme.palette.common.white,
-    theme.palette.mode === "dark" ? 0.12 : 0.35
-  )}`,
+  background: 'rgba(255, 255, 255, 0.4)',
   boxShadow:
     theme.palette.mode === "dark"
       ? "0 8px 30px rgba(0,0,0,.45)"
       : "0 8px 30px rgba(0,0,0,.12)",
-  backdropFilter: "blur(12px)",
-  WebkitBackdropFilter: "blur(12px)",
 }));
 
 const RingGlow = styled("span")(({ theme }) => ({
@@ -98,22 +92,6 @@ export default function AboutTestimonials({
         "Clean install, great price, and they walked me through everything. Highly recommend.",
       avatar: "/avatars/jordan.jpg",
     },
-    {
-      name: "Jordan Lee",
-      role: "Plano, TX",
-      rating: 4,
-      quote:
-        "Clean install, great price, and they walked me through everything. Highly recommend.",
-      avatar: "/avatars/jordan.jpg",
-    },
-    {
-      name: "Jordan Lee",
-      role: "Plano, TX",
-      rating: 4,
-      quote:
-        "Clean install, great price, and they walked me through everything. Highly recommend.",
-      avatar: "/avatars/jordan.jpg",
-    },
   ],
 }) {
   const theme = useTheme();
@@ -121,7 +99,7 @@ export default function AboutTestimonials({
 
   return (
     <Section>
-      <Container maxWidth="xl" sx={{ position: "relative", zIndex: 1 }}>
+      <Container maxWidth="xl" sx={{ position: "relative", zIndex: 1, pb: 15 }}>
         <Stack spacing={1.2} sx={{ textAlign: "center", mb: 4 }}>
           <Typography
             variant="overline"

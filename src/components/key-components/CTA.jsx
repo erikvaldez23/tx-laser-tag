@@ -17,19 +17,28 @@ const Section = styled(Box)(({ theme, bgimg }) => ({
   minHeight: "60vh",
   display: "grid",
   placeItems: "center",
-  background: bgimg ? `#f2c230` : "transparent",
+
+  // ✅ make the image fill the container
+  backgroundImage: bgimg ? `url(${bgimg})` : "none",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+
   color: "#fff",
   overflow: "hidden",
   isolation: "isolate",
   borderRadius: 40,
+
   "&::before": {
     content: '""',
     position: "absolute",
     inset: 0,
+    borderRadius: "inherit", // keeps the overlay clipped to the rounded corners
     background: "linear-gradient(to bottom, rgba(0,0,0,.3), rgba(0,0,0,.3))",
     zIndex: 0,
   },
 }));
+
 
 const Glass = styled(Box)(({ theme }) => ({
   background: alpha("#000", 0.28),
@@ -51,7 +60,7 @@ export default function CTA({
     "Sun: 11am – 7pm",
   ],
   address = "2300 Coit Road #400, Plano, TX 75075",
-  backgroundImage = "/placeholder.jpg",
+  backgroundImage = "",
   primaryCta = { label: "Book Now", href: "/book" },
   secondaryCta = {
     label: "Get Directions",

@@ -31,7 +31,7 @@ const Headline = styled(motion.h1)(({ theme }) => ({
   textTransform: "uppercase",
   fontFamily:
     "'Staatliches', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans'",
-  fontSize: "clamp(40px, 9vw, 120px)",
+  fontSize: "clamp(40px, 9vw, 100px)",
   color: "#fff",
 }));
 

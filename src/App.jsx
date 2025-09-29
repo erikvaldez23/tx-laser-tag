@@ -20,7 +20,7 @@ import ExperiencePage from "./components/sub-pages/experience/Experience"
 
 const theme = createTheme({
   palette: {
-    primary: { main: "#339c5e" },
+    primary: { main: "#f2c230" },
   },
 });
 

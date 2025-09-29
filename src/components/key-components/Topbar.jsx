@@ -83,7 +83,7 @@ const NavLink = styled(MuiLink)(({ theme }) => ({
     left: "10%",
     right: "10%",
     bottom: 6,
-    height: 2,
+    height: 3,
     borderRadius: 2,
     transform: "scaleX(0)",
     transformOrigin: "center",

@@ -125,10 +125,10 @@ const Cta = styled(Button)({
 const PARTY_EVENTS = [
   { id: "p90", label: "Pink P90", image: "/weapons/p90.png" },
   { id: "rifle", label: "Battle Rifle", image: "/weapons/rifle.png" },
-  { id: "grad", label: "Graduation Celebrations", image: "" },
-  { id: "holiday", label: "Holiday Parties", image: "" },
-  { id: "team", label: "Team Building", image: "" },
-  { id: "reunion", label: "Reunions", image: "" },
+  { id: "weapon", label: "Weapon", image: "" },
+  { id: "holiday", label: "Weapon", image: "" },
+  { id: "team", label: "Weapon", image: "" },
+  { id: "reunion", label: "Weapon", image: "" },
 ];
 
 export default function Weapons({
@@ -190,7 +190,7 @@ export default function Weapons({
 
   return (
     <Section>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{pb: 15}}>
         <Title>{heading}</Title>
 
         <Box position="relative">

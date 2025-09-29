@@ -25,7 +25,7 @@ const Headline = styled(motion.h1)(({ theme }) => ({
   fontFamily:
     "'Staatliches', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'",
   // responsive sizing
-  fontSize: "clamp(40px, 9vw, 120px)",
+  fontSize: "clamp(40px, 9vw, 100px)",
 }));
 
 const Line = styled("span")(({ theme }) => ({
@@ -34,20 +34,6 @@ const Line = styled("span")(({ theme }) => ({
   paddingInline: theme.spacing(1),
   // subtle tracking similar to the reference
   letterSpacing: "0.02em",
-}));
-
-const Cta = styled(Button)(({ theme }) => ({
-  borderRadius: 999,
-  textTransform: "none",
-  fontSize: 16,
-  fontWeight: 700,
-  paddingInline: theme.spacing(3),
-  paddingBlock: theme.spacing(1.25),
-  backgroundColor: "#c6a045", // gold
-  color: "#1a1a1a",
-  "&:hover": {
-    backgroundColor: "#af8e3e",
-  },
 }));
 
 export default function EventsHero({

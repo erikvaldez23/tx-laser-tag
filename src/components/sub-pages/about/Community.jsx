@@ -1,202 +1,151 @@
-// src/components/sections/CommunityImpactSection.jsx
+// src/components/sections/CommunityCommitment.jsx
 import React from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  Grid,
-  Button,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Stack,
-} from "@mui/material";
+import { Box, Typography, Stack, Link as MuiLink, useTheme } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
-import { motion } from "framer-motion";
 
-const Section = styled(Box)(({ theme }) => ({
-  background: "#0e0f10",
-  color: "#fff",
-  width: "100%",
+/* Full-bleed wrapper (still 100vw) */
+const FullBleed = styled(Box)({
   position: "relative",
-  paddingBlock: theme.spacing(10),
-}));
+  left: "50%",
+  right: "50%",
+  marginLeft: "-50vw",
+  marginRight: "-50vw",
+  width: "100vw",
+  background: "transparent",
+});
 
-const Shell = styled(Box)(({ theme }) => ({
-  background: alpha("#000", 0.25),
-  border: `1px solid ${alpha("#fff", 0.08)}`,
-  backdropFilter: "blur(10px)",
-  WebkitBackdropFilter: "blur(10px)",
-  borderRadius: 16,
-  padding: theme.spacing(5),
-  boxShadow: "0 10px 40px rgba(0,0,0,.35)",
-}));
-
-const GlassCard = styled(Card)(({ theme }) => ({
-  background: alpha("#fff", 0.06),
-  border: `1px solid ${alpha("#fff", 0.18)}`,
-  boxShadow: "0 8px 30px rgba(0,0,0,.35)",
-  borderRadius: 14,
+/* NEW: Inset panel that creates the side padding */
+const Panel = styled(Box)(({ theme }) => ({
+  marginLeft: "min(4vw, 32px)",   // ← visual padding from edges
+  marginRight: "min(4vw, 32px)",  // ← visual padding from edges
+  borderRadius: 20,
   overflow: "hidden",
-  backdropFilter: "blur(8px)",
-  WebkitBackdropFilter: "blur(8px)",
-  transition: "transform .25s ease, box-shadow .25s ease",
-  "&:hover": {
-    transform: "translateY(-4px)",
-    boxShadow: "0 16px 50px rgba(0,0,0,.45)",
+  background: "linear-gradient(180deg, #2a2a2a 0%, #2b2b2b 100%)",
+  color: alpha("#fff", 0.92),
+  border: `1px solid ${alpha("#fff", 0.08)}`,
+  boxShadow: `0 24px 80px ${alpha("#000", 0.45)}`,
+}));
+
+/* Inner content track */
+const Track = styled(Box)(({ theme }) => ({
+  width: "100%",
+  maxWidth: "none",
+  marginInline: "auto",
+  paddingLeft: "min(6vw, 64px)",
+  paddingRight: "min(6vw, 64px)",
+  paddingTop: theme.spacing(8),
+  paddingBottom: 0,
+}));
+
+const GridWrap = styled("div")(({ theme }) => ({
+  display: "grid",
+  gap: theme.spacing(6),
+  alignItems: "center",
+  gridTemplateColumns: "1fr",
+  [theme.breakpoints.up("md")]: {
+    gridTemplateColumns: "380px 1fr",
+    gap: theme.spacing(10),
   },
 }));
 
-export default function Community({
-  eyebrow = "Our Community Commitment",
-  subtitle = "A portion of every purchase supports organizations that make a real difference.",
-  orgs = [
-    {
-      name: "Wounded Warrior Project",
-      logo: "/logos/wounded-warrior.png",
-      href: "#",
-      cta: "Learn more",
-    },
-    {
-      name: "Breast Cancer Research Foundation",
-      logo: "/logos/bcrf.png",
-      href: "#",
-      cta: "Learn more",
-    },
-  ],
-  body = [
-    <>
-      At <strong>Texas Laser Combat</strong>, our{" "}
-      <strong>veteran and woman-owned</strong> roots fuel a deep commitment to
-      community. A share of our proceeds proudly supports the Wounded Warrior
-      Project, <strong>aiding our disabled heroes</strong>, and the Breast
-      Cancer Research Foundation, <strong>driving life-saving research</strong>.
-    </>,
-    <>
-      Through local events, charities, and partnerships, we build stronger bonds
-      and promote active lifestyles—because fun and impact go hand in hand.
-    </>,
-  ],
+const LogosStack = styled(Stack)(({ theme }) => ({
+  alignItems: "center",
+  justifyContent: "center",
+  gap: theme.spacing(6),
+  [theme.breakpoints.up("md")]: { alignItems: "flex-start" },
+}));
+
+const Logo = styled("img")(({ theme }) => ({
+  width: "220px",
+  height: "auto",
+  filter: "saturate(0.98)",
+  userSelect: "none",
+  pointerEvents: "none",
+  [theme.breakpoints.down("sm")]: { width: "180px" },
+}));
+
+const Title = styled(Typography)(({ theme }) => ({
+  fontFamily: `'Playfair Display', ui-serif, Georgia, serif`,
+  fontWeight: 800,
+  letterSpacing: 0.2,
+  color: alpha("#fff", 0.96),
+  textShadow: `0 1px 0 ${alpha("#000", 0.35)}`,
+}));
+
+const Copy = styled(Typography)(({ theme }) => ({
+  lineHeight: 1.8,
+  fontSize: 18,
+  color: alpha("#fff", 0.88),
+}));
+
+/* Gold bar now inside Panel so it insets too */
+const PledgeBar = styled(Box)(({ theme }) => ({
+  marginTop: theme.spacing(6),
+  width: "100%",
+  background: "#f2c230",
+  color: "#151515",
+  borderTop: `1px solid ${alpha("#000", 0.2)}`,
+  paddingLeft: "min(6vw, 64px)",
+  paddingRight: "min(6vw, 64px)",
+  paddingTop: theme.spacing(2.25),
+  paddingBottom: theme.spacing(2.25),
+  fontSize: 16,
+}));
+
+export default function CommunityCommitment({
+  title = "Our Community Commitment",
+  woundedWarriorLogo = "/images/wounded-warrior.png",
+  bcrfLogo = "/images/bcrf.png",
+  pinkLinkHref = "#",
 }) {
+  const theme = useTheme();
+
   return (
-    <Section>
-      <Container maxWidth="lg">
-        <Shell component={motion.section} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-          {/* Header */}
-          <Stack spacing={1.2} sx={{ textAlign: "center", mb: 4 }}>
-            <Typography
-              component="h2"
-              variant="h4"
-              sx={{
-                fontWeight: 800,
-                letterSpacing: 0.2,
-                lineHeight: 1.2,
-                fontSize: { xs: "1.8rem", md: "2.25rem" },
-              }}
-            >
-              {eyebrow}
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{
-                opacity: 0.8,
-                maxWidth: 720,
-                mx: "auto",
-                lineHeight: 1.6,
-                textAlign: "center",
-              }}
-            >
-              {subtitle}
-            </Typography>
-          </Stack>
-
-          {/* Orgs */}
-          <Grid
-            container
-            spacing={3}
-            sx={{
-              mb: 4,
-              // mobile: horizontal snap with peek
-              overflowX: { xs: "auto", md: "visible" },
-              flexWrap: { xs: "nowrap", md: "wrap" },
-              scrollSnapType: { xs: "x mandatory", md: "none" },
-              "&::-webkit-scrollbar": { display: "none" },
-            }}
+    <FullBleed component="section" aria-label="Community Commitment">
+      <Panel>
+        <Track>
+          <Title
+            variant="h3"
+            sx={{ mb: 3, fontSize: { xs: "2rem", md: "2.4rem" }, textAlign: { xs: "center", md: "left" } }}
           >
-            {orgs.map((org, i) => (
-              <Grid
-                item
-                key={org.name + i}
-                xs={10}
-                sm={6}
-                md={6}
-                lg={6}
-                sx={{ scrollSnapAlign: { xs: "start", md: "none" } }}
-              >
-                <GlassCard component={motion.div} whileHover={{ y: -4 }}>
-                  <CardActionArea
-                    component="a"
-                    href={org.href}
-                    target={org.href?.startsWith("#") ? "_self" : "_blank"}
-                    rel="noreferrer"
-                    sx={{ p: 2 }}
-                  >
-                    <CardMedia
-                      component="img"
-                      alt={org.name}
-                      image={org.logo}
-                      sx={{
-                        background: alpha("#fff", 0.06),
-                        borderRadius: 1,
-                        objectFit: "contain",
-                        width: "100%",
-                        height: { xs: 200, sm: 220 },
-                      }}
-                    />
-                    <CardContent sx={{ textAlign: "center" }}>
-                      <Button
-                        size="small"
-                        variant="contained"
-                        sx={(theme) => ({
-                          mt: 1,
-                          fontWeight: 600,
-                          textTransform: "none",
-                          borderRadius: 999,
-                          px: 2.2,
-                          py: 0.6,
-                          background: theme.palette.warning.main,
-                          color: "#1d1d1d",
-                          boxShadow: "none",
-                          "&:hover": { boxShadow: "none" },
-                        })}
-                      >
-                        {org.cta ?? "Learn more"}
-                      </Button>
-                    </CardContent>
-                  </CardActionArea>
-                </GlassCard>
-              </Grid>
-            ))}
-          </Grid>
+            {title}
+          </Title>
 
-          {/* Body copy */}
-          <Stack spacing={2} sx={{ textAlign: "center", maxWidth: 950, mx: "auto" }}>
-            {body.map((para, idx) => (
-              <Typography
-                key={idx}
-                variant="body1"
-                sx={{
-                  opacity: 0.9,
-                  lineHeight: 1.8,
-                }}
-              >
-                {para}
-              </Typography>
-            ))}
-          </Stack>
-        </Shell>
-      </Container>
-    </Section>
+          <GridWrap>
+            <LogosStack>
+              <Logo src={woundedWarriorLogo} alt="Wounded Warrior Project" />
+              <Logo src={bcrfLogo} alt="Breast Cancer Research Foundation" />
+            </LogosStack>
+
+            <Stack spacing={3}>
+              <Copy>
+                At Texas Laser Combat, our <strong>veteran and woman-owned</strong> roots fuel a deep commitment to
+                community. A share of our proceeds from these weapon upgrades proudly support the{" "}
+                <MuiLink href="https://www.woundedwarriorproject.org/" target="_blank" rel="noopener noreferrer" underline="hover" color="inherit" sx={{ fontWeight: 600 }}>
+                  Wounded Warrior Project
+                </MuiLink>
+                , aiding our disabled heroes, and the{" "}
+                <MuiLink href="https://www.bcrf.org/" target="_blank" rel="noopener noreferrer" underline="hover" color="inherit" sx={{ fontWeight: 600 }}>
+                  Breast Cancer Research Foundation
+                </MuiLink>
+                , driving life-saving research.
+              </Copy>
+
+              <Copy>
+                Through local events, charities and partnerships, we build stronger bonds and promote active lifestyles—because fun and impact go hand in hand.
+              </Copy>
+            </Stack>
+          </GridWrap>
+        </Track>
+
+        <PledgeBar role="note">
+          For certain special weapons upgrades such as our{" "}
+          <MuiLink href={pinkLinkHref} underline="always" color="inherit" sx={{ fontWeight: 700 }}>
+            Pink P90
+          </MuiLink>
+          , we have pledged to donate 50% of the profit to our nonprofit partners.
+        </PledgeBar>
+      </Panel>
+    </FullBleed>
   );
 }
