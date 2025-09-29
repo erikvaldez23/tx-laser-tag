@@ -20,7 +20,7 @@ export default function AboutPage() {
       <AboutFAQ />
       <CTA />
       <Apply />
-      <Contact />
+      {/* <Contact /> */}
     </>
   );
 }

@@ -1,6 +1,12 @@
 // src/components/sections/CommunityCommitment.jsx
 import React from "react";
-import { Box, Typography, Stack, Link as MuiLink, useTheme } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Stack,
+  Link as MuiLink,
+  useTheme,
+} from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 
 /* --------------------------- Full-bleed wrapper --------------------------- */
@@ -16,19 +22,19 @@ const FullBleed = styled(Box)({
 
 /* ----------------------- Centered 80vw panel container -------------------- */
 const Panel = styled(Box)(({ theme }) => ({
-  "--gutter": "min(4vw, 32px)",          // single source of truth for side padding
-  width: "80vw",
-  maxWidth: 1600,                         // optional cap
+  "--gutter": "min(4vw, 32px)", // single source of truth for side padding
+  width: "100vw",
+  maxWidth: 1600, // optional cap
   marginInline: "auto",
 
-  borderRadius: 20,
+  borderRadius: 30,
   overflow: "hidden",
   background: "linear-gradient(180deg, #2a2a2a 0%, #2b2b2b 100%)",
   color: alpha("#fff", 0.92),
   border: `1px solid ${alpha("#fff", 0.08)}`,
   boxShadow: `0 24px 80px ${alpha("#000", 0.45)}`,
 
-  paddingInline: "var(--gutter)",        // panel’s inner side padding
+  paddingInline: "var(--gutter)", // panel’s inner side padding
 }));
 
 /* ------------------------------ Inner content ---------------------------- */
@@ -132,9 +138,10 @@ export default function CommunityCommitment({
 
             <Stack spacing={3}>
               <Copy>
-                At Texas Laser Combat, our <strong>veteran and woman-owned</strong> roots fuel a deep
-                commitment to community. A share of our proceeds from these weapon upgrades proudly
-                support the{" "}
+                At Texas Laser Combat, our{" "}
+                <strong>veteran and woman-owned</strong> roots fuel a deep
+                commitment to community. A share of our proceeds from these
+                weapon upgrades proudly support the{" "}
                 <MuiLink
                   href="https://www.woundedwarriorproject.org/"
                   target="_blank"
@@ -160,8 +167,9 @@ export default function CommunityCommitment({
               </Copy>
 
               <Copy>
-                Through local events, charities and partnerships, we build stronger bonds and promote
-                active lifestyles—because fun and impact go hand in hand.
+                Through local events, charities and partnerships, we build
+                stronger bonds and promote active lifestyles—because fun and
+                impact go hand in hand.
               </Copy>
             </Stack>
           </GridWrap>
@@ -169,10 +177,16 @@ export default function CommunityCommitment({
 
         <PledgeBar role="note">
           For certain special weapons upgrades such as our{" "}
-          <MuiLink href={pinkLinkHref} underline="always" color="inherit" sx={{ fontWeight: 700 }}>
+          <MuiLink
+            href={pinkLinkHref}
+            underline="always"
+            color="inherit"
+            sx={{ fontWeight: 700 }}
+          >
             Pink P90
           </MuiLink>
-          , we have pledged to donate 50% of the profit to our nonprofit partners.
+          , we have pledged to donate 50% of the profit to our nonprofit
+          partners.
         </PledgeBar>
       </Panel>
     </FullBleed>
