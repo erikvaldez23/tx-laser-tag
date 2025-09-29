@@ -7,6 +7,8 @@ import Community from './Community';
 import AboutContent from './AboutContent'
 import CTA from '../../key-components/CTA'
 import AboutFAQ from './AboutFAQ'
+import Contact from '../../key-components/Contact'
+import Apply from '../../landing/Apply'
 
 export default function AboutPage() {
   return (
@@ -17,6 +19,8 @@ export default function AboutPage() {
       <Community />
       <AboutFAQ />
       <CTA />
+      <Apply />
+      <Contact />
     </>
   );
 }

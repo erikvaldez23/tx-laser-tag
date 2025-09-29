@@ -3,7 +3,7 @@ import React from "react";
 import { Box, Typography, Stack, Link as MuiLink, useTheme } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 
-/* Full-bleed wrapper (still 100vw) */
+/* --------------------------- Full-bleed wrapper --------------------------- */
 const FullBleed = styled(Box)({
   position: "relative",
   left: "50%",
@@ -14,29 +14,32 @@ const FullBleed = styled(Box)({
   background: "transparent",
 });
 
-/* NEW: Inset panel that creates the side padding */
+/* ----------------------- Centered 80vw panel container -------------------- */
 const Panel = styled(Box)(({ theme }) => ({
-  marginLeft: "min(4vw, 32px)",   // ← visual padding from edges
-  marginRight: "min(4vw, 32px)",  // ← visual padding from edges
+  "--gutter": "min(4vw, 32px)",          // single source of truth for side padding
+  width: "80vw",
+  maxWidth: 1600,                         // optional cap
+  marginInline: "auto",
+
   borderRadius: 20,
   overflow: "hidden",
   background: "linear-gradient(180deg, #2a2a2a 0%, #2b2b2b 100%)",
   color: alpha("#fff", 0.92),
   border: `1px solid ${alpha("#fff", 0.08)}`,
   boxShadow: `0 24px 80px ${alpha("#000", 0.45)}`,
+
+  paddingInline: "var(--gutter)",        // panel’s inner side padding
 }));
 
-/* Inner content track */
+/* ------------------------------ Inner content ---------------------------- */
 const Track = styled(Box)(({ theme }) => ({
   width: "100%",
-  maxWidth: "none",
   marginInline: "auto",
-  paddingLeft: "min(6vw, 64px)",
-  paddingRight: "min(6vw, 64px)",
   paddingTop: theme.spacing(8),
   paddingBottom: 0,
 }));
 
+/* ----------------------------- Grid & visuals ---------------------------- */
 const GridWrap = styled("div")(({ theme }) => ({
   display: "grid",
   gap: theme.spacing(6),
@@ -78,24 +81,30 @@ const Copy = styled(Typography)(({ theme }) => ({
   color: alpha("#fff", 0.88),
 }));
 
-/* Gold bar now inside Panel so it insets too */
+/* --------- Pledge bar that visually spans full panel width (edge-to-edge) -------- */
 const PledgeBar = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(6),
-  width: "100%",
+
+  // Break out of Panel’s side padding to reach its edges
+  marginInline: "calc(-1 * var(--gutter))",
+  width: "calc(100% + (2 * var(--gutter)))",
+
   background: "#f2c230",
   color: "#151515",
   borderTop: `1px solid ${alpha("#000", 0.2)}`,
-  paddingLeft: "min(6vw, 64px)",
-  paddingRight: "min(6vw, 64px)",
+
+  // Keep inner text aligned with content above
+  paddingInline: "var(--gutter)",
   paddingTop: theme.spacing(2.25),
   paddingBottom: theme.spacing(2.25),
   fontSize: 16,
 }));
 
+/* --------------------------------- Component ----------------------------- */
 export default function CommunityCommitment({
   title = "Our Community Commitment",
-  woundedWarriorLogo = "/images/wounded-warrior.png",
-  bcrfLogo = "/images/bcrf.png",
+  woundedWarriorLogo = "/community/wounded-warrior.png",
+  bcrfLogo = "/community/breast-cancer.png",
   pinkLinkHref = "#",
 }) {
   const theme = useTheme();
@@ -106,7 +115,11 @@ export default function CommunityCommitment({
         <Track>
           <Title
             variant="h3"
-            sx={{ mb: 3, fontSize: { xs: "2rem", md: "2.4rem" }, textAlign: { xs: "center", md: "left" } }}
+            sx={{
+              mb: 3,
+              fontSize: { xs: "2rem", md: "2.4rem" },
+              textAlign: { xs: "center", md: "left" },
+            }}
           >
             {title}
           </Title>
@@ -119,20 +132,36 @@ export default function CommunityCommitment({
 
             <Stack spacing={3}>
               <Copy>
-                At Texas Laser Combat, our <strong>veteran and woman-owned</strong> roots fuel a deep commitment to
-                community. A share of our proceeds from these weapon upgrades proudly support the{" "}
-                <MuiLink href="https://www.woundedwarriorproject.org/" target="_blank" rel="noopener noreferrer" underline="hover" color="inherit" sx={{ fontWeight: 600 }}>
+                At Texas Laser Combat, our <strong>veteran and woman-owned</strong> roots fuel a deep
+                commitment to community. A share of our proceeds from these weapon upgrades proudly
+                support the{" "}
+                <MuiLink
+                  href="https://www.woundedwarriorproject.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  underline="hover"
+                  color="inherit"
+                  sx={{ fontWeight: 600 }}
+                >
                   Wounded Warrior Project
                 </MuiLink>
                 , aiding our disabled heroes, and the{" "}
-                <MuiLink href="https://www.bcrf.org/" target="_blank" rel="noopener noreferrer" underline="hover" color="inherit" sx={{ fontWeight: 600 }}>
+                <MuiLink
+                  href="https://www.bcrf.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  underline="hover"
+                  color="inherit"
+                  sx={{ fontWeight: 600 }}
+                >
                   Breast Cancer Research Foundation
                 </MuiLink>
                 , driving life-saving research.
               </Copy>
 
               <Copy>
-                Through local events, charities and partnerships, we build stronger bonds and promote active lifestyles—because fun and impact go hand in hand.
+                Through local events, charities and partnerships, we build stronger bonds and promote
+                active lifestyles—because fun and impact go hand in hand.
               </Copy>
             </Stack>
           </GridWrap>

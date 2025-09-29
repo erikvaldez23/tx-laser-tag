@@ -100,7 +100,7 @@ export default function AboutFAQ({
 
   return (
     <Section>
-      <Container maxWidth="lg" sx={{ textAlign: "center", mb: 5 }}>
+      <Container maxWidth="lg" sx={{ textAlign: "center", mb: 5, pt: 15 }}>
         <Stack spacing={1.5} alignItems="center">
           <Headline variant="h3" sx={{ fontSize: { xs: 32, md: 40 } }}>
             {title}

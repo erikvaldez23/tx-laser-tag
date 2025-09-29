@@ -1,8 +1,8 @@
+// src/components/PartyRoomPackages.jsx
 import React from "react";
 import {
   Box,
   Container,
-  Grid,
   Typography,
   Button,
   Paper,
@@ -10,12 +10,46 @@ import {
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 
+/* ----------------------------- Styled ----------------------------- */
 const Section = styled(Box)({
   width: "100%",
   background: "transparent",
   color: "#eee",
   paddingBlock: 48,
 });
+
+const Title = styled(Typography)({
+  fontWeight: 800,
+  marginBottom: 24,
+});
+
+const Cards = styled(Box)(({ theme }) => ({
+  display: "grid",
+  gap: theme.spacing(4),
+
+  // 6 tracks (think "3-card width"); each card will span 3 => two per row
+  gridTemplateColumns: "repeat(6, minmax(0, 1fr))",
+
+  // On medium: 4 tracks, each card spans 2 => two per row
+  [theme.breakpoints.down("lg")]: {
+    gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+  },
+
+  // On small: single column
+  [theme.breakpoints.down("sm")]: {
+    gridTemplateColumns: "1fr",
+  },
+}));
+
+const CardWrap = styled(Box)(({ theme }) => ({
+  gridColumn: "span 3", // fills half of the 6-track row (two cards per row)
+  [theme.breakpoints.down("lg")]: {
+    gridColumn: "span 2", // half of 4 tracks
+  },
+  [theme.breakpoints.down("sm")]: {
+    gridColumn: "auto", // full width
+  },
+}));
 
 const ImgShell = styled(Paper)(({ theme }) => ({
   position: "relative",
@@ -28,7 +62,12 @@ const ImgShell = styled(Paper)(({ theme }) => ({
   color: alpha("#000", 0.6),
   fontSize: 12,
   userSelect: "none",
-  [theme.breakpoints.up("md")]: { height: 300 },
+}));
+
+const Body = styled(Typography)(({ theme }) => ({
+  color: alpha("#fff", 0.8),
+  marginTop: theme.spacing(1),
+  maxWidth: 900, // won’t constrain the two-card width
 }));
 
 const Cta = styled(Button)({
@@ -43,6 +82,7 @@ const Cta = styled(Button)({
   "&:hover": { backgroundColor: "#af8e3e", boxShadow: "none" },
 });
 
+/* --------------------------- Defaults ---------------------------- */
 const packagesDefault = [
   {
     id: "basic",
@@ -58,6 +98,7 @@ const packagesDefault = [
   },
 ];
 
+/* --------------------------- Component --------------------------- */
 export default function PartyRoomPackages({
   heading = "Party room packages",
   items = packagesDefault,
@@ -66,13 +107,11 @@ export default function PartyRoomPackages({
   return (
     <Section>
       <Container maxWidth="xl">
-        <Typography variant="h4" fontWeight={800} gutterBottom sx={{ mb: 3 }}>
-          {heading}
-        </Typography>
+        <Title variant="h4">{heading}</Title>
 
-        <Grid container spacing={4} justifyContent="center">
+        <Cards>
           {items.map((pkg) => (
-            <Grid item xs={12} sm={10} md={5} key={pkg.id}>
+            <CardWrap key={pkg.id}>
               <Stack spacing={2}>
                 <ImgShell>
                   <Typography component="span" sx={{ opacity: 0.8 }}>
@@ -84,19 +123,14 @@ export default function PartyRoomPackages({
                   <Typography variant="h6" fontWeight={800}>
                     {pkg.title}
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ color: alpha("#fff", 0.8), mt: 1, maxWidth: 600 }}
-                  >
-                    {pkg.description}
-                  </Typography>
+                  <Body variant="body2">{pkg.description}</Body>
                 </Box>
 
                 <Cta onClick={() => onBook?.(pkg)}>Book now</Cta>
               </Stack>
-            </Grid>
+            </CardWrap>
           ))}
-        </Grid>
+        </Cards>
       </Container>
     </Section>
   );
