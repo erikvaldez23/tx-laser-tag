@@ -104,6 +104,7 @@ const PledgeBar = styled(Box)(({ theme }) => ({
   paddingTop: theme.spacing(2.25),
   paddingBottom: theme.spacing(2.25),
   fontSize: 16,
+  textAlign: "center"
 }));
 
 /* --------------------------------- Component ----------------------------- */
@@ -116,7 +117,7 @@ export default function CommunityCommitment({
   const theme = useTheme();
 
   return (
-    <FullBleed component="section" aria-label="Community Commitment">
+    <FullBleed component="section" aria-label="Community Commitment" sx={{mb:10}}>
       <Panel>
         <Track>
           <Title
@@ -176,7 +177,7 @@ export default function CommunityCommitment({
         </Track>
 
         <PledgeBar role="note">
-          For certain special weapons upgrades such as our{" "}
+          For certain weapons upgrades such as our{" "}
           <MuiLink
             href={pinkLinkHref}
             underline="always"
@@ -185,7 +186,7 @@ export default function CommunityCommitment({
           >
             Pink P90
           </MuiLink>
-          , we have pledged to donate 50% of the profit to our nonprofit
+          , we have pledged to donate a percentage of our proceeds to our nonprofit partners.
           partners.
         </PledgeBar>
       </Panel>

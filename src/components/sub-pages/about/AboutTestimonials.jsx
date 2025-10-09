@@ -61,35 +61,35 @@ export default function AboutTestimonials({
   subtitle = "Real stories from people who trust us.",
   testimonials = [
     {
-      name: "Alex Martinez",
-      role: "Dallas, TX",
+      name: "Liora Beckett",
+      role: "Parent",
       rating: 5,
       quote:
-        "Incredible experience from start to finish. Professional, fast, and the results speak for themselves.",
+        "An unforgettable experience for the whole family!",
       avatar: "/avatars/alex.jpg",
     },
     {
-      name: "Priya Singh",
-      role: "Fort Worth, TX",
+      name: "Kairos Velasquez",
+      role: "Laser Tag Enthusiast",
       rating: 5,
       quote:
-        "The team went above and beyond to make sure I was happy. Communication and quality were top-notch.",
+        "The best laser tag arena I've ever been to!",
       avatar: "/avatars/priya.jpg",
     },
     {
-      name: "Jordan Lee",
-      role: "Plano, TX",
+      name: "Saffron Lund",
+      role: "Event Planner",
       rating: 4,
       quote:
-        "Clean install, great price, and they walked me through everything. Highly recommend.",
+        "Our go-to spot for birthday parties!",
       avatar: "/avatars/jordan.jpg",
     },
     {
-      name: "Jordan Lee",
-      role: "Plano, TX",
+      name: "Talon Everson",
+      role: "Youth Group Leader",
       rating: 4,
       quote:
-        "Clean install, great price, and they walked me through everything. Highly recommend.",
+        "Great staff, great fun!",
       avatar: "/avatars/jordan.jpg",
     },
   ],

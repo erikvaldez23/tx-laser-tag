@@ -96,7 +96,7 @@ export default function AboutFAQ({
     },
   ],
 }) {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(-1);
 
   return (
     <Section>

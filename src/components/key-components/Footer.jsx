@@ -178,8 +178,14 @@ export default function Footer({ logoSrc = "/logo.png" }) {
         >
           {/* Left cluster: socials */}
           <Stack direction="row" spacing={2}>
-            <MuiLink href="https://linkedin.com" color={MUTED}>
-              <LinkedInIcon fontSize="small" />
+            <MuiLink href="https://facebook.com" color={MUTED}>
+              <FacebookIcon fontSize="small" />
+            </MuiLink>
+            <MuiLink href="https://facebook.com" color={MUTED}>
+              <FacebookIcon fontSize="small" />
+            </MuiLink>
+            <MuiLink href="https://facebook.com" color={MUTED}>
+              <FacebookIcon fontSize="small" />
             </MuiLink>
             <MuiLink href="https://facebook.com" color={MUTED}>
               <FacebookIcon fontSize="small" />

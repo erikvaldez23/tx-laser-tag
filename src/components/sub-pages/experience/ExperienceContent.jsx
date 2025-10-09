@@ -1,12 +1,11 @@
 import React from "react";
 import { Box, Container, Grid, Paper, Typography, Button } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
-import Weapons from "./Weapons";
 
 const Section = styled(Box)(({ theme }) => ({
   position: "relative",
   width: "100%",
-  background: "trasnsparent",
+  background: "transparent", // fixed typo
   color: alpha("#fff", 0.9),
   paddingTop: theme.spacing(8),
   paddingBottom: theme.spacing(10),
@@ -19,16 +18,6 @@ const Shell = styled(Box)(({ theme }) => ({
   paddingInline: theme.spacing(2),
   [theme.breakpoints.up("sm")]: { paddingInline: theme.spacing(3) },
   [theme.breakpoints.up("md")]: { paddingInline: theme.spacing(4) },
-}));
-
-const Banner = styled(Box)(({ theme }) => ({
-  position: "relative",
-  width: "100%",
-  height: "clamp(260px, 34vw, 520px)",   
-  borderRadius: 16,
-  overflow: "hidden",
-  boxShadow: `0 28px 64px ${alpha("#000", 0.55)}`,
-  marginBottom: theme.spacing(8),
 }));
 
 const ImgCard = styled(Paper)(({ theme }) => ({
@@ -114,14 +103,13 @@ export default function AmenitiesStaggered() {
     <Section>
       <Container maxWidth={false} disableGutters>
         <Shell>
-          <Banner>
-            <Img
-              src="/experience.png" 
-              alt="Texas Laser Combat arena overview"
-            />
-          </Banner>
+          {/* Reusable banner */}
+          {/* <FeatureBanner
+            src="/experience.png"
+            alt="Texas Laser Combat arena overview"
+            sx={{ mb: (theme) => theme.spacing(8) }}
+          /> */}
 
-          <Weapons />
 
           <Row>
             <Grid item xs={12} sm={6} sx={{ minWidth: 0, flexBasis: { sm: "50%" }, maxWidth: { sm: "50%" } }}>
@@ -131,17 +119,13 @@ export default function AmenitiesStaggered() {
               />
             </Grid>
             <Grid item xs={12} sm={6} sx={{ minWidth: 0, flexBasis: { sm: "50%" }, maxWidth: { sm: "50%" } }}>
-              <ImgCard elevation={0}>
-                {/* <Img src="/logo.png" alt="Concession snacks and drinks area" /> */}
-              </ImgCard>
+              <ImgCard elevation={0}>{/* <Img src="/logo.png" alt="Concession snacks and drinks area" /> */}</ImgCard>
             </Grid>
           </Row>
 
           <Row>
             <Grid item xs={12} sm={6} sx={{ minWidth: 0, flexBasis: { sm: "50%" }, maxWidth: { sm: "50%" } }}>
-              <ImgCard elevation={0}>
-                {/* <Img src="/logo.png" alt="Lounge seating area" /> */}
-              </ImgCard>
+              <ImgCard elevation={0}>{/* <Img src="/logo.png" alt="Lounge seating area" /> */}</ImgCard>
             </Grid>
             <Grid item xs={12} sm={6} sx={{ minWidth: 0, flexBasis: { sm: "50%" }, maxWidth: { sm: "50%" } }}>
               <TextBlock
@@ -160,9 +144,7 @@ export default function AmenitiesStaggered() {
               />
             </Grid>
             <Grid item xs={12} sm={6} sx={{ minWidth: 0, flexBasis: { sm: "50%" }, maxWidth: { sm: "50%" } }}>
-              <ImgCard elevation={0}>
-                {/* <Img src="/logo.png" alt="Arena set pieces and lighting" /> */}
-              </ImgCard>
+              <ImgCard elevation={0}>{/* <Img src="/logo.png" alt="Arena set pieces and lighting" /> */}</ImgCard>
             </Grid>
           </Row>
         </Shell>

@@ -1,15 +1,24 @@
+// src/components/events/EventsHero.jsx
 import React from "react";
-import { Box, Container, Button, Stack, useTheme, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Container,
+  Button,
+  Stack,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
+import Waitlist from "../../forms/Waitlist";
 
 const Wrap = styled(Box)(({ theme }) => ({
   position: "relative",
   width: "100%",
-  minHeight: "50vh",
+  minHeight: "70vh",
   display: "grid",
   placeItems: "center",
-  background: "transparent", // close to the screenshot
+  background: "transparent",
   color: "#eee",
   overflow: "hidden",
 }));
@@ -21,29 +30,56 @@ const Headline = styled(motion.h1)(({ theme }) => ({
   fontWeight: 800,
   letterSpacing: "0.02em",
   textTransform: "uppercase",
-  // Stencil-ish look (works well with 'Staatliches' if you include it)
   fontFamily:
-    "'Staatliches', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'",
-  // responsive sizing
+    "'Staatliches', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans'",
   fontSize: "clamp(40px, 9vw, 100px)",
+}));
+
+const Cta = styled(Button)(({ theme }) => ({
+  borderRadius: 999,
+  textTransform: "none",
+  fontSize: 16,
+  fontWeight: 700,
+  paddingInline: theme.spacing(3),
+  paddingBlock: theme.spacing(1.25),
+  backgroundColor: "#c6a045",
+  color: "#1a1a1a",
+  "&:hover": { backgroundColor: "#af8e3e" },
 }));
 
 const Line = styled("span")(({ theme }) => ({
   position: "relative",
   display: "inline-block",
   paddingInline: theme.spacing(1),
-  // subtle tracking similar to the reference
   letterSpacing: "0.02em",
 }));
 
 export default function EventsHero({
   line1 = "About us",
   line2 = "Unforgettable Events.",
-  ctaText = "Book now",
+  ctaText = "Join VIP Access List",
+  /** If false, don't open modal—just call onCtaClick */
+  openOnClick = true,
+  /** Called after successful submit (or directly if openOnClick=false) */
   onCtaClick,
 }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  // --- Waitlist modal state/handlers (same pattern as other sections) ---
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const handleOpen = () => {
+    if (openOnClick) setOpenDialog(true);
+    else onCtaClick?.();
+  };
+  const handleClose = () => setOpenDialog(false);
+  const handleSubmit = async (data) => {
+    try {
+      await onCtaClick?.(data); // optional hook after submit
+    } finally {
+      setOpenDialog(false);
+    }
+  };
 
   return (
     <Wrap>
@@ -63,8 +99,22 @@ export default function EventsHero({
           >
             <Line>{line1}</Line>
           </Headline>
+
+          <Cta
+            size={isMobile ? "medium" : "large"}
+            onClick={handleOpen}
+            component={motion.button}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.98 }}
+            aria-label={ctaText}
+          >
+            {ctaText}
+          </Cta>
         </Stack>
       </Container>
+
+      {/* Waitlist modal */}
+      <Waitlist open={openDialog} onClose={handleClose} onSubmit={handleSubmit} />
     </Wrap>
   );
 }

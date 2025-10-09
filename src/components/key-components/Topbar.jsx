@@ -13,9 +13,11 @@ import {
   Divider,
   useMediaQuery,
   useScrollTrigger,
+  Button,
 } from "@mui/material";
 import { styled, alpha, useTheme } from "@mui/material/styles";
 import { Link as RouterLink, useLocation } from "react-router-dom";
+import Waitlist from "../forms/Waitlist"; // ⬅️ add the same form here
 
 /* ----------------------------- Styled ----------------------------- */
 const GlassBar = styled(AppBar)(({ theme }) => ({
@@ -42,16 +44,16 @@ const Wrap = styled(Toolbar)(({ theme }) => ({
   position: "relative",
 }));
 
-/* 🔹 NEW: shared edge padding for both logo and hamburger */
+/* Equal edge padding (slightly increased) for logo and right-side area */
 const EdgeSlot = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-  paddingInline: theme.spacing(0.75),        // XS
-  [theme.breakpoints.up("sm")]: { paddingInline: theme.spacing(1) }, // SM
-  [theme.breakpoints.up("md")]: { paddingInline: 0 },                // Desktop unchanged
+  paddingInline: theme.spacing(1.25),
+  [theme.breakpoints.up("sm")]: { paddingInline: theme.spacing(1.5) },
+  [theme.breakpoints.up("md")]: { paddingInline: theme.spacing(1.75) },
 }));
 
-/* Desktop center rail */
+/* Desktop center nav */
 const CenterRail = styled(Box)(({ theme }) => ({
   position: "absolute",
   left: "50%",
@@ -95,7 +97,6 @@ const NavLink = styled(MuiLink)(({ theme }) => ({
   "&.active::after": { transform: "scaleX(1)" },
 }));
 
-/* Logo link */
 const LogoLink = styled(Box)({
   display: "inline-flex",
   alignItems: "center",
@@ -103,7 +104,6 @@ const LogoLink = styled(Box)({
   textDecoration: "none",
 });
 
-/* Hamburger Icon (animated) */
 const Burger = styled("span")(({ theme }) => ({
   position: "relative",
   width: 24,
@@ -125,14 +125,12 @@ const Burger = styled("span")(({ theme }) => ({
   "&::before": { top: -7 },
   "&::after": { top: 7 },
 }));
-
 const BurgerWrap = styled(Box)(({ theme }) => ({
   "&.open span": { background: "transparent" },
   "&.open span::before": { transform: "translateY(7px) rotate(45deg)" },
   "&.open span::after": { transform: "translateY(-7px) rotate(-45deg)" },
 }));
 
-/* Drawer content shell */
 const DrawerShell = styled(Box)(({ theme }) => ({
   width: "min(86vw, 420px)",
   background: "linear-gradient(180deg, rgba(14,15,17,.95), rgba(14,15,17,.9))",
@@ -178,6 +176,25 @@ function useElevateOnScroll() {
   return useScrollTrigger({ disableHysteresis: true, threshold: 8 });
 }
 
+/* Desktop CTA */
+const WaitlistCta = styled(Button)(({ theme }) => ({
+  textTransform: "none",
+  fontWeight: 800,
+  letterSpacing: "0.02em",
+  borderRadius: 999,
+  paddingInline: theme.spacing(2.25),
+  paddingBlock: theme.spacing(1.1),
+  color: "#0e0f11",
+  backgroundColor: "#f2c230",
+  boxShadow: `0 10px 28px ${alpha("#f2c230", 0.35)}`,
+  "&:hover": {
+    backgroundColor: "#ffd24a",
+    boxShadow: `0 12px 32px ${alpha("#ffd24a", 0.45)}`,
+    transform: "translateY(-1px)",
+  },
+  transition: "all .2s ease",
+}));
+
 /* ------------------------------ Component ------------------------------ */
 export default function TopbarResponsiveNav({
   logoSrc = "/logo.png",
@@ -188,14 +205,29 @@ export default function TopbarResponsiveNav({
     { label: "Events", to: "/events" },
     { label: "Experience", to: "/experience" },
   ],
+  onJoinWaitlist, // optional external handler
   appBarProps,
 }) {
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const scrolled = useElevateOnScroll();
+
   const [open, setOpen] = React.useState(false);
   const toggle = (val) => () => setOpen(val);
+
+  // Internal waitlist state (used if onJoinWaitlist isn't passed)
+  const [waitlistOpen, setWaitlistOpen] = React.useState(false);
+  const handleJoinClick = () => {
+    if (onJoinWaitlist) onJoinWaitlist();
+    else setWaitlistOpen(true);
+  };
+  const handleWaitlistClose = () => setWaitlistOpen(false);
+  const handleWaitlistSubmit = async (data) => {
+    // hook up your API if needed
+    console.log("Topbar waitlist submission:", data);
+    setWaitlistOpen(false);
+  };
 
   const activeCheck = (to) =>
     to === "/" ? location.pathname === "/" : location.pathname.startsWith(to);
@@ -204,7 +236,7 @@ export default function TopbarResponsiveNav({
     <>
       <GlassBar position="fixed" className={scrolled ? "elevated" : ""} {...appBarProps}>
         <Wrap disableGutters>
-          {/* Left: Logo (wrapped in EdgeSlot) */}
+          {/* Left: Logo */}
           <EdgeSlot>
             <LogoLink component={RouterLink} to="/" aria-label="Go to homepage">
               <Box
@@ -212,7 +244,7 @@ export default function TopbarResponsiveNav({
                 src={logoSrc}
                 alt={logoAlt}
                 sx={{
-                  height: { xs: 52, sm: 64, md: 84 },
+                  height: { xs: 56, sm: 68, md: 88 },
                   width: "auto",
                   display: "block",
                   objectFit: "contain",
@@ -241,7 +273,7 @@ export default function TopbarResponsiveNav({
             })}
           </CenterRail>
 
-          {/* Mobile: Hamburger on the right (wrapped in EdgeSlot with same padding) */}
+          {/* Right side: CTA (desktop) or hamburger (mobile) */}
           {isMobile ? (
             <EdgeSlot sx={{ ml: "auto" }}>
               <IconButton
@@ -265,13 +297,16 @@ export default function TopbarResponsiveNav({
               </IconButton>
             </EdgeSlot>
           ) : (
-            // Desktop spacer to balance logo vs nav
-            <Box sx={{ ml: "auto", width: { md: 56 }, height: { md: 56 } }} />
+            <EdgeSlot sx={{ ml: "auto" }}>
+              <WaitlistCta onClick={handleJoinClick} aria-label="Join waitlist">
+                Join VIP Access List
+              </WaitlistCta>
+            </EdgeSlot>
           )}
         </Wrap>
       </GlassBar>
 
-      {/* Right-side Drawer for mobile */}
+      {/* Mobile Drawer */}
       <Drawer
         anchor="right"
         open={open}
@@ -342,11 +377,42 @@ export default function TopbarResponsiveNav({
             })}
           </DrawerList>
 
+          {/* Waitlist shortcut in the drawer */}
+          <Box sx={{ p: 2 }}>
+            <Button
+              fullWidth
+              variant="contained"
+              onClick={() => {
+                toggle(false)();
+                handleJoinClick();
+              }}
+              sx={{
+                textTransform: "none",
+                fontWeight: 800,
+                borderRadius: 2,
+                backgroundColor: "#f2c230",
+                color: "#0e0f11",
+                "&:hover": { backgroundColor: "#ffd24a" },
+              }}
+            >
+              Join waitlist
+            </Button>
+          </Box>
+
           <Box sx={{ mt: "auto", p: 2, opacity: 0.7, fontSize: 12 }}>
             © {new Date().getFullYear()} {logoAlt}
           </Box>
         </DrawerShell>
       </Drawer>
+
+      {/* Embedded Waitlist form (used if no onJoinWaitlist prop is provided) */}
+      {!onJoinWaitlist && (
+        <Waitlist
+          open={waitlistOpen}
+          onClose={handleWaitlistClose}
+          onSubmit={handleWaitlistSubmit}
+        />
+      )}
     </>
   );
 }

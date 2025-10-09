@@ -11,8 +11,8 @@ import {
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
+import Waitlist from "../forms/Waitlist";
 
-const BG = "#0e0f11";
 const CTA = "#f2c230";
 const CTA_HOVER = "#ffd24a";
 
@@ -23,58 +23,40 @@ const Section = styled(Box)(({ theme }) => ({
   background: "transparent",
   overflow: "hidden",
   paddingBlock: theme.spacing(8),
-  [theme.breakpoints.up("md")]: {
-    paddingBlock: theme.spacing(12),
-  },
+  [theme.breakpoints.up("md")]: { paddingBlock: theme.spacing(12) },
 }));
 
 /* ------------------------------ Grid Layout ----------------------------- */
 const GridWrap = styled("div")(({ theme }) => ({
   display: "grid",
   gridTemplateColumns: "minmax(0, 1fr)",
-  gridTemplateAreas: `
-    "media"
-    "content"
-  `,
+  gridTemplateAreas: `"media" "content"`,
   rowGap: theme.spacing(4),
   columnGap: theme.spacing(6),
   alignItems: "center",
-  paddingInline: "0px",
-
+  paddingInline: 0,
   [theme.breakpoints.up("md")]: {
-    gridTemplateColumns: "minmax(0, 0.4fr) minmax(0, 0.6fr)", // 40/60
+    gridTemplateColumns: "minmax(0, 0.4fr) minmax(0, 0.6fr)",
     gridTemplateAreas: '"media content"',
-    rowGap: theme.spacing(0),
+    rowGap: 0,
   },
 }));
 
-const MediaArea = styled("div")({
-  gridArea: "media",
-  minWidth: 0,
-});
-
-const ContentArea = styled("div")({
-  gridArea: "content",
-  minWidth: 0,
-});
+const MediaArea = styled("div")({ gridArea: "media", minWidth: 0 });
+const ContentArea = styled("div")({ gridArea: "content", minWidth: 0 });
 
 /* ------------------------------ Media Card ------------------------------ */
 const MediaWrap = styled(Box)(({ theme }) => ({
   position: "relative",
   width: "100%",
-  // Keep the media nicely proportioned on mobile; grow taller on desktop
   aspectRatio: "4 / 3",
   [theme.breakpoints.up("sm")]: { aspectRatio: "16 / 10" },
   [theme.breakpoints.up("md")]: { minHeight: 420, aspectRatio: "auto" },
-
   borderRadius: 18,
   overflow: "hidden",
   border: `1px solid ${alpha("#fff", 0.12)}`,
   background: alpha("#fff", 0.06),
-  boxShadow: `0 18px 60px ${alpha("#000", 0.5)}, inset 0 1px 0 ${alpha(
-    "#fff",
-    0.06
-  )}`,
+  boxShadow: `0 18px 60px ${alpha("#000", 0.5)}, inset 0 1px 0 ${alpha("#fff", 0.06)}`,
 }));
 
 /* --------------------------------- CTA --------------------------------- */
@@ -88,19 +70,10 @@ const CtaButton = styled(Button)(({ theme }) => ({
   textTransform: "none",
   color: "#101113",
   backgroundColor: CTA,
-  boxShadow: `0 14px 34px ${alpha(CTA, 0.38)}, inset 0 1px 0 ${alpha(
-    "#fff",
-    0.35
-  )}`,
-  transition:
-    "transform .2s ease, box-shadow .2s ease, background-color .2s ease",
-  "&:hover": {
-    backgroundColor: CTA_HOVER,
-    boxShadow: `0 18px 42px ${alpha(CTA, 0.5)}`,
-    transform: "translateY(-1px)",
-  },
+  boxShadow: `0 14px 34px ${alpha(CTA, 0.38)}, inset 0 1px 0 ${alpha("#fff", 0.35)}`,
+  transition: "transform .2s ease, box-shadow .2s ease, background-color .2s ease",
+  "&:hover": { backgroundColor: CTA_HOVER, boxShadow: `0 18px 42px ${alpha(CTA, 0.5)}`, transform: "translateY(-1px)" },
   "&:active": { transform: "translateY(0)" },
-  // Larger tap target on touch devices
   [theme.breakpoints.down("sm")]: { paddingBlock: theme.spacing(1.6) },
 }));
 
@@ -112,25 +85,45 @@ export default function HeroIntroSplit({
     "Blending cutting-edge technology with creative scenarios, we’re redefining what tactical entertainment means. Texas Laser Combat is where families, friends, schools, and organizations come to connect, celebrate, and experience unforgettable adventures—making us the premier destination for mission-based fun.",
   ],
   ctaText = "Join our VIPs waitlist",
+
+  /** Optional: if you need to hook into submit */
+  onWaitlistSubmit, // (data) => Promise|void
+
+  /** Fallback click (used only if waitlistDisabled=true) */
   onCtaClick = () =>
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }),
+
+  /** Set true to disable the modal and use onCtaClick instead */
+  waitlistDisabled = false,
+
   imageSrc = "/intro.png",
   imageAlt = "Texas Laser Combat preview",
 }) {
   const theme = useTheme();
   const downMd = useMediaQuery(theme.breakpoints.down("md"));
 
+  // --- Waitlist modal state (same pattern as HeroCountdown) ---
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const handleJoin = () => {
+    if (waitlistDisabled) return onCtaClick?.();
+    setOpenDialog(true);
+  };
+  const handleClose = () => setOpenDialog(false);
+  const handleSubmit = async (data) => {
+    try {
+      await onWaitlistSubmit?.(data);
+    } finally {
+      setOpenDialog(false);
+    }
+  };
+
   return (
     <Section component="section" aria-label="Intro">
       <Container maxWidth="xl">
         <GridWrap>
-          {/* Media FIRST in DOM for mobile + semantics */}
+          {/* Media */}
           <MediaArea>
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
+            <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
               <MediaWrap>
                 {imageSrc ? (
                   <Box
@@ -140,38 +133,19 @@ export default function HeroIntroSplit({
                     loading="lazy"
                     decoding="async"
                     sizes="(max-width: 960px) 100vw, 40vw"
-                    sx={{
-                      position: "absolute",
-                      inset: 0,
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
+                    sx={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
                   />
                 ) : (
-                  <Stack
-                    alignItems="center"
-                    justifyContent="center"
-                    sx={{
-                      position: "absolute",
-                      inset: 0,
-                      color: alpha("#fff", 0.55),
-                    }}
-                  >
-                    <Typography variant="body2">
-                      [ Image / Video Placeholder ]
-                    </Typography>
+                  <Stack alignItems="center" justifyContent="center" sx={{ position: "absolute", inset: 0, color: alpha("#fff", 0.55) }}>
+                    <Typography variant="body2">[ Image / Video Placeholder ]</Typography>
                   </Stack>
                 )}
-
-                {/* Soft vignette */}
                 <Box
                   aria-hidden
                   sx={{
                     position: "absolute",
                     inset: 0,
-                    background:
-                      "radial-gradient(700px 360px at 100% 0%, rgba(255,255,255,0.08), transparent 60%)",
+                    background: "radial-gradient(700px 360px at 100% 0%, rgba(255,255,255,0.08), transparent 60%)",
                     pointerEvents: "none",
                   }}
                 />
@@ -179,17 +153,10 @@ export default function HeroIntroSplit({
             </motion.div>
           </MediaArea>
 
-          {/* Content (centered on mobile, left on md+) */}
+          {/* Content */}
           <ContentArea>
-            <Stack
-              spacing={downMd ? 3 : 4}
-              alignItems={{ xs: "center", md: "flex-start" }}
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
+            <Stack spacing={downMd ? 3 : 4} alignItems={{ xs: "center", md: "flex-start" }}>
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <Typography
                   variant="h2"
                   sx={{
@@ -204,39 +171,18 @@ export default function HeroIntroSplit({
                 </Typography>
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.05 }}
-              >
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.05 }}>
                 <Stack spacing={2.25}>
                   {paragraphs.map((p, i) => (
-                    <Typography
-                      key={i}
-                      sx={{
-                        opacity: 0.88,
-                        fontSize: { xs: 15.5, md: 16.5 },
-                        lineHeight: 1.8,
-                        textAlign: { xs: "center", md: "left" },
-                      }}
-                    >
+                    <Typography key={i} sx={{ opacity: 0.88, fontSize: { xs: 15.5, md: 16.5 }, lineHeight: 1.8, textAlign: { xs: "center", md: "left" } }}>
                       {p}
                     </Typography>
                   ))}
                 </Stack>
               </motion.div>
 
-              <motion.div
-                style={{
-                  alignSelf: downMd ? "stretch" : "flex-start",
-                  width: downMd ? "100%" : "auto",
-                }}
-              >
-                <CtaButton
-                  onClick={onCtaClick}
-                  size={downMd ? "medium" : "large"}
-                  fullWidth={downMd} // also works on MUI Button
-                >
+              <motion.div style={{ alignSelf: downMd ? "stretch" : "flex-start", width: downMd ? "100%" : "auto" }}>
+                <CtaButton onClick={handleJoin} size={downMd ? "medium" : "large"} fullWidth={downMd}>
                   {ctaText}
                 </CtaButton>
               </motion.div>
@@ -244,6 +190,11 @@ export default function HeroIntroSplit({
           </ContentArea>
         </GridWrap>
       </Container>
+
+      {/* Reuse the same Waitlist modal UX from HeroCountdown */}
+      {!waitlistDisabled && (
+        <Waitlist open={openDialog} onClose={handleClose} onSubmit={handleSubmit} />
+      )}
     </Section>
   );
 }

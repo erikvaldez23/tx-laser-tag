@@ -7,7 +7,6 @@ const Section = styled(Box)(({ theme }) => ({
   width: "100%",
   background: "transparent",
   color: alpha("#fff", 0.92),
-  paddingBlock: theme.spacing(10),
   overflow: "hidden",
   isolation: "isolate",
 }));

@@ -1,3 +1,4 @@
+// src/components/hero/HeroEpic.jsx
 import React from "react";
 import {
   Box,
@@ -10,6 +11,7 @@ import {
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
+import Waitlist from "../../forms/Waitlist"; // <- adjust the path if needed
 
 const Wrap = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -17,7 +19,7 @@ const Wrap = styled(Box)(({ theme }) => ({
   minHeight: "70vh",
   display: "grid",
   placeItems: "center",
-  background: "trasnparent",
+  background: "transparent",
   color: "#eee",
   overflow: "hidden",
 }));
@@ -54,19 +56,38 @@ const Cta = styled(Button)(({ theme }) => ({
   paddingBlock: theme.spacing(1.25),
   backgroundColor: "#c6a045",
   color: "#1a1a1a",
-  "&:hover": {
-    backgroundColor: "#af8e3e",
-  },
+  "&:hover": { backgroundColor: "#af8e3e" },
 }));
 
 export default function HeroEpic({
   line1 = "STEP INTO THE ACTION",
   line2 = "Plan your attack. Know the terrain. Any successful mission starts with recon.",
-  ctaText = "Book now",
+  ctaText = "Join VIP Access List",
+  /** If false, skip modal and just call onCtaClick */
+  openOnClick = true,
+  /** Optional handler invoked after successful submit: onCtaClick(formData) */
   onCtaClick,
 }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  // --- Waitlist modal state/handlers ---
+  const [openDialog, setOpenDialog] = React.useState(false);
+
+  const handleOpen = () => {
+    if (openOnClick) setOpenDialog(true);
+    else onCtaClick?.();
+  };
+
+  const handleClose = () => setOpenDialog(false);
+
+  const handleSubmit = async (data) => {
+    try {
+      await onCtaClick?.(data); // post to API / analytics if you like
+    } finally {
+      setOpenDialog(false);
+    }
+  };
 
   return (
     <Wrap>
@@ -79,7 +100,6 @@ export default function HeroEpic({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          {/* BIG title */}
           <Headline
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -88,7 +108,6 @@ export default function HeroEpic({
             {line1}
           </Headline>
 
-          {/* Smaller second line */}
           <Subhead
             variant="body1"
             component={motion.p}
@@ -101,7 +120,7 @@ export default function HeroEpic({
 
           <Cta
             size={isMobile ? "medium" : "large"}
-            onClick={onCtaClick}
+            onClick={handleOpen}
             component={motion.button}
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.98 }}
@@ -111,6 +130,9 @@ export default function HeroEpic({
           </Cta>
         </Stack>
       </Container>
+
+      {/* Waitlist modal */}
+      <Waitlist open={openDialog} onClose={handleClose} onSubmit={handleSubmit} />
     </Wrap>
   );
 }

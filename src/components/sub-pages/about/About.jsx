@@ -17,8 +17,8 @@ export default function AboutPage() {
       <AboutContent />
       <AboutTestimonials />
       <Community />
-      <AboutFAQ />
       <CTA />
+      <AboutFAQ />
       <Apply />
       {/* <Contact /> */}
     </>
