@@ -1,3 +1,4 @@
+// src/components/TypesOfEvents.jsx
 import React, { useEffect, useRef, useState } from "react";
 import {
   Box,
@@ -6,23 +7,68 @@ import {
   Button,
   Stack,
   Paper,
+  ButtonBase,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 
-const Section = styled(Box)({
+/* ----------------------------- Styled ----------------------------- */
+const Section = styled(Box)(({ theme }) => ({
   width: "100%",
   background: "transparent",
   color: "#eee",
-  paddingBlock: 48,
-});
+  paddingBlock: theme.spacing(6),
+}));
 
 const Title = (props) => (
   <Typography variant="h4" fontWeight={800} sx={{ mb: 2 }} {...props} />
 );
-const Subhead = (props) => (
-  <Typography variant="h6" fontWeight={700} sx={{ mb: 1.5 }} {...props} />
-);
 
+/* Filter bar */
+const FilterShell = styled(Box)(({ theme }) => ({
+  position: "relative",
+  display: "flex",
+  alignItems: "center",
+  gap: theme.spacing(1),
+  padding: theme.spacing(1),
+  borderRadius: 16,
+  background:
+    "linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03))",
+  border: `1px solid ${alpha("#fff", 0.12)}`,
+  backdropFilter: "blur(8px)",
+  WebkitBackdropFilter: "blur(8px)",
+  overflowX: "auto",
+  scrollbarWidth: "none",
+  msOverflowStyle: "none",
+  "&::-webkit-scrollbar": { display: "none" },
+}));
+
+const Pill = styled(ButtonBase)(({ theme }) => ({
+  position: "relative",
+  padding: "8px 14px",
+  borderRadius: 999,
+  color: alpha("#fff", 0.9),
+  fontWeight: 700,
+  letterSpacing: 0.2,
+  whiteSpace: "nowrap",
+  transition: "transform 160ms ease, color 160ms ease",
+  "&:hover": { transform: "translateY(-1px)" },
+}));
+
+const ActiveHalo = styled("span")(({ rect }) => ({
+  position: "absolute",
+  top: 0,
+  left: 0,
+  height: 36,
+  borderRadius: 999,
+  background: "rgba(255,255,255,0.12)",
+  boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)",
+  transform: `translateX(${rect?.x ?? 0}px)`,
+  width: rect?.w ?? 0,
+  transition: "transform 220ms cubic-bezier(.2,.8,.2,1), width 220ms ease",
+  pointerEvents: "none",
+}));
+
+/* Carousel + thumb */
 const ScrollRow = styled(Box)(({ theme }) => ({
   "--gap": theme.spacing(2),
   position: "relative",
@@ -30,17 +76,17 @@ const ScrollRow = styled(Box)(({ theme }) => ({
   gridAutoFlow: "column",
   gap: "var(--gap)",
   overflowX: "auto",
-  paddingBottom: theme.spacing(1),
+  // bottom padding is set inline based on showScrollbar
   scrollSnapType: "x mandatory",
   scrollPadding: "var(--gap)",
   WebkitOverflowScrolling: "touch",
   overscrollBehaviorX: "contain",
   gridAutoColumns: "calc((100% - (var(--gap) * 2)) / 3.05)",
   [theme.breakpoints.down("md")]: {
-    gridAutoColumns: "calc((100% - var(--gap)) / 2.1)", // 2 + peek
+    gridAutoColumns: "calc((100% - var(--gap)) / 2.1)",
   },
   [theme.breakpoints.down("sm")]: {
-    gridAutoColumns: "88%", // ~1 + peek
+    gridAutoColumns: "88%",
     scrollSnapType: "x proximity",
   },
   scrollbarWidth: "none",
@@ -53,8 +99,9 @@ const OverlayBar = styled("div")({
   position: "absolute",
   left: 0,
   right: 0,
-  bottom: 6,
+  bottom: 0, // fixed at bottom; spacing comes from ScrollRow padding
 });
+
 const OverlayTrack = styled("div")(({ visible }) => ({
   position: "relative",
   height: 6,
@@ -64,6 +111,7 @@ const OverlayTrack = styled("div")(({ visible }) => ({
   transition: "opacity 220ms ease",
   opacity: visible ? 1 : 0,
 }));
+
 const OverlayThumb = styled("div")({
   position: "absolute",
   top: 0,
@@ -74,18 +122,6 @@ const OverlayThumb = styled("div")({
     "linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.85))",
   boxShadow: "0 0.5px 0 rgba(0,0,0,0.35) inset, 0 2px 6px rgba(0,0,0,0.25)",
 });
-
-const ThreeCol = styled(Box)(({ theme }) => ({
-  display: "grid",
-  gap: theme.spacing(2),
-  gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-  [theme.breakpoints.down("md")]: {
-    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-  },
-  [theme.breakpoints.down("sm")]: {
-    gridTemplateColumns: "1fr",
-  },
-}));
 
 const Tile = styled(Paper)(({ theme }) => ({
   position: "relative",
@@ -105,7 +141,7 @@ const Tile = styled(Paper)(({ theme }) => ({
 const Caption = (props) => (
   <Typography
     variant="caption"
-    sx={{ display: "block", mt: 0.75, color: alpha("#fff", 0.9) }}
+    sx={{ display: "block", fontSize: "1rem", mt: 0.75, color: alpha("#fff", 0.9) }}
     {...props}
   />
 );
@@ -122,33 +158,102 @@ const Cta = styled(Button)({
   "&:hover": { backgroundColor: "#af8e3e", boxShadow: "none" },
 });
 
-const PARTY_EVENTS = [
-  { id: "bday", label: "Birthday Parties", image: "" },
-  { id: "bachelor", label: "Bachelor Parties", image: "" },
-  { id: "grad", label: "Graduation Celebrations", image: "" },
-  { id: "holiday", label: "Holiday Parties", image: "" },
-  { id: "team", label: "Team Building", image: "" },
-  { id: "reunion", label: "Reunions", image: "" },
+/* ----------------------------- Data ----------------------------- */
+const DATA_DEFAULT = [
+  {
+    id: "youth",
+    title: "Youth Events",
+    items: [
+      { id: "scouts", label: "Scouts", image: "" },
+      { id: "church", label: "Church Youth Groups", image: "" },
+      { id: "camps", label: "Summer Camps", image: "" },
+    ],
+  },
+  {
+    id: "adult",
+    title: "Adult Social Groups",
+    items: [
+      { id: "singles", label: "Singles Meet Ups", image: "" },
+      { id: "parents", label: "Parent Groups", image: "" },
+      { id: "retirement", label: "Retirement Outing", image: "" },
+      { id: "seniors", label: "Senior Clubs", image: "" },
+    ],
+  },
+  {
+    id: "school",
+    title: "School Organizations",
+    items: [
+      { id: "jrotc", label: "JROTC", image: "" },
+      { id: "fieldtrips", label: "Field Trips", image: "" },
+      { id: "athletics", label: "Athletic Teams", image: "" },
+      { id: "clubs", label: "Clubs", image: "" },
+    ],
+  },
+  {
+    id: "corporate",
+    title: "Corporate Events",
+    items: [
+      { id: "team", label: "Team Building", image: "" },
+      { id: "fundraisers-1", label: "Fundraisers", image: "" }, // de-duped ids
+      { id: "fundraisers-2", label: "Fundraisers", image: "" },
+    ],
+  },
 ];
 
-const OPEN_PLAY = [
-  { id: "families", label: "Families", image: "" },
-  { id: "solo", label: "Solo Players", image: "" },
-  { id: "girls", label: "Girls Night", image: "" },
-];
-
+/* ----------------------------- Component ----------------------------- */
 export default function TypesOfEvents({
   heading = "Types of events",
-  partyEvents = PARTY_EVENTS,
-  openPlay = OPEN_PLAY,
+  data = DATA_DEFAULT,
   onTileClick,
   onBook,
 }) {
+  // Helpers
+  const withStableKeys = (arr, prefix) =>
+    arr.map((item, idx) => ({ ...item, _key: `${prefix}-${item.id}-${idx}` }));
+
+  // Build categories + All
+  const categories = React.useMemo(() => {
+    const map = {};
+    data.forEach((group) => {
+      map[group.title] = withStableKeys(group.items, group.id);
+    });
+    const all = withStableKeys(data.flatMap((g) => g.items), "all");
+    return { All: all, ...map };
+  }, [data]);
+
+  const catKeys = Object.keys(categories);
+  const [activeCat, setActiveCat] = useState(catKeys[0] ?? "All");
   const rowRef = useRef(null);
 
+  // Active pill indicator
+  const barRef = useRef(null);
+  const [rect, setRect] = useState({ x: 0, w: 0 });
+  const pillRefs = useRef({});
+
+  const updateIndicator = () => {
+    const el = pillRefs.current[activeCat];
+    const bar = barRef.current;
+    if (!el || !bar) return;
+    const eb = el.getBoundingClientRect();
+    const bb = bar.getBoundingClientRect();
+    setRect({ x: eb.left - bb.left, w: eb.width });
+  };
+
+  useEffect(() => {
+    updateIndicator();
+    const ro = new ResizeObserver(updateIndicator);
+    if (barRef.current) ro.observe(barRef.current);
+    const onResize = () => updateIndicator();
+    window.addEventListener("resize", onResize);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", onResize);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCat, catKeys.join("|")]);
+
+  // Progress thumb calc (kept even if bar hidden)
   const [thumb, setThumb] = useState({ widthPct: 0, leftPct: 0 });
-  const [visible, setVisible] = useState(false);
-  const hideTimer = useRef(null);
 
   const updateThumb = () => {
     const el = rowRef.current;
@@ -158,58 +263,74 @@ export default function TypesOfEvents({
     const maxLeft = 100 - widthPct;
     const leftPct =
       scrollWidth > clientWidth
-        ? Math.min(
-            (scrollLeft / (scrollWidth - clientWidth)) * maxLeft,
-            maxLeft
-          )
+        ? Math.min((scrollLeft / (scrollWidth - clientWidth)) * maxLeft, maxLeft)
         : 0;
     setThumb({ widthPct, leftPct });
-  };
-
-  const showThenFade = () => {
-    setVisible(true);
-    if (hideTimer.current) clearTimeout(hideTimer.current);
-    hideTimer.current = setTimeout(() => setVisible(false), 900);
   };
 
   useEffect(() => {
     updateThumb();
     const el = rowRef.current;
     if (!el) return;
-
-    const onScroll = () => {
-      updateThumb();
-      showThenFade();
-    };
+    const onScroll = () => updateThumb();
     el.addEventListener("scroll", onScroll, { passive: true });
-
     const ro = new ResizeObserver(updateThumb);
     ro.observe(el);
-
-    showThenFade();
-
     return () => {
       el.removeEventListener("scroll", onScroll);
       ro.disconnect();
-      if (hideTimer.current) clearTimeout(hideTimer.current);
     };
   }, []);
+
+  // Reset carousel on category change
+  useEffect(() => {
+    if (!rowRef.current) return;
+    rowRef.current.scrollTo({ left: 0, behavior: "smooth" });
+    updateThumb();
+  }, [activeCat]);
+
+  const items = categories[activeCat] ?? [];
+  const showScrollbar = items.length > 3; // always show when more than 3
 
   return (
     <Section>
       <Container maxWidth="xl">
         <Title>{heading}</Title>
 
-        <Subhead>Parties</Subhead>
-        <Box position="relative">
-          <ScrollRow ref={rowRef} aria-label="Parties">
-            {partyEvents.map((ev) => (
-              <Box key={ev.id} sx={{ minWidth: 0 }}>
+        {/* Category filter bar */}
+        <FilterShell ref={barRef} aria-label="Select event type">
+          <ActiveHalo rect={rect} />
+          {catKeys.map((key) => (
+            <Pill
+              key={key}
+              ref={(n) => (pillRefs.current[key] = n)}
+              onClick={() => setActiveCat(key)}
+              aria-pressed={activeCat === key}
+              sx={{
+                color: activeCat === key ? "#111" : alpha("#fff", 0.9),
+                backgroundColor:
+                  activeCat === key ? alpha("#fff", 0.85) : "transparent",
+              }}
+            >
+              {key}
+            </Pill>
+          ))}
+        </FilterShell>
+
+        {/* Carousel */}
+        <Box position="relative" sx={{ mt: 2 }}>
+          <ScrollRow
+            ref={rowRef}
+            aria-label={`${activeCat} carousel`}
+            sx={{ pb: showScrollbar ? 3 : 1 }} // extra spacing when bar is visible
+          >
+            {items.map((ev) => (
+              <Box key={ev._key} sx={{ minWidth: 0 }}>
                 <Tile
                   role="button"
                   tabIndex={0}
                   onClick={() => onTileClick?.(ev)}
-                  // sx={{ backgroundImage: `url(${ev.image})`, backgroundSize:'cover', backgroundPosition:'center' }}
+                  // sx={{ backgroundImage: `url(${ev.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
                 >
                   [Image placeholder]
                 </Tile>
@@ -218,8 +339,9 @@ export default function TypesOfEvents({
             ))}
           </ScrollRow>
 
+          {/* Progress thumb */}
           <OverlayBar aria-hidden>
-            <OverlayTrack visible={visible}>
+            <OverlayTrack visible={showScrollbar}>
               <OverlayThumb
                 style={{
                   width: `${thumb.widthPct}%`,
@@ -229,22 +351,6 @@ export default function TypesOfEvents({
             </OverlayTrack>
           </OverlayBar>
         </Box>
-
-        <Subhead sx={{ mt: 3 }}>Open Play</Subhead>
-        <ThreeCol>
-          {openPlay.map((ev) => (
-            <Box key={ev.id}>
-              <Tile
-                role="button"
-                tabIndex={0}
-                onClick={() => onTileClick?.(ev)}
-              >
-                [Image placeholder]
-              </Tile>
-              <Caption>{ev.label}</Caption>
-            </Box>
-          ))}
-        </ThreeCol>
 
         <Stack alignItems="center" sx={{ mt: 3 }}>
           <Cta onClick={onBook}>Book online now</Cta>

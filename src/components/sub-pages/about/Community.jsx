@@ -20,7 +20,7 @@ const FullBleed = styled(Box)({
   background: "transparent",
 });
 
-/* ----------------------- Centered 80vw panel container -------------------- */
+/* ----------------------- Centered panel container -------------------- */
 const Panel = styled(Box)(({ theme }) => ({
   "--gutter": "min(4vw, 32px)", // single source of truth for side padding
   width: "100vw",
@@ -85,6 +85,10 @@ const Copy = styled(Typography)(({ theme }) => ({
   lineHeight: 1.8,
   fontSize: 18,
   color: alpha("#fff", 0.88),
+  textAlign: "center", // ⬅️ center on mobile
+  [theme.breakpoints.up("md")]: {
+    textAlign: "left", // ⬅️ left on desktop/tablet
+  },
 }));
 
 /* --------- Pledge bar that visually spans full panel width (edge-to-edge) -------- */
@@ -104,7 +108,7 @@ const PledgeBar = styled(Box)(({ theme }) => ({
   paddingTop: theme.spacing(2.25),
   paddingBottom: theme.spacing(2.25),
   fontSize: 16,
-  textAlign: "center"
+  textAlign: "center",
 }));
 
 /* --------------------------------- Component ----------------------------- */
@@ -117,7 +121,7 @@ export default function CommunityCommitment({
   const theme = useTheme();
 
   return (
-    <FullBleed component="section" aria-label="Community Commitment" sx={{mb:10}}>
+    <FullBleed component="section" aria-label="Community Commitment" sx={{ mb: 10 }}>
       <Panel>
         <Track>
           <Title
@@ -125,7 +129,7 @@ export default function CommunityCommitment({
             sx={{
               mb: 3,
               fontSize: { xs: "2rem", md: "2.4rem" },
-              textAlign: { xs: "center", md: "left" },
+              textAlign: { xs: "center", md: "left" }, // already centered on mobile
             }}
           >
             {title}
@@ -137,7 +141,7 @@ export default function CommunityCommitment({
               <Logo src={bcrfLogo} alt="Breast Cancer Research Foundation" />
             </LogosStack>
 
-            <Stack spacing={3}>
+            <Stack spacing={3} sx={{ alignItems: { xs: "center", md: "flex-start" } }}>
               <Copy>
                 At Texas Laser Combat, our{" "}
                 <strong>veteran and woman-owned</strong> roots fuel a deep
@@ -186,7 +190,7 @@ export default function CommunityCommitment({
           >
             Pink P90
           </MuiLink>
-          , we have pledged to donate a percentage of our proceeds to our nonprofit partners.
+          , we have pledged to donate a percentage of our proceeds to our nonprofit
           partners.
         </PledgeBar>
       </Panel>

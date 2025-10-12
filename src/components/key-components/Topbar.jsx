@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { styled, alpha, useTheme } from "@mui/material/styles";
 import { Link as RouterLink, useLocation } from "react-router-dom";
-import Waitlist from "../forms/Waitlist"; // ⬅️ add the same form here
+import Waitlist from "../forms/Waitlist";
 
 /* ----------------------------- Styled ----------------------------- */
 const GlassBar = styled(AppBar)(({ theme }) => ({
@@ -53,16 +53,12 @@ const EdgeSlot = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up("md")]: { paddingInline: theme.spacing(1.75) },
 }));
 
-/* Desktop center nav */
+/* Right-aligned desktop nav (now a normal flex row) */
 const CenterRail = styled(Box)(({ theme }) => ({
-  position: "absolute",
-  left: "50%",
-  transform: "translateX(-50%)",
   display: "none",
   alignItems: "center",
-  gap: theme.spacing(1.25),
+  gap: theme.spacing(1.75),
   paddingInline: theme.spacing(1),
-  maxWidth: "min(100%, 1100px)",
   whiteSpace: "nowrap",
   [theme.breakpoints.up("md")]: { display: "flex" },
 }));
@@ -205,7 +201,7 @@ export default function TopbarResponsiveNav({
     { label: "Events", to: "/events" },
     { label: "Experience", to: "/experience" },
   ],
-  onJoinWaitlist, // optional external handler
+  onJoinWaitlist,
   appBarProps,
 }) {
   const location = useLocation();
@@ -224,7 +220,6 @@ export default function TopbarResponsiveNav({
   };
   const handleWaitlistClose = () => setWaitlistOpen(false);
   const handleWaitlistSubmit = async (data) => {
-    // hook up your API if needed
     console.log("Topbar waitlist submission:", data);
     setWaitlistOpen(false);
   };
@@ -254,7 +249,10 @@ export default function TopbarResponsiveNav({
             </LogoLink>
           </EdgeSlot>
 
-          {/* Desktop center nav */}
+          {/* Spacer pushes everything after this to the right */}
+          <Box sx={{ flexGrow: 1 }} />
+
+          {/* Desktop nav now right-aligned, sitting next to the CTA */}
           <CenterRail aria-label="Primary navigation (desktop)" role="navigation">
             {links.map((link) => {
               const active = activeCheck(link.to);
@@ -275,7 +273,7 @@ export default function TopbarResponsiveNav({
 
           {/* Right side: CTA (desktop) or hamburger (mobile) */}
           {isMobile ? (
-            <EdgeSlot sx={{ ml: "auto" }}>
+            <EdgeSlot>
               <IconButton
                 aria-label={open ? "Close menu" : "Open menu"}
                 edge="end"
@@ -297,7 +295,7 @@ export default function TopbarResponsiveNav({
               </IconButton>
             </EdgeSlot>
           ) : (
-            <EdgeSlot sx={{ ml: "auto" }}>
+            <EdgeSlot sx={{ ml: 1.5 }}>
               <WaitlistCta onClick={handleJoinClick} aria-label="Join waitlist">
                 Join VIP Access List
               </WaitlistCta>
@@ -350,8 +348,8 @@ export default function TopbarResponsiveNav({
                     borderRadius: 2,
                     background: alpha("#fff", 0.95),
                   },
-                  "&::before": { transform: "translateY(-50%) rotate(45deg)" },
-                  "&::after": { transform: "translateY(-50%) rotate(-45deg)" },
+                  "&:before": { transform: "translateY(-50%) rotate(45deg)" },
+                  "&:after": { transform: "translateY(-50%) rotate(-45deg)" },
                 }}
               />
             </IconButton>

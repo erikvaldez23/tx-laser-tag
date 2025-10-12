@@ -34,6 +34,12 @@ const Section = styled(Box)(({ theme, bgimg }) => ({
     background: "linear-gradient(to bottom, rgba(0,0,0,.3), rgba(0,0,0,.3))",
     zIndex: 0,
   },
+
+   // ⬇️ Taller on mobile
+  [theme.breakpoints.down("sm")]: {
+    minHeight: "85svh",                // try 80–90svh to taste
+    paddingBlock: theme.spacing(6),    // optional: add more vertical breathing room
+  },
 }));
 
 const Glass = styled(Box)(({ theme }) => ({

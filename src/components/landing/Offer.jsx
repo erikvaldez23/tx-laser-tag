@@ -17,9 +17,10 @@ const ACCENT_HOVER = "#ffd95a";
 
 /* ---- Styled ---- */
 const Section = styled(Box)(({ theme }) => ({
-  background: "transparent",
-  color: alpha("#fff", 0.92),
   paddingBlock: theme.spacing(8, 12),
+  [theme.breakpoints.down('sm')]: {
+    paddingBlock: theme.spacing(2, 4),
+  },
 }));
 
 const GridWrap = styled("div")(({ theme }) => ({
@@ -31,35 +32,64 @@ const GridWrap = styled("div")(({ theme }) => ({
 }));
 
 const Media = styled(Box)(({ theme }) => ({
+  position: "relative", // <-- allow overlay positioning
   width: "100%",
   aspectRatio: "2 / 3",
   borderRadius: 16,
   overflow: "hidden",
   background: "#9b9b9b",
   border: `1px solid ${alpha("#fff", 0.12)}`,
-  boxShadow: `0 20px 50px ${alpha("#000", 0.5)}, inset 0 1px 0 ${alpha(
-    "#fff",
-    0.06
-  )}`,
+   boxShadow: {
+      xs: "none", // mobile
+      sm: `0 20px 50px ${alpha("#000", 0.5)}, inset 0 1px 0 ${alpha("#fff", 0.06)}`,
+    },
 }));
 
-const LearnBtn = styled(Button)({
-  borderRadius: 999,
+const LearnBtn = styled(Button)(({ theme }) => ({
+  /* Mobile (xs) — full-width, transparent, blurred, yellow text */
+  width: "100%",
+  borderRadius: 12,
   textTransform: "none",
   fontWeight: 800,
-  padding: "10px 20px",
-  background: ACCENT,
-  color: "#101113",
-  boxShadow: `0 10px 28px ${ACCENT}55`,
+  padding: "12px 16px",
+  background: alpha("#000", 0.06),
+  color: ACCENT,
+  border: `1px solid ${alpha(ACCENT, 0.45)}`,
+  backdropFilter: "blur(8px)",
+  WebkitBackdropFilter: "blur(8px)",
+  boxShadow: "none",
+  letterSpacing: 0.2,
+  transition: "all .25s ease",
   "&:hover": {
-    background: ACCENT_HOVER,
-    boxShadow: `0 14px 36px ${ACCENT}66`,
+    background: alpha("#000", 0.12),
+    borderColor: ACCENT,
+    color: ACCENT_HOVER,
     transform: "translateY(-1px)",
   },
-  transition: "all .25s ease",
-});
 
-/* ---- Mobile carousel bits (same behavior as EventGroups) ---- */
+  /* Tablet/Desktop (sm and up) — revert to original style */
+  [theme.breakpoints.up("sm")]: {
+    width: "auto",
+    borderRadius: 999,
+    padding: "10px 20px",
+    background: ACCENT,
+    color: "#101113",
+    border: "none",
+    backdropFilter: "none",
+    WebkitBackdropFilter: "none",
+    boxShadow: `0 10px 28px ${ACCENT}55`,
+    "&:hover": {
+      background: ACCENT_HOVER,
+      boxShadow: `0 14px 36px ${ACCENT}66`,
+      transform: "translateY(-1px)",
+      color: "#101113",
+    },
+  },
+}));
+
+
+
+/* ---- Mobile carousel bits ---- */
 const ScrollRow = styled(Box)(({ theme }) => ({
   "--gap": theme.spacing(2.5),
   position: "relative",
@@ -67,13 +97,12 @@ const ScrollRow = styled(Box)(({ theme }) => ({
   gridAutoFlow: "column",
   gap: "var(--gap)",
   overflowX: "auto",
-  paddingBottom: theme.spacing(1),
+  paddingBottom: theme.spacing(1.5),
   scrollSnapType: "x proximity",
   scrollPadding: "var(--gap)",
   WebkitOverflowScrolling: "touch",
   overscrollBehaviorX: "contain",
   gridAutoColumns: "88%", // large, single-card focus with peek
-  // hide native scrollbar
   scrollbarWidth: "none",
   msOverflowStyle: "none",
   "&::-webkit-scrollbar": { display: "none" },
@@ -83,7 +112,7 @@ const OverlayBar = styled("div")({
   pointerEvents: "none",
   position: "relative",
   width: "100%",
-  marginTop: 8,
+  marginTop: 12,
 });
 
 const OverlayTrack = styled("div")(({ visible }) => ({
@@ -107,23 +136,49 @@ const OverlayThumb = styled("div")({
   boxShadow: "0 0.5px 0 rgba(0,0,0,0.35) inset, 0 2px 6px rgba(0,0,0,0.25)",
 });
 
+/* ---- Mobile overlayed text panel on card ---- */
+const GradientWash = styled(Box)(({ theme }) => ({
+  position: "absolute",
+  inset: 0,
+  background:
+    "linear-gradient(to top, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.45) 26%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0) 72%)",
+  pointerEvents: "none",
+}));
+
+const OverlayContent = styled(Box)(({ theme }) => ({
+  position: "absolute",
+  left: 12,
+  right: 12,
+  bottom: 12,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  textAlign: "left",
+  gap: theme.spacing(1),
+  pointerEvents: "auto",
+}));
+
 /* Mobile card shell */
-function OfferCard({ it }) {
+function OfferCard({ it, overlayContent = false }) {
+  const ImageBlock = (
+    <Box
+      component="img"
+      src={it.img}
+      alt={it.heading}
+      sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+    />
+  );
+
   return (
     <Stack
       spacing={3}
       alignItems="center"
-      textAlign="center"
+      textAlign={overlayContent ? "left" : "center"}
       sx={{ scrollSnapAlign: "center" }}
     >
       <Media>
         {it.img ? (
-          <Box
-            component="img"
-            src={it.img}
-            alt={it.heading}
-            sx={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
+          ImageBlock
         ) : (
           <Box
             sx={{
@@ -134,20 +189,42 @@ function OfferCard({ it }) {
               color: "#222",
               fontSize: 14,
               letterSpacing: 0.2,
+              background: "#bdbdbd",
             }}
           >
             [Image placeholder]
           </Box>
         )}
+
+        {overlayContent ? (
+          <>
+            <GradientWash />
+            <OverlayContent>
+              <Typography
+                variant="h5"
+                sx={{ fontWeight: 900, color: "#fff", mb: -1 }}
+              >
+                {it.heading}
+              </Typography>
+              <Typography sx={{ color: alpha("#fff", 0.92) }}>
+                {it.sub}
+              </Typography>
+              <LearnBtn onClick={it.onClick}>{it.cta}</LearnBtn>
+            </OverlayContent>
+          </>
+        ) : null}
       </Media>
 
-      <Box sx={{ maxWidth: 380 }}>
-        <Typography variant="h5" sx={{ fontWeight: 900, mb: 1 }}>
-          {it.heading}
-        </Typography>
-        <Typography sx={{ opacity: 0.85, mb: 2 }}>{it.sub}</Typography>
-        <LearnBtn onClick={it.onClick}>{it.cta}</LearnBtn>
-      </Box>
+      {/* Desktop/tablet: details below the card as before */}
+      {!overlayContent && (
+        <Box sx={{ maxWidth: 380 }}>
+          <Typography variant="h5" sx={{ fontWeight: 900, mb: 1 }}>
+            {it.heading}
+          </Typography>
+          <Typography sx={{ opacity: 0.85, mb: 2 }}>{it.sub}</Typography>
+          <LearnBtn onClick={it.onClick}>{it.cta}</LearnBtn>
+        </Box>
+      )}
     </Stack>
   );
 }
@@ -157,7 +234,7 @@ export default function OffersShowcase({
   title = "What We Offer",
   items = [
     {
-      img: "/offer/experience.png", // optional image url
+      img: "/offer/experience.png",
       heading: "The experience",
       sub: "Immersive tactical game play",
       cta: "Learn more",
@@ -225,9 +302,7 @@ export default function OffersShowcase({
     const ro = new ResizeObserver(updateThumb);
     ro.observe(el);
 
-    // brief show on mount
     showThenFade();
-
     return () => {
       el.removeEventListener("scroll", onScroll);
       ro.disconnect();
@@ -245,19 +320,19 @@ export default function OffersShowcase({
             fontWeight: 900,
             mb: 4,
             letterSpacing: { md: "0.01em" },
-            textAlign: "center"
+            textAlign: "center",
           }}
         >
           {title}
         </Typography>
 
-        {/* Mobile: horizontal carousel with overlay progress */}
+        {/* Mobile: horizontal carousel with overlayed, left-aligned content */}
         {isMobile ? (
           <Box>
             <ScrollRow ref={rowRef} aria-label="offers carousel">
               {items.map((it, i) => (
                 <Box key={i} sx={{ minWidth: 0 }}>
-                  <OfferCard it={it} />
+                  <OfferCard it={it} overlayContent />
                 </Box>
               ))}
             </ScrollRow>

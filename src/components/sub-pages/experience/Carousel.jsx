@@ -32,7 +32,7 @@ export const CAROUSEL_CONFIG = {
   slides: [
     // Add `model` (obj + optional mtl) to enable the 3D popup for that slide:
     {
-      src: "/weapons/p90.png",
+      src: "/weapons/pink-p90.png",
       modalSrc: "/weapons/p90-detail.png",
       alt: "P90 - Pink camo",
       model: {
@@ -44,9 +44,10 @@ export const CAROUSEL_CONFIG = {
       },
     },
     { src: "/weapons/p90.png", alt: "P90 - Blue neon" },
-    { src: "/weapons/p90.png", alt: "P90 - Forest" },
-    { src: "/weapons/p90.png", alt: "P90 - Purple" },
-    { src: "/weapons/p90.png", alt: "P90 - City" },
+    { src: "/weapons/green-rifle.png", alt: "P90 - Forest" },
+    { src: "/weapons/orange-gun.png", alt: "P90 - Purple" },
+    { src: "/weapons/pistol.png", alt: "P90 - City" },
+    { src: "/weapons/purple-gun.png", alt: "P90 - City" },
   ],
 
   stageHeight: { xs: 340, md: 460 },

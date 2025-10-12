@@ -20,13 +20,20 @@ const FullBleed = styled(Box)(({ theme }) => ({
   marginLeft: "-50vw",
   marginRight: "-50vw",
   width: "100vw",
-  paddingInline: "clamp(8px, 2vw, 16px)", // side spacing
+  paddingInline: "clamp(8px, 2vw, 16px)",
 }));
 
-/* Big rounded panel (use 100%, NOT 100vw) */
+/* >>> Updated gradient & vignette to match screenshot <<< */
 const Panel = styled(Paper)(({ theme }) => ({
   width: "100%",
-  background: `
+  position: "relative",
+  overflow: "hidden",
+  color: alpha("#fff", 0.92),
+  borderRadius: 40,
+  padding: theme.spacing(5),
+  boxShadow:
+    "0 30px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04)",
+background: `
   radial-gradient(150% 120% at 100% 0%, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 62%),
   radial-gradient(130% 110% at 0% 0%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 58%),
   radial-gradient(140% 120% at 0% 100%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 60%),
@@ -39,12 +46,7 @@ const Panel = styled(Paper)(({ theme }) => ({
     #2a0002 62%,
     #2a0002 100%
   )
-`,
-  color: alpha("#fff", 0.92),
-  borderRadius: 36,
-  padding: theme.spacing(5),
-  boxShadow:
-    "0 30px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04)",
+`
 }));
 
 const Title = styled(Typography)(({ theme }) => ({
@@ -68,10 +70,9 @@ const CardWrap = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: { gridColumn: "auto" },
 }));
 
-/* Light grey image area */
 const ImgShell = styled(Paper)(({ theme }) => ({
   position: "relative",
-  height: 400,
+  height: 300,
   borderRadius: 12,
   background: "#bfbfbf",
   boxShadow: "none",
@@ -84,7 +85,6 @@ const ImgShell = styled(Paper)(({ theme }) => ({
   border: `1px solid ${alpha("#000", 0.08)}`,
 }));
 
-/* Bottom glass overlay */
 const Overlay = styled(Box)(({ theme }) => ({
   position: "absolute",
   left: 16,
@@ -125,31 +125,28 @@ const BookBtn = styled(Button)(({ theme }) => ({
   color: "#111",
   backgroundColor: "#f2c230",
   boxShadow: `0 10px 18px ${alpha("#f2c230", 0.35)}`,
-  "&:hover": {
-    backgroundColor: "#ffd24a",
-    boxShadow: `0 12px 22px ${alpha("#ffd24a", 0.45)}`,
-  },
+  "&:hover": { backgroundColor: "#ffd24a", boxShadow: `0 12px 22px ${alpha("#ffd24a", 0.45)}` },
 }));
 
 /* --------------------------- Defaults ---------------------------- */
 const packagesDefault = [
   {
-    id: "recruit",
-    title: "Recruit Package",
+    id: "core package",
+    title: "Core Package",
     description:
-      "75-min shared session for 8 players with private room for party & more!",
+      "75-min private session for 25 players with tier 1 upgrades and private room for party and more!",
   },
   {
     id: "elite",
-    title: "Elite Package",
+    title: "Executive Package",
     description:
-      "75-min shared for 8 players with tier 1 upgrades and private room for party & more!",
+      "75-min private session for 25 players with all upgrades unlocked and private room for party and more!",
   },
 ];
 
 /* --------------------------- Component --------------------------- */
 export default function PartyRoomPackages({
-  heading = "Party room packages",
+  heading = "Facility packages",
   items = packagesDefault,
   onBook,
 }) {
@@ -159,6 +156,7 @@ export default function PartyRoomPackages({
         <FullBleed>
           <Panel elevation={0}>
             <Title variant="h3">{heading}</Title>
+
             <Cards>
               {items.map((pkg) => (
                 <CardWrap key={pkg.id}>

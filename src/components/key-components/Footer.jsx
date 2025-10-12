@@ -1,3 +1,4 @@
+// src/components/Footer.jsx
 import React from "react";
 import {
   Box,
@@ -29,23 +30,35 @@ const Section = styled(Box)(({ theme }) => ({
   paddingBlock: theme.spacing(8),
 }));
 
+/* Mobile: 2 columns (50/50) centered; sm+ uses original 4-col layout left-aligned */
 const GridWrap = styled("div")(({ theme }) => ({
   display: "grid",
-  gridTemplateColumns: "1fr",
   gap: theme.spacing(6),
   alignItems: "start",
+  gridTemplateColumns: "repeat(2, 1fr)", // 50/50 on mobile
+  justifyItems: "center", // center columns on mobile
+  textAlign: "center", // center text on mobile
   [theme.breakpoints.up("sm")]: {
     gridTemplateColumns: "1.4fr 1fr 1fr 1.2fr",
+    justifyItems: "stretch",
+    textAlign: "left",
   },
   [theme.breakpoints.up("md")]: {
     gridTemplateColumns: "1.6fr 1fr 1fr 1.4fr",
   },
 }));
 
+/* Span full width only on mobile; revert to auto on sm+ */
+const FullSpanOnMobile = styled(Box)(({ theme }) => ({
+  gridColumn: "1 / -1",
+  [theme.breakpoints.up("sm")]: { gridColumn: "auto" },
+}));
+
 const ColTitle = styled(Typography)(({ theme }) => ({
   fontWeight: 800,
   fontSize: 18,
   marginBottom: theme.spacing(2.5),
+  textAlign: "inherit", // inherits center on mobile, left on sm+
 }));
 
 const FooterLink = styled(MuiLink)(({ theme }) => ({
@@ -59,9 +72,7 @@ const FooterLink = styled(MuiLink)(({ theme }) => ({
 
 const EmailField = styled(TextField)(({ theme }) => ({
   flex: 1,
-  "& .MuiInputBase-root": {
-    color: FG,
-  },
+  "& .MuiInputBase-root": { color: FG },
   "& .MuiInput-underline:before": { borderBottomColor: LINE },
   "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
     borderBottomColor: alpha("#fff", 0.3),
@@ -96,20 +107,26 @@ export default function Footer({ logoSrc = "/logo.png" }) {
     <Section component="footer">
       <Container maxWidth="xl">
         <GridWrap>
-          {/* Logo */}
-          <Box>
+          {/* Logo — full width & centered on mobile */}
+          <FullSpanOnMobile>
             <Box
               component="img"
               src={logoSrc}
               alt="TX Laser Combat"
-              sx={{ width: 180, height: "auto", display: "block", mb: 2 }}
+              sx={{
+                width: 180,
+                height: "auto",
+                display: "block",
+                mb: 2,
+                mx: { xs: "auto", sm: 0 }, // center on mobile
+              }}
             />
-          </Box>
+          </FullSpanOnMobile>
 
-          {/* Sitemap */}
+          {/* Sitemap — left cell (centered on mobile) */}
           <Box>
             <ColTitle>Sitemap</ColTitle>
-            <Stack spacing={0}>
+            <Stack spacing={0} alignItems={{ xs: "center", sm: "flex-start" }}>
               {sitemap.map((item) => (
                 <FooterLink
                   key={item.label}
@@ -122,10 +139,10 @@ export default function Footer({ logoSrc = "/logo.png" }) {
             </Stack>
           </Box>
 
-          {/* Socials */}
+          {/* Socials — right cell (centered on mobile) */}
           <Box>
             <ColTitle>Socials</ColTitle>
-            <Stack spacing={0}>
+            <Stack spacing={0} alignItems={{ xs: "center", sm: "flex-start" }}>
               <FooterLink href="https://facebook.com">Facebook</FooterLink>
               <FooterLink href="https://linkedin.com">LinkedIn</FooterLink>
               <FooterLink href="https://instagram.com">Instagram</FooterLink>
@@ -133,15 +150,21 @@ export default function Footer({ logoSrc = "/logo.png" }) {
             </Stack>
           </Box>
 
-          {/* Address + Signup */}
-          <Box>
+          {/* Address + Signup — full width & centered text on mobile */}
+          <FullSpanOnMobile>
             <ColTitle>Address</ColTitle>
             <Typography sx={{ color: MUTED, mb: 3 }}>
               2300 Coit Road #400, Plano, TX 75075
             </Typography>
 
             <ColTitle sx={{ mb: 1.5 }}>Stay up to date</ColTitle>
-            <Stack direction="row" spacing={2} alignItems="center">
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              spacing={{ xs: 1.5, sm: 2 }}
+              alignItems={{ xs: "stretch", sm: "center" }}
+              justifyContent={{ xs: "stretch", sm: "flex-start" }}
+              sx={{ width: "100%" }}
+            >
               <EmailField
                 variant="standard"
                 placeholder="Enter your email address"
@@ -155,13 +178,23 @@ export default function Footer({ logoSrc = "/logo.png" }) {
                   ),
                 }}
                 fullWidth
+                sx={{
+                  maxWidth: { xs: "none", sm: 520 }, // full width on mobile, cap on desktop if you like
+                }}
               />
-              <SubmitBtn onClick={() => setEmail("")}>Submit</SubmitBtn>
+              <SubmitBtn
+                onClick={() => setEmail("")}
+                sx={{ width: { xs: "100%", sm: "auto" } }} // full-width button on mobile
+              >
+                Submit
+              </SubmitBtn>
             </Stack>
+
             <Box sx={{ height: 1, background: LINE, mt: 2.5 }} />
-          </Box>
+          </FullSpanOnMobile>
         </GridWrap>
 
+        {/* Bottom bar */}
         <Box
           sx={{
             mt: 6,
@@ -169,35 +202,44 @@ export default function Footer({ logoSrc = "/logo.png" }) {
             borderTop: `1px solid ${LINE}`,
             display: "flex",
             flexDirection: { xs: "column", md: "row" },
-            justifyContent: "space-between",
-            alignItems: { xs: "flex-start", md: "center" },
+            justifyContent: { xs: "space-between", md: "flex-start" }, // ⬅️ start on desktop
+            alignItems: { xs: "center", md: "center" },
             rowGap: 2,
             fontSize: 14,
             color: MUTED,
+            textAlign: { xs: "center", md: "left" },
           }}
         >
-          {/* Left cluster: socials */}
+          {/* Left cluster: socials (icons) */}
           <Stack direction="row" spacing={2}>
             <MuiLink href="https://facebook.com" color={MUTED}>
               <FacebookIcon fontSize="small" />
             </MuiLink>
-            <MuiLink href="https://facebook.com" color={MUTED}>
-              <FacebookIcon fontSize="small" />
+            <MuiLink href="https://linkedin.com" color={MUTED}>
+              <LinkedInIcon fontSize="small" />
             </MuiLink>
-            <MuiLink href="https://facebook.com" color={MUTED}>
-              <FacebookIcon fontSize="small" />
+            <MuiLink href="https://x.com" color={MUTED}>
+              <XIcon fontSize="small" />
             </MuiLink>
             <MuiLink href="https://facebook.com" color={MUTED}>
               <FacebookIcon fontSize="small" />
             </MuiLink>
           </Stack>
 
-          {/* Middle cluster: email + phone */}
+          {/* Middle cluster: email + phone + policies */}
           <Stack
-            direction="row"
-            spacing={3}
-            flexWrap="wrap"
-            justifyContent="center"
+            direction={{ xs: "column", md: "row" }}
+            spacing={{ xs: 1.25, md: 3 }}
+            alignItems={{ xs: "center", md: "center" }}
+            justifyContent={{ xs: "center", md: "flex-end" }}
+            sx={{
+              width: { xs: "100%", md: "auto" },
+              ml: { md: "auto" }, // ⬅️ pushes this cluster to the right edge
+              "& a": {
+                fontSize: { xs: 16, md: 14 }, // larger font on mobile
+                lineHeight: 1.65,
+              },
+            }}
           >
             <MuiLink
               href="mailto:contact@txlasercombat.com"
@@ -209,7 +251,6 @@ export default function Footer({ logoSrc = "/logo.png" }) {
             <MuiLink href="tel:+12141234567" underline="hover" color={MUTED}>
               (214) 123-4567
             </MuiLink>
-
             <MuiLink
               component={RouterLink}
               to="/privacy"
@@ -224,7 +265,7 @@ export default function Footer({ logoSrc = "/logo.png" }) {
               underline="hover"
               color={MUTED}
             >
-              Terms & conditions
+              Terms &amp; conditions
             </MuiLink>
             <MuiLink
               sx={{

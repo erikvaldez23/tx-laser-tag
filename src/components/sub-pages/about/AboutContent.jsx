@@ -92,16 +92,13 @@ const ITEMS = [
     side: "left",
     glow: "red",
     title:
-      "Welcome to Texas Laser Combat, North Dallas’s newest premier destination for adrenaline-fueled tactical laser tag adventures in Plano, TX.",
+      "Welcome to Texas Laser Combat, North Dallas’s newest premier destination for tactical laser tag adventures in Plano, TX.",
     body: (
       <p>
-        As a proudly veteran and woman-owned family business, we're committed to
-        fostering unforgettable and safe bonding experiences for{" "}
-        <Emphasis>ages 7 and up</Emphasis>, where families, friends,
-        individuals, and teams unite in the heat of combat. Through our
-        community events, charities, and partnerships with local schools and
-        businesses, we promote healthy and active lifestyles for the public and
-        players.
+        As a veteran and woman-owned family business, we create safe,
+        unforgettable bonding for <Emphasis>ages 7+</Emphasis>, uniting
+        families, friends, and teams. Our community events and partnerships with
+        schools and businesses promote active lifestyles.
       </p>
     ),
     image: "/assets/lasercombat/hero-arena.jpg",
@@ -115,44 +112,44 @@ const ITEMS = [
     body: (
       <>
         <p>
-          Our expansive <Emphasis>15,000-square-foot</Emphasis> indoor arena
-          delivers wasteland scenario-based gameplay designed to spark teamwork
-          and fun for up to <Emphasis>50 players</Emphasis> - Think
-          strategy-driven missions, vibration-feedback vests, headsets, and
-          proprietary weapons—every visit becomes a memorable saga.
+          Our <Emphasis>15,000-square-foot arena</Emphasis> offers immersive, wasteland-themed
+          gameplay for up to 50, with strategy missions, vibration-feedback
+          headsets, and lightweight weapons, making every <Emphasis>75-minute session</Emphasis>
+          epic.
         </p>
         <p>
-          With safety always first through our state-of-the-art equipment and
-          expert staff oversight, we ensure every visit is exhilarating yet
-          secure for varying mobility.
+          Safety-first equipment and expert staff ensure thrilling, accessible
+          fun. Private party rooms host tailored birthdays, corporate events, or
+          gatherings. Join solo or with a group to unleash your inner warrior at
+          Texas Laser Combat!
         </p>
       </>
     ),
     image: "/assets/lasercombat/multi-level.jpg",
     imageAlt: "Multi-level laser combat arena with ramps and barriers",
   },
-  {
-    id: "events",
-    side: "left",
-    glow: "green",
-    title: "Private Parties & Events",
-    body: (
-      <>
-        <p>
-          Plus, our private party rooms ensure seamless celebrations tailored to
-          your group, including birthdays, corporate events, or gatherings with
-          customized packages that keep the excitement rolling.
-        </p>
-        <p>
-          Join us now as a group or solo and discover why Texas Laser Combat
-          isn't just a game—it's a way to unleash your inner warrior while
-          experiencing one of the most thrilling activities around.
-        </p>
-      </>
-    ),
-    image: "/assets/lasercombat/party-event.jpg",
-    imageAlt: "Group celebrating a birthday party with laser tag gear",
-  },
+  // {
+  //   id: "events",
+  //   side: "left",
+  //   glow: "green",
+  //   title: "Private Parties & Events",
+  //   body: (
+  //     <>
+  //       <p>
+  //         Plus, our private party rooms ensure seamless celebrations tailored to
+  //         your group, including birthdays, corporate events, or gatherings with
+  //         customized packages that keep the excitement rolling.
+  //       </p>
+  //       <p>
+  //         Join us now as a group or solo and discover why Texas Laser Combat
+  //         isn't just a game—it's a way to unleash your inner warrior while
+  //         experiencing one of the most thrilling activities around.
+  //       </p>
+  //     </>
+  //   ),
+  //   image: "/assets/lasercombat/party-event.jpg",
+  //   imageAlt: "Group celebrating a birthday party with laser tag gear",
+  // },
 ];
 
 export default function IntroStaggeredSections({ items = ITEMS, renderImage }) {

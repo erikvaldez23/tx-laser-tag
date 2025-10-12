@@ -9,11 +9,8 @@ export default function ExperiencePage() {
   return (
     <>
       <ExperienceHero />
-      <Map
-        src="/experience.png"
-        alt="Texas Laser Combat arena overview"
-        sx={{ mb: (theme) => theme.spacing(8) }}
-      />
+    <Map fit="contain" backdrop="#111" />
+
       <Carousel />
       <ExperienceContent />
     </>

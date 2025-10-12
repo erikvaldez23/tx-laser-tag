@@ -70,28 +70,28 @@ const Row = styled(Accordion)(({ theme }) => ({
   },
 }));
 
-export default function AboutFAQ({
+export default function EventsFAQ({
   title = "Frequently Asked Questions",
   subtitle = "Quick answers to common questions.",
   items = [
     {
-      q: "How long is a session?",
-      a: "A standard laser tag session lasts 75 minutes, which includes approximately 15 minutes for safety briefings and gearing up, leaving 1 hour of active gameplay",
+      q: 'How many people does one large (14") pizza serve at a party?',
+      a: "Each pizza has approximately 10 slices. Assuming 2 slices per person, one pizza serves about 5 people. Pizza orders should be placed in advance to ensure timely delivery.",
     },
     {
-      q: "Are there age or height restrictions to play?",
+      q: "How early should I arrive for my session or party?",
       a: "Answer",
     },
     {
-      q: "What should I wear for a tactial laser tag session?",
+      q: "Can I add last-minute guests to my party?",
       a: "Answer",
     },
     {
-      q: "Does Texas Laser Tag Comabt accept walk-in players?",
+      q: "What happens if some of my party guests do not show up? Am I still charged for them?",
       a: "Answer",
     },
     {
-      q: "What are the waivers, and who needs to complete them?",
+      q: "Can I bring outside food like ice cream, cake, or cupcakes to a party?",
       a: "Answer",
     },
   ],

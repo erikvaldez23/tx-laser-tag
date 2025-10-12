@@ -30,9 +30,6 @@ const Headline = styled(motion.h1)(({ theme }) => ({
   fontWeight: 800,
   letterSpacing: "0.02em",
   textTransform: "uppercase",
-  fontFamily:
-    "'Staatliches', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans'",
-  fontSize: "clamp(40px, 9vw, 100px)",
 }));
 
 const Cta = styled(Button)(({ theme }) => ({
@@ -93,6 +90,7 @@ export default function EventsHero({
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <Headline
+            sx={{ fontSize: { xs: "3rem", sm: "5rem" } }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.05 }}
