@@ -72,7 +72,7 @@ const CardWrap = styled(Box)(({ theme }) => ({
 
 const ImgShell = styled(Paper)(({ theme }) => ({
   position: "relative",
-  height: 300,
+  height: 400,
   borderRadius: 12,
   background: "#bfbfbf",
   boxShadow: "none",
