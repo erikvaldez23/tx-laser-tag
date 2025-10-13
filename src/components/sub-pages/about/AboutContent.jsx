@@ -1,247 +1,328 @@
+// src/components/landing/IntroWithImagesGrid.jsx
 import React from "react";
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Box, Typography, Container } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 
+// ✅ Put your images in /public or import from /src/assets (Vite-safe)
+import arenaRight from "/placeholder.jpg"; // first section (right)
+import arenaLeft from "/placeholder.jpg";  // second section (left)
+
+/* ------------------------------- Tokens -------------------------------- */
+const ACCENT = "#f2c230";
+
+/* ------------------------------- Styled -------------------------------- */
 const Section = styled(Box)(({ theme }) => ({
   position: "relative",
   width: "100%",
-  background: "transparent",
-  color: alpha("#fff", 0.92),
-  overflow: "hidden",
-  isolation: "isolate",
+  color: alpha("#fff", 0.95),
+  paddingBlock: theme.spacing(12),
 }));
 
-const Center = styled(Box)({
-  "--max": "1680px",
-  width: "min(100% - 64px, var(--max))", // 32px gutters
-  marginInline: "auto",
+/**
+ * TwoColumn uses CSS Grid with named areas.
+ * - Mobile: one column (copy then media by default)
+ * - Desktop: two columns; when `reverse` is true, media appears left.
+ * - Adds a slightly angled vertical divider on desktop.
+ */
+const TwoColumn = styled(Box)(({ theme, reverse }) => ({
   position: "relative",
-});
+  display: "grid",
+  gap: theme.spacing(6),
+  gridTemplateAreas: `
+    "copy"
+    "media"
+  `,
+  gridTemplateColumns: "1fr",
+  alignItems: "center",
 
-const Vignette = styled("div")(({ side = "right", color = "red" }) => {
-  const colorMap = {
-    red: "rgba(200,0,0,",
-    gold: "rgba(255,196,0,",
-    green: "rgba(73,201,120,",
-    blue: "rgba(39,148,210,",
-  };
-  const c = colorMap[color] || colorMap.red;
-  const base = `${c}.55) 0%, ${c}.18) 45%, ${c}0) 70%)`;
+  [theme.breakpoints.up("md")]: {
+    gridTemplateColumns: "1fr 1fr",
+    gridTemplateAreas: reverse ? `"media copy"` : `"copy media"`,
+    gap: theme.spacing(8),
+  },
 
-  return {
+  /* Angled vertical divider line — desktop only */
+  "&::before": {
+    content: '""',
     position: "absolute",
-    inset: 0,
-    [side]: "0",
-    width: "60%",
+    left: "50%",
+    top: "10%",
+    height: "80%",
+    width: 1,
+    background: "#ccca",
+    transform: "translateX(-50%) rotate(-2.3deg)",
+    transformOrigin: "center",
+    filter: "drop-shadow(0 0 12px rgba(242,194,48,0.25))",
+    opacity: 0.7,
     pointerEvents: "none",
-    background:
-      side === "right"
-        ? `radial-gradient(60% 60% at 75% 30%, ${base})`
-        : `radial-gradient(60% 60% at 25% 30%, ${base})`,
-    filter: "blur(2px)",
+    display: "none",
     zIndex: 0,
-    opacity: 0.55,
-  };
-});
-
-const Copy = styled(Box)(({ theme }) => ({
-  maxWidth: 720,
-  lineHeight: 1.65,
-  "& p": { margin: 0, marginBottom: theme.spacing(3) },
+    [theme.breakpoints.up("md")]: {
+      display: "block",
+    },
+  },
 }));
 
-const Emphasis = styled("span")({
-  color: "#ffcc33",
+const Copy = styled(Box)({
+  gridArea: "copy",
+  position: "relative",
+  zIndex: 1,
+});
+
+const Media = styled(Box)({
+  gridArea: "media",
+  position: "relative",
+  zIndex: 1,
+});
+
+const Eyebrow = styled(Typography)(({ theme }) => ({
+  fontSize: 14,
+  letterSpacing: 2.2,
+  textTransform: "uppercase",
+  color: alpha("#fff", 0.7),
+  marginBottom: theme.spacing(2),
+}));
+
+const Title = styled(Typography)(({ theme }) => ({
+  fontWeight: 800,
+  lineHeight: 1.15,
+  marginBottom: theme.spacing(3),
+}));
+
+const Body = styled(Typography)(({ theme }) => ({
+  color: alpha("#fff", 0.82),
+  lineHeight: 1.7,
+}));
+
+const Strong = styled("span")({
+  color: "#ffd95a",
   fontWeight: 800,
 });
 
-const ImageCard = styled(Paper)(({ theme }) => ({
-  position: "relative",
-  zIndex: 1,
-  height: 460,
-  borderRadius: 16,
-  background: "transparent",
-  border: `1px solid ${alpha("#fff", 0.09)}`,
-  boxShadow:
-    "0 30px 60px rgba(0,0,0,.45), inset 0 1px rgba(255,255,255,.06), inset 0 -1px rgba(255,255,255,.03)",
-  overflow: "hidden",
-  transformStyle: "preserve-3d",
-  [theme.breakpoints.down("md")]: {
-    height: 320,
-  },
-}));
+/* Image with aggressive neon glow + depth + animated sweep */
+const ImgBlock = ({ src, alt }) => (
+  <Box
+    sx={{
+      position: "relative",
+      width: "100%",
+      aspectRatio: { xs: "16 / 10", md: "16 / 10" },
+      borderRadius: 3,
+      overflow: "hidden",
+      backgroundColor: "#0b0b0c",
+      isolation: "isolate",
 
-const Media = styled(Box)(({ theme }) => ({
-  position: "absolute",
-  inset: 0,
-  backgroundPosition: "center",
-  backgroundSize: "cover",
-  backgroundRepeat: "no-repeat",
-  "&::after": {
-    content: '""',
-    position: "absolute",
-    inset: 0,
-    background:
-      "linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.24) 100%)",
-  },
-}));
+      // HUGE depth: stacked outer drop-shadows (not clipped)
+      filter: `
+        drop-shadow(0 40px 110px rgba(0,0,0,0.65))
+        drop-shadow(0 0 90px rgba(242,194,48,0.45))
+        drop-shadow(0 0 70px rgba(106,209,255,0.35))
+        drop-shadow(0 0 60px rgba(155,92,255,0.28))
+      `,
+      // Subtle 3D lift on hover
+      transition: "transform 300ms ease, filter 300ms ease",
+      transform: "perspective(1000px) translateZ(0)",
+      "&:hover": {
+        transform: "perspective(1000px) translateY(-4px) scale(1.015) rotateZ(-0.2deg)",
+        filter: `
+          drop-shadow(0 48px 130px rgba(0,0,0,0.72))
+          drop-shadow(0 0 110px rgba(242,194,48,0.55))
+          drop-shadow(0 0 90px rgba(106,209,255,0.45))
+          drop-shadow(0 0 80px rgba(155,92,255,0.38))
+        `,
+      },
 
-const ITEMS = [
-  {
-    id: "welcome",
-    side: "left",
-    glow: "red",
-    title:
-      "Welcome to Texas Laser Combat, North Dallas’s newest premier destination for tactical laser tag adventures in Plano, TX.",
-    body: (
-      <p>
-        As a veteran and woman-owned family business, we create safe,
-        unforgettable bonding for <Emphasis>ages 7+</Emphasis>, uniting
-        families, friends, and teams. Our community events and partnerships with
-        schools and businesses promote active lifestyles.
-      </p>
-    ),
-    image: "/assets/lasercombat/hero-arena.jpg",
-    imageAlt: "Players engaged in tactical laser combat in the arena",
-  },
-  {
-    id: "arena",
-    side: "right",
-    glow: "gold",
-    title: "Immersive Multi-Level Arena",
-    body: (
-      <>
-        <p>
-          Our <Emphasis>15,000-square-foot arena</Emphasis> offers immersive, wasteland-themed
-          gameplay for up to 50, with strategy missions, vibration-feedback
-          headsets, and lightweight weapons, making every <Emphasis>75-minute session</Emphasis>
-          epic.
-        </p>
-        <p>
-          Safety-first equipment and expert staff ensure thrilling, accessible
-          fun. Private party rooms host tailored birthdays, corporate events, or
-          gatherings. Join solo or with a group to unleash your inner warrior at
-          Texas Laser Combat!
-        </p>
-      </>
-    ),
-    image: "/assets/lasercombat/multi-level.jpg",
-    imageAlt: "Multi-level laser combat arena with ramps and barriers",
-  },
-  // {
-  //   id: "events",
-  //   side: "left",
-  //   glow: "green",
-  //   title: "Private Parties & Events",
-  //   body: (
-  //     <>
-  //       <p>
-  //         Plus, our private party rooms ensure seamless celebrations tailored to
-  //         your group, including birthdays, corporate events, or gatherings with
-  //         customized packages that keep the excitement rolling.
-  //       </p>
-  //       <p>
-  //         Join us now as a group or solo and discover why Texas Laser Combat
-  //         isn't just a game—it's a way to unleash your inner warrior while
-  //         experiencing one of the most thrilling activities around.
-  //       </p>
-  //     </>
-  //   ),
-  //   image: "/assets/lasercombat/party-event.jpg",
-  //   imageAlt: "Group celebrating a birthday party with laser tag gear",
-  // },
-];
+      // keyframes
+      "@keyframes pulseAura": {
+        "0%":   { opacity: 0.75, transform: "scale(1)" },
+        "50%":  { opacity: 1,    transform: "scale(1.06)" },
+        "100%": { opacity: 0.75, transform: "scale(1)" },
+      },
+      "@keyframes sweepRing": {
+        "0%":   { transform: "rotate(0deg)" },
+        "100%": { transform: "rotate(360deg)" },
+      },
+    }}
+  >
+    {/* MONSTER glow field behind (inside frame) */}
+    <Box
+      aria-hidden
+      sx={{
+        position: "absolute",
+        inset: "-18%",
+        zIndex: 0,
+        background: `
+          radial-gradient(closest-side at 72% 28%, ${alpha(ACCENT, 0.55)} 0%, transparent 62%),
+          radial-gradient(closest-side at 28% 75%, ${alpha("#6ad1ff", 0.45)} 0%, transparent 62%),
+          radial-gradient(closest-side at 50% 50%, ${alpha("#9b5cff", 0.40)} 0%, transparent 58%)
+        `,
+        filter: "blur(38px)",
+        mixBlendMode: "screen",
+        animation: "pulseAura 5.5s ease-in-out infinite",
+      }}
+    />
 
-export default function IntroStaggeredSections({ items = ITEMS, renderImage }) {
+    {/* Animated conic sweep for that “electric ring” vibe */}
+    <Box
+      aria-hidden
+      sx={{
+        position: "absolute",
+        inset: -2,
+        zIndex: 1,
+        pointerEvents: "none",
+        background: `
+          conic-gradient(
+            from 180deg,
+            ${alpha("#ffffff", 0.0)} 0deg,
+            ${alpha("#6ad1ff", 0.5)} 40deg,
+            ${alpha(ACCENT, 0.6)} 120deg,
+            ${alpha("#9b5cff", 0.5)} 200deg,
+            ${alpha("#ffffff", 0.0)} 360deg
+          )
+        `,
+        mask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+        WebkitMask:
+          "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+        WebkitMaskComposite: "xor",
+        maskComposite: "exclude",
+        padding: 2, // thickness of the ring
+        borderRadius: 10,
+        opacity: 0.9,
+        filter: "blur(1px)",
+        transformOrigin: "50% 50%",
+        animation: "sweepRing 12s linear infinite",
+      }}
+    />
+
+    {/* Image */}
+    <Box
+      component="img"
+      loading="lazy"
+      alt={alt}
+      src={src}
+      sx={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        objectPosition: "center",
+        display: "block",
+        zIndex: 2,
+        filter: "saturate(1.08) contrast(1.08) drop-shadow(0 10px 28px rgba(0,0,0,0.45))",
+        transform: "translateZ(0)",
+      }}
+    />
+
+    {/* Vignette for legibility */}
+    <Box
+      aria-hidden
+      sx={{
+        position: "absolute",
+        inset: 0,
+        zIndex: 3,
+        background:
+          "linear-gradient(to bottom, rgba(0,0,0,0.10), rgba(0,0,0,0.36))",
+      }}
+    />
+
+    {/* Brighter rim-light to really pop */}
+    <Box
+      aria-hidden
+      sx={{
+        position: "absolute",
+        inset: 0,
+        zIndex: 4,
+        borderRadius: 3,
+        boxShadow: `
+          inset 0 0 0 1px ${alpha("#ffffff", 0.16)},
+          inset 0 0 40px ${alpha("#ffffff", 0.06)}
+        `,
+      }}
+    />
+
+    {/* Lens flare streak (subtle but flashy) */}
+    <Box
+      aria-hidden
+      sx={{
+        position: "absolute",
+        top: "-10%",
+        left: "-15%",
+        width: "65%",
+        height: "35%",
+        zIndex: 5,
+        background:
+          "linear-gradient(115deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.25) 45%, rgba(255,255,255,0.0) 100%)",
+        filter: "blur(10px)",
+        transform: "rotate(-6deg)",
+        opacity: 0.6,
+        pointerEvents: "none",
+      }}
+    />
+  </Box>
+);
+
+
+
+/* -------------------------------- View -------------------------------- */
+export default function IntroWithImagesGrid() {
   return (
-    <>
-      {items.map((item, idx) => {
-        const textOnRight = item.side === "right";
-        const tilt = textOnRight ? -3 : 3;
+    <Section>
+      {/* ✅ True MUI container with xl max width */}
+      <Container maxWidth="xl">
+        <Box
+          sx={{
+            display: "grid",
+            gap: { xs: 10, md: 12 },
+          }}
+        >
+          {/* -------- Section 1: text LEFT, image RIGHT -------- */}
+          <TwoColumn>
+            <Copy>
+              <Eyebrow>Welcome</Eyebrow>
+              <Title variant="h4">
+                Welcome to Texas Laser Combat, North Dallas’s newest premier
+                destination for tactical laser tag adventures in Plano, TX.
+              </Title>
+              <Body>
+                As a veteran and woman-owned family business, we create safe,
+                unforgettable bonding for <Strong>ages 7+</Strong>, uniting
+                families, friends, and teams. Our community events and
+                partnerships with schools and businesses promote active lifestyles.
+              </Body>
+            </Copy>
 
-        return (
-          <Section key={item.id || idx}>
-            <Center>
-              <Vignette
-                side={textOnRight ? "left" : "right"}
-                color={item.glow}
-              />
+            {/* ✅ Image on the RIGHT via grid area */}
+            <Media>
+              <ImgBlock src={arenaRight} alt="Texas Laser Combat arena view" />
+            </Media>
+          </TwoColumn>
 
-              <Grid
-                container
-                spacing={{ xs: 6, md: 10 }}
-                alignItems="center"
-                direction={textOnRight ? "row-reverse" : "row"}
-              >
-                <Grid
-                  item
-                  xs={12}
-                  md={6}
-                  sx={{ position: "relative", zIndex: 1 }}
-                >
-                  <Copy>
-                    <Typography
-                      variant="h4"
-                      sx={{
-                        fontWeight: 800,
-                        letterSpacing: 0.2,
-                        color: "#fff",
-                        mb: 3,
-                        lineHeight: 1.25,
-                      }}
-                    >
-                      {item.title}
-                    </Typography>
-                    <Typography
-                      component="div"
-                      sx={{ fontSize: 18, opacity: 0.95 }}
-                    >
-                      {item.body}
-                    </Typography>
-                  </Copy>
-                </Grid>
+          {/* -------- Section 2: image LEFT, text RIGHT -------- */}
+          <TwoColumn reverse>
+            {/* ✅ Image on the LEFT when reverse=true */}
+            <Media>
+              <ImgBlock src={arenaLeft} alt="Immersive multi-level arena" />
+            </Media>
 
-                <Grid
-                  item
-                  xs={12}
-                  md={6}
-                  sx={{ position: "relative", zIndex: 1 }}
-                >
-                  <ImageCard>
-                    {renderImage ? (
-                      renderImage(item)
-                    ) : (
-                      <Media
-                        role="img"
-                        aria-label={item.imageAlt || item.title}
-                        sx={{
-                          backgroundImage: item.image
-                            ? `url(${item.image})`
-                            : `radial-gradient(120% 120% at 70% 20%, rgba(255,255,255,.06) 0%, rgba(255,255,255,0) 60%), 
-                                 linear-gradient(135deg, ${alpha(
-                                   "#fff",
-                                   0.06
-                                 )}, ${alpha("#000", 0.2)})`,
-                        }}
-                      />
-                    )}
-
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        inset: 0,
-                        borderRadius: 16,
-                        boxShadow: `0 0 0 1px ${alpha("#fff", 0.06)} inset`,
-                        pointerEvents: "none",
-                      }}
-                    />
-                  </ImageCard>
-                </Grid>
-              </Grid>
-            </Center>
-          </Section>
-        );
-      })}
-    </>
+            <Copy>
+              <Eyebrow>Arena</Eyebrow>
+              <Title variant="h4">Immersive Multi-Level Arena</Title>
+              <Body sx={{ mb: 2 }}>
+                Our <Strong>15,000-square-foot arena</Strong> offers immersive,
+                wasteland-themed gameplay for up to 50, with strategy missions,
+                vibration-feedback headsets, and lightweight weapons—making every{" "}
+                <Strong>75-minute session</Strong> epic.
+              </Body>
+              <Body>
+                Safety-first equipment and expert staff ensure thrilling,
+                accessible fun. Private party rooms host tailored birthdays,
+                corporate events, or gatherings. Join solo or with a group to
+                unleash your inner warrior at Texas Laser Combat!
+              </Body>
+            </Copy>
+          </TwoColumn>
+        </Box>
+      </Container>
+    </Section>
   );
 }

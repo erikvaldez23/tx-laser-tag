@@ -299,7 +299,7 @@ export default function TypesOfEvents({
 
         {/* Category filter bar */}
         <FilterShell ref={barRef} aria-label="Select event type">
-          <ActiveHalo rect={rect} />
+          {/* <ActiveHalo rect={rect} /> */}
           {catKeys.map((key) => (
             <Pill
               key={key}
