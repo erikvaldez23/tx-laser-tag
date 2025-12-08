@@ -246,10 +246,10 @@ export default function Footer({ logoSrc = "/logo.png" }) {
               underline="hover"
               color={MUTED}
             >
-              contact@txlasercombat.com
+              ops@txlasercombat.com
             </MuiLink>
             <MuiLink href="tel:+12141234567" underline="hover" color={MUTED}>
-              (214) 123-4567
+              (972) 809-9164
             </MuiLink>
             <MuiLink
               component={RouterLink}

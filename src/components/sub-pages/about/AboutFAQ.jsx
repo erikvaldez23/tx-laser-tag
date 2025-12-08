@@ -42,10 +42,7 @@ const Shell = styled(Box)(({ theme }) => ({
   "--stroke": alpha("#fff", 0.12),
   borderRadius: 18,
   border: `1px solid var(--stroke)`,
-  background: `linear-gradient(180deg, ${alpha("#fff", 0.06)}, ${alpha(
-    "#fff",
-    0.03
-  )})`,
+  background: alpha("#fff", 0.05),
   backdropFilter: "blur(14px)",
   WebkitBackdropFilter: "blur(14px)",
   boxShadow: `0 24px 80px ${alpha("#000", 0.45)}`,

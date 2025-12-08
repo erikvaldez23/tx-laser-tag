@@ -1,153 +1,229 @@
-// src/components/contact/ContactUsDark.jsx
 import React from "react";
 import {
   Box,
   Container,
-  Grid,
   Typography,
   TextField,
   Button,
+  Stack,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 
-/* ---- Design tokens ---- */
-const FIELD = "#2a2b2c";
-const LINE = "rgba(255,255,255,0.08)";
-const FG = alpha("#fff", 0.92);
-const MUTED = alpha("#fff", 0.72);
-const ACCENT = "#f2c230";
-
-/* ---- Section wrapper ---- */
 const Section = styled(Box)(({ theme }) => ({
-  width: "100%",
-  background: "transparent",
-  color: FG,
-  paddingBlock: theme.spacing(10),
+  paddingBlock: theme.spacing(8),
+  color: "#fff",
 }));
 
-/* ---- Form card ---- */
-const Card = styled(Box)(({ theme }) => ({
-  borderRadius: 12,
-  padding: theme.spacing(2),
-  [theme.breakpoints.up("sm")]: { padding: theme.spacing(3) },
+const GridWrap = styled(Box)(({ theme }) => ({
+  display: "grid",
+  gap: theme.spacing(4),
+  gridTemplateColumns: "1fr",
+  [theme.breakpoints.up("md")]: {
+    gridTemplateColumns: "30fr 70fr", // 30/70 split
+    gap: theme.spacing(8),
+  },
 }));
 
-const fieldSx = {
+const HeaderColumn = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: theme.spacing(2),
+}));
+
+const FormColumn = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: theme.spacing(3),
+}));
+
+const StyledTextField = styled(TextField)(({ theme }) => ({
   "& .MuiInputBase-root": {
-    background: FIELD,
-    color: FG,
-    borderRadius: 8,
-    border: `1px solid ${LINE}`,
+    color: "#fff",
+    backgroundColor: alpha("#fff", 0.05),
+    borderRadius: 12,
+    "&:hover": {
+      backgroundColor: alpha("#fff", 0.08),
+    },
+    "&.Mui-focused": {
+      backgroundColor: alpha("#fff", 0.1),
+    },
   },
-  "& .MuiInputBase-input::placeholder": { color: alpha("#fff", 0.5) },
-  "& .MuiInputLabel-root": { color: MUTED },
-  "& .MuiOutlinedInput-notchedOutline": { border: "none" },
-  "& .MuiInputBase-root.Mui-focused": {
-    boxShadow: `0 0 0 2px ${alpha(ACCENT, 0.35)}`,
+  "& .MuiOutlinedInput-notchedOutline": {
+    borderColor: alpha("#fff", 0.1),
   },
-};
+  "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+    borderColor: alpha("#fff", 0.3),
+  },
+  "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    borderColor: "#f2c230",
+  },
+  "& .MuiInputLabel-root": {
+    color: alpha("#fff", 0.7),
+    "&.Mui-focused": {
+      color: "#f2c230",
+    },
+  },
+}));
 
-export default function ContactUsDark() {
+const SubmitButton = styled(Button)(({ theme }) => ({
+  backgroundColor: "#f2c230",
+  color: "#0e0f11",
+  fontWeight: 800,
+  padding: theme.spacing(1.5, 4),
+  borderRadius: 12,
+  textTransform: "none",
+  fontSize: 16,
+  alignSelf: "flex-start",
+  "&:hover": {
+    backgroundColor: "#ffd95a",
+  },
+}));
+
+export default function Contact() {
+  const [formData, setFormData] = React.useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [status, setStatus] = React.useState("idle"); // idle, submitting, success, error
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setStatus("submitting");
+
+    // Simulate API call
+    setTimeout(() => {
+      console.log("Form submitted:", formData);
+      setStatus("success");
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+    }, 1500);
+  };
+
   return (
     <Section>
-      {/* Container centers itself with auto margins */}
       <Container maxWidth="xl">
-        <Grid container spacing={6} alignItems="flex-start">
-          {/* Left copy: narrower */}
-          <Grid item xs={12} md={4} lg={3}>
-            <Typography variant="h4" fontWeight={800} gutterBottom>
-              Contact Us
+        <GridWrap>
+          {/* Left Column: Header & Subheader */}
+          <HeaderColumn>
+            <Typography variant="h3" component="h2" sx={{ fontWeight: 800 }}>
+              Get in Touch
             </Typography>
-            <Typography
-              variant="body1"
-              sx={{ color: MUTED, maxWidth: 520, lineHeight: 1.7 }}
-            >
-              Have questions? Reach out to our team, and we&apos;ll get back to
-              you as soon as possible.
+            <Typography variant="body1" sx={{ color: alpha("#fff", 0.7), lineHeight: 1.6 }}>
+              Have questions? Reach out to our team, and we'll get back to you as soon as possible.
             </Typography>
-          </Grid>
+          </HeaderColumn>
 
-          {/* Right form: wider (md 8 / lg 9) */}
-          <Grid item xs={12} md={8} lg={9}>
-            <Card component="form" onSubmit={(e) => e.preventDefault()}>
+          {/* Right Column: Form */}
+          <FormColumn component="form" onSubmit={handleSubmit}>
+            {status === "success" ? (
               <Box
                 sx={{
-                  display: "grid",
-                  gap: 2,
-                  gridTemplateColumns: { xs: "1fr", sm: "1fr 3fr" },
-                  ml: 5
+                  p: 4,
+                  borderRadius: 4,
+                  backgroundColor: alpha("#f2c230", 0.1),
+                  border: `1px solid ${alpha("#f2c230", 0.2)}`,
+                  textAlign: "center",
                 }}
               >
-                <TextField
-                  label="First name"
-                  placeholder="First name"
-                  variant="outlined"
-                  size="medium"
-                  fullWidth
-                  sx={fieldSx}
-                />
-                <TextField
-                  label="Last name"
-                  placeholder="Last name"
-                  variant="outlined"
-                  size="medium"
-                  fullWidth
-                  sx={fieldSx}
-                />
-
-                <TextField
-                  label="Email"
-                  placeholder="Email"
-                  variant="outlined"
-                  size="medium"
-                  fullWidth
-                  sx={fieldSx}
-                />
-                <TextField
-                  label="Phone number"
-                  placeholder="Phone number"
-                  variant="outlined"
-                  size="medium"
-                  fullWidth
-                  sx={fieldSx}
-                />
-
-                {/* Message spans both columns */}
-                <TextField
-                  label="Your message here"
-                  placeholder="Your message here"
-                  variant="outlined"
-                  size="medium"
-                  fullWidth
-                  multiline
-                  minRows={5}
-                  sx={{ ...fieldSx, gridColumn: { xs: "1", sm: "1 / -1" } }}
-                />
-
-                <Box sx={{ gridColumn: { xs: "1", sm: "1 / -1" } }}>
-                  <Button
-                    fullWidth
-                    type="submit"
-                    variant="contained"
-                    disableElevation
-                    sx={{
-                      px: 3,
-                      py: 1,
-                      fontWeight: 700,
-                      textTransform: "none",
-                      background: ACCENT,
-                      color: "#111",
-                      "&:hover": { background: "#ffd95a" },
-                      borderRadius: 8,
-                    }}
-                  >
-                    Submit
-                  </Button>
-                </Box>
+                <Typography variant="h5" sx={{ fontWeight: 800, color: "#f2c230", mb: 1 }}>
+                  Message Sent!
+                </Typography>
+                <Typography sx={{ color: alpha("#fff", 0.8) }}>
+                  Thank you for reaching out. We'll get back to you shortly.
+                </Typography>
+                <Button
+                  sx={{ mt: 3, color: "#f2c230" }}
+                  onClick={() => setStatus("idle")}
+                >
+                  Send another message
+                </Button>
               </Box>
-            </Card>
-          </Grid>
-        </Grid>
+            ) : (
+              <>
+                <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+                  <StyledTextField
+                    fullWidth
+                    label="First Name"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    variant="outlined"
+                    required
+                    disabled={status === "submitting"}
+                  />
+                  <StyledTextField
+                    fullWidth
+                    label="Last Name"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    variant="outlined"
+                    required
+                    disabled={status === "submitting"}
+                  />
+                </Stack>
+
+                <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+                  <StyledTextField
+                    fullWidth
+                    label="Email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    variant="outlined"
+                    required
+                    disabled={status === "submitting"}
+                  />
+                  <StyledTextField
+                    fullWidth
+                    label="Phone Number"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    variant="outlined"
+                    disabled={status === "submitting"}
+                  />
+                </Stack>
+
+                <StyledTextField
+                  fullWidth
+                  label="Message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  multiline
+                  rows={4}
+                  variant="outlined"
+                  required
+                  disabled={status === "submitting"}
+                />
+
+                <SubmitButton
+                  type="submit"
+                  variant="contained"
+                  disabled={status === "submitting"}
+                >
+                  {status === "submitting" ? "Sending..." : "Send Message"}
+                </SubmitButton>
+              </>
+            )}
+          </FormColumn>
+        </GridWrap>
       </Container>
     </Section>
   );

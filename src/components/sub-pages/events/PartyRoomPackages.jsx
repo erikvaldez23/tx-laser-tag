@@ -71,7 +71,7 @@ const CardWrap = styled(Box)(({ theme }) => ({
 /* Light grey image area */
 const ImgShell = styled(Paper)(({ theme }) => ({
   position: "relative",
-  height: 400,
+  height: 500,
   borderRadius: 12,
   background: "#bfbfbf",
   boxShadow: "none",
@@ -138,12 +138,14 @@ const packagesDefault = [
     title: "Recruit Package",
     description:
       "75-min shared session for 8 players with private room for party & more!",
+    image: "/events/recruit.jpg",
   },
   {
     id: "elite",
     title: "Elite Package",
     description:
       "75-min shared for 8 players with tier 1 upgrades and private room for party & more!",
+    image: "/events/elite.jpg",
   },
 ];
 
@@ -163,9 +165,16 @@ export default function PartyRoomPackages({
               {items.map((pkg) => (
                 <CardWrap key={pkg.id}>
                   <ImgShell>
-                    <Typography component="span" sx={{ opacity: 0.8 }}>
-                      [Image placeholder]
-                    </Typography>
+                    <Box
+                      component="img"
+                      src={pkg.image}
+                      alt={pkg.title}
+                      sx={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
 
                     <Overlay>
                       <Box sx={{ flex: 1, minWidth: 0 }}>

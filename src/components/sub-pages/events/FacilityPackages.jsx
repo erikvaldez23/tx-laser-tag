@@ -33,7 +33,7 @@ const Panel = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(5),
   boxShadow:
     "0 30px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04)",
-background: `
+  background: `
   radial-gradient(150% 120% at 100% 0%, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 62%),
   radial-gradient(130% 110% at 0% 0%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 58%),
   radial-gradient(140% 120% at 0% 100%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 60%),
@@ -72,7 +72,7 @@ const CardWrap = styled(Box)(({ theme }) => ({
 
 const ImgShell = styled(Paper)(({ theme }) => ({
   position: "relative",
-  height: 400,
+  height: 500,
   borderRadius: 12,
   background: "#bfbfbf",
   boxShadow: "none",
@@ -135,12 +135,14 @@ const packagesDefault = [
     title: "Core Package",
     description:
       "75-min private session for 25 players with tier 1 upgrades and private room for party and more!",
+    image: "/events/core.jpg",
   },
   {
     id: "elite",
     title: "Executive Package",
     description:
       "75-min private session for 25 players with all upgrades unlocked and private room for party and more!",
+    image: "/events/executive.jpg",
   },
 ];
 
@@ -161,9 +163,16 @@ export default function PartyRoomPackages({
               {items.map((pkg) => (
                 <CardWrap key={pkg.id}>
                   <ImgShell>
-                    <Typography component="span" sx={{ opacity: 0.8 }}>
-                      [Image placeholder]
-                    </Typography>
+                    <Box
+                      component="img"
+                      src={pkg.image}
+                      alt={pkg.title}
+                      sx={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
 
                     <Overlay>
                       <Box sx={{ flex: 1, minWidth: 0 }}>

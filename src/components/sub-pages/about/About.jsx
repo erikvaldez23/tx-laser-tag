@@ -13,14 +13,14 @@ import Apply from '../../landing/Apply'
 export default function AboutPage() {
   return (
     <>
-      <AboutHero/>
+      <AboutHero />
       <AboutContent />
       <AboutTestimonials />
       <Community />
       <CTA />
       <AboutFAQ />
       <Apply />
-      {/* <Contact /> */}
+      <Contact />
     </>
   );
 }

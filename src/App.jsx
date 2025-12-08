@@ -5,6 +5,7 @@ import "./App.css";
 // Key Components
 import Topbar from "./components/key-components/Topbar"
 import Footer from "./components/key-components/Footer";
+import Contact from "./components/key-components/Contact";
 
 // Landing Page
 import Hero from "./components/landing/Hero";
@@ -27,7 +28,8 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{  background: `
+      <Box sx={{
+        background: `
   /* soft neutral sheen */
   radial-gradient(1200px 700px at 78% 22%, #ffffff12 0%, #ffffff00 60%),
   radial-gradient(900px 600px at 18% 82%, #ffffff0e 0%, #ffffff00 55%),
@@ -42,34 +44,35 @@ function App() {
   radial-gradient(1100px 900px at 64% 40%, #282f38 0%, transparent 62%),
   radial-gradient(950px 820px at 30% 72%, #21262d 0%, transparent 60%),
   linear-gradient(180deg, #1a1d21 0%, #141619 100%)`
-}}>
-      <Router>
-        {/* <ScrollToTop behavior="auto" /> */}
-        <Topbar />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-              <Hero />
-              <Intro />
-              <About />
-              <Offer />
-              <Apply />
-                {/* <HeroClark />
+      }}>
+        <Router>
+          {/* <ScrollToTop behavior="auto" /> */}
+          <Topbar />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Hero />
+                  <Intro />
+                  <About />
+                  <Offer />
+                  <Apply />
+                  {/* <HeroClark />
                 <Quote />
                 <Events2 />
                 <ImpactPillars />
                 <CTA /> */}
-              </>
-            }
-          />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/events" element={<EventsPage />} />
-          <Route path="/experience" element={<ExperiencePage />} />
-        </Routes>
-        <Footer />
-      </Router>
+                </>
+              }
+            />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/events" element={<EventsPage />} />
+            <Route path="/experience" element={<ExperiencePage />} />
+            <Route path="/test-contact" element={<Contact />} />
+          </Routes>
+          <Footer />
+        </Router>
       </Box>
     </ThemeProvider>
   );

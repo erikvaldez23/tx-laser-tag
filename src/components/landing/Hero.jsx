@@ -132,7 +132,7 @@ export default function HeroCountdown({
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down("sm"));
   const [openDialog, setOpenDialog] = useState(false);
-  const targetDate = useMemo(() => new Date(2025, 10, 5, 0, 0, 0), []);
+  const targetDate = useMemo(() => new Date(2026, 1, 2, 0, 0, 0), []);
   const { days, hours, mins, secs, finished } = useCountdown(targetDate);
 
   const handleJoin = () => setOpenDialog(true);
@@ -174,7 +174,7 @@ export default function HeroCountdown({
                 {subtitle}
               </Typography>
               <Typography sx={{ opacity: 0.7, fontSize: { xs: 14, sm: 15 } }}>
-                Opening day: <strong>November 5, 2025</strong>
+                Opening day: <strong>February 2, 2026</strong>
               </Typography>
             </Stack>
           </motion.div>

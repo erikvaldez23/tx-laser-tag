@@ -39,10 +39,10 @@ const Media = styled(Box)(({ theme }) => ({
   overflow: "hidden",
   background: "#9b9b9b",
   border: `1px solid ${alpha("#fff", 0.12)}`,
-   boxShadow: {
-      xs: "none", // mobile
-      sm: `0 20px 50px ${alpha("#000", 0.5)}, inset 0 1px 0 ${alpha("#fff", 0.06)}`,
-    },
+  boxShadow: {
+    xs: "none", // mobile
+    sm: `0 20px 50px ${alpha("#000", 0.5)}, inset 0 1px 0 ${alpha("#fff", 0.06)}`,
+  },
 }));
 
 const LearnBtn = styled(Button)(({ theme }) => ({
@@ -234,25 +234,25 @@ export default function OffersShowcase({
   title = "What We Offer",
   items = [
     {
-      img: "/offer/experience.png",
+      img: "/landing/experience.jpg",
       heading: "The experience",
       sub: "Immersive tactical game play",
       cta: "Learn more",
-      onClick: () => {},
+      onClick: () => { },
     },
     {
-      img: "/offer/group.jpg",
+      img: "/landing/parties.jpg",
       heading: "Groups and parties",
       sub: "Host events, corporate events & more",
       cta: "Learn more",
-      onClick: () => {},
+      onClick: () => { },
     },
     {
-      img: "/offer/food.png",
+      img: "/landing/food.jpg",
       heading: "Food and beverages",
       sub: "Enjoy unique food offerings and catering",
       cta: "Learn more",
-      onClick: () => {},
+      onClick: () => { },
     },
   ],
 }) {
@@ -274,9 +274,9 @@ export default function OffersShowcase({
     const leftPct =
       scrollWidth > clientWidth
         ? Math.min(
-            (scrollLeft / (scrollWidth - clientWidth)) * maxLeft,
-            maxLeft
-          )
+          (scrollLeft / (scrollWidth - clientWidth)) * maxLeft,
+          maxLeft
+        )
         : 0;
     setThumb({ widthPct, leftPct });
   };

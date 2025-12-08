@@ -119,13 +119,13 @@ export default function AmenitiesStaggered() {
               />
             </Grid>
             <Grid item xs={12} sm={6} sx={{ minWidth: 0, flexBasis: { sm: "50%" }, maxWidth: { sm: "50%" } }}>
-              <ImgCard elevation={0}>{/* <Img src="/logo.png" alt="Concession snacks and drinks area" /> */}</ImgCard>
+              <ImgCard elevation={0}><Img src="/experience/refuel.jpg" alt="Concession snacks and drinks area" /></ImgCard>
             </Grid>
           </Row>
 
           <Row>
             <Grid item xs={12} sm={6} sx={{ minWidth: 0, flexBasis: { sm: "50%" }, maxWidth: { sm: "50%" } }}>
-              <ImgCard elevation={0}>{/* <Img src="/logo.png" alt="Lounge seating area" /> */}</ImgCard>
+              <ImgCard elevation={0}><Img src="/experience/comfort.jpg" alt="Lounge seating area" /></ImgCard>
             </Grid>
             <Grid item xs={12} sm={6} sx={{ minWidth: 0, flexBasis: { sm: "50%" }, maxWidth: { sm: "50%" } }}>
               <TextBlock
@@ -144,7 +144,7 @@ export default function AmenitiesStaggered() {
               />
             </Grid>
             <Grid item xs={12} sm={6} sx={{ minWidth: 0, flexBasis: { sm: "50%" }, maxWidth: { sm: "50%" } }}>
-              <ImgCard elevation={0}>{/* <Img src="/logo.png" alt="Arena set pieces and lighting" /> */}</ImgCard>
+              <ImgCard elevation={0}><Img src="/experience/atmosphere.jpg" alt="Arena set pieces and lighting" /></ImgCard>
             </Grid>
           </Row>
         </Shell>

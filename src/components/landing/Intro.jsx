@@ -96,7 +96,7 @@ export default function HeroIntroSplit({
   /** Set true to disable the modal and use onCtaClick instead */
   waitlistDisabled = false,
 
-  imageSrc = "/intro.png",
+  imageSrc = "/landing/intro.jpg",
   imageAlt = "Texas Laser Combat preview",
 }) {
   const theme = useTheme();

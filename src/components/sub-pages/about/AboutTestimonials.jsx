@@ -39,8 +39,8 @@ const Card = styled(motion.div)(({ theme }) => ({
   height: "200px", // uniform height on mobile
   padding: theme.spacing(3),
   borderRadius: 18,
-  color: theme.palette.text.primary,
-  background: "rgba(255, 255, 255, 0.4)",
+  color: "#fff",
+  background: alpha("#fff", 0.05),
   boxShadow:
     theme.palette.mode === "dark"
       ? "0 8px 30px rgba(0,0,0,.45)"
@@ -292,7 +292,7 @@ export default function AboutTestimonials({
                     overflow: "hidden",
                   }}
                 >
-                    “{t.quote}”
+                  “{t.quote}”
                 </Typography>
               </Stack>
             </Card>
