@@ -164,38 +164,38 @@ const DATA_DEFAULT = [
     id: "youth",
     title: "Youth Events",
     items: [
-      { id: "scouts", label: "Scouts", image: "/events/corp-party.jpg" },
-      { id: "church", label: "Church Youth Groups", image: "/events/corp-party.jpg" },
-      { id: "camps", label: "Summer Camps", image: "/events/corp-party.jpg" },
+      { id: "birthday-kids", label: "Birthday Parties", image: "/events/types/bday-kids.jpg" },
+      { id: "church", label: "Church Youth Groups", image: "/events/types/open-play2.jpg" },
+      { id: "camps", label: "Summer Camps", image: "/events/types/family.jpg" },
     ],
   },
   {
     id: "adult",
     title: "Adult Social Groups",
     items: [
-      { id: "singles", label: "Singles Meet Ups", image: "/events/corp-party.jpg" },
-      { id: "parents", label: "Parent Groups", image: "/events/corp-party.jpg" },
-      { id: "retirement", label: "Retirement Outing", image: "/events/corp-party.jpg" },
-      { id: "seniors", label: "Senior Clubs", image: "/events/corp-party.jpg" },
+      { id: "singles", label: "Singles Meet Ups", image: "/events/types/meet-up.jpg" },
+      { id: "parents", label: "Parent Groups", image: "/events/types/family.jpg" },
+      { id: "retirement", label: "Retirement Outing", image: "/events/types/open-play.jpg" },
+      { id: "seniors", label: "Senior Clubs", image: "/events/types/open-play2.jpg" },
     ],
   },
-  {
-    id: "school",
-    title: "School Organizations",
-    items: [
-      { id: "jrotc", label: "JROTC", image: "/events/corp-party.jpg" },
-      { id: "fieldtrips", label: "Field Trips", image: "/events/corp-party.jpg" },
-      { id: "athletics", label: "Athletic Teams", image: "/events/corp-party.jpg" },
-      { id: "clubs", label: "Clubs", image: "" },
-    ],
-  },
+  // {
+  //   id: "school",
+  //   title: "School Organizations",
+  //   items: [
+  //     { id: "jrotc", label: "JROTC", image: "/events/corp-party.jpg" },
+  //     { id: "fieldtrips", label: "Field Trips", image: "/events/corp-party.jpg" },
+  //     { id: "athletics", label: "Athletic Teams", image: "/events/corp-party.jpg" },
+  //     { id: "clubs", label: "Clubs", image: "/events/corp-party.jpg" },
+  //   ],
+  // },
   {
     id: "corporate",
     title: "Corporate Events",
     items: [
       { id: "team", label: "Team Building", image: "/events/corp-party.jpg" },
-      { id: "fundraisers-1", label: "Fundraisers", image: "/events/corp-party.jpg" },
-      { id: "fundraisers-2", label: "Fundraisers", image: "/events/corp-party.jpg" },
+      { id: "fundraisers-1", label: "Team Building 2", image: "/events/types/company.jpg" },
+      { id: "fundraisers-2", label: "Fundraisers 3", image: "/events/corp-party.jpg" },
     ],
   },
 ];
