@@ -164,28 +164,28 @@ const DATA_DEFAULT = [
     id: "youth",
     title: "Youth Events",
     items: [
-      { id: "scouts", label: "Scouts", image: "" },
-      { id: "church", label: "Church Youth Groups", image: "" },
-      { id: "camps", label: "Summer Camps", image: "" },
+      { id: "scouts", label: "Scouts", image: "/events/corp-party.jpg" },
+      { id: "church", label: "Church Youth Groups", image: "/events/corp-party.jpg" },
+      { id: "camps", label: "Summer Camps", image: "/events/corp-party.jpg" },
     ],
   },
   {
     id: "adult",
     title: "Adult Social Groups",
     items: [
-      { id: "singles", label: "Singles Meet Ups", image: "" },
-      { id: "parents", label: "Parent Groups", image: "" },
-      { id: "retirement", label: "Retirement Outing", image: "" },
-      { id: "seniors", label: "Senior Clubs", image: "" },
+      { id: "singles", label: "Singles Meet Ups", image: "/events/corp-party.jpg" },
+      { id: "parents", label: "Parent Groups", image: "/events/corp-party.jpg" },
+      { id: "retirement", label: "Retirement Outing", image: "/events/corp-party.jpg" },
+      { id: "seniors", label: "Senior Clubs", image: "/events/corp-party.jpg" },
     ],
   },
   {
     id: "school",
     title: "School Organizations",
     items: [
-      { id: "jrotc", label: "JROTC", image: "" },
-      { id: "fieldtrips", label: "Field Trips", image: "" },
-      { id: "athletics", label: "Athletic Teams", image: "" },
+      { id: "jrotc", label: "JROTC", image: "/events/corp-party.jpg" },
+      { id: "fieldtrips", label: "Field Trips", image: "/events/corp-party.jpg" },
+      { id: "athletics", label: "Athletic Teams", image: "/events/corp-party.jpg" },
       { id: "clubs", label: "Clubs", image: "" },
     ],
   },
@@ -193,9 +193,9 @@ const DATA_DEFAULT = [
     id: "corporate",
     title: "Corporate Events",
     items: [
-      { id: "team", label: "Team Building", image: "" },
-      { id: "fundraisers-1", label: "Fundraisers", image: "" }, // de-duped ids
-      { id: "fundraisers-2", label: "Fundraisers", image: "" },
+      { id: "team", label: "Team Building", image: "/events/corp-party.jpg" },
+      { id: "fundraisers-1", label: "Fundraisers", image: "/events/corp-party.jpg" },
+      { id: "fundraisers-2", label: "Fundraisers", image: "/events/corp-party.jpg" },
     ],
   },
 ];
@@ -330,9 +330,8 @@ export default function TypesOfEvents({
                   role="button"
                   tabIndex={0}
                   onClick={() => onTileClick?.(ev)}
-                  // sx={{ backgroundImage: `url(${ev.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+                  sx={{ backgroundImage: `url(${ev.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
                 >
-                  [Image placeholder]
                 </Tile>
                 <Caption>{ev.label}</Caption>
               </Box>

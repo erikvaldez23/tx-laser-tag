@@ -5,6 +5,7 @@ import "./App.css";
 // Key Components
 import Topbar from "./components/key-components/Topbar"
 import Footer from "./components/key-components/Footer";
+import ScrollToTop from "./components/key-components/ScrollToTop";
 import Contact from "./components/key-components/Contact";
 
 // Landing Page
@@ -46,7 +47,7 @@ function App() {
   linear-gradient(180deg, #1a1d21 0%, #141619 100%)`
       }}>
         <Router>
-          {/* <ScrollToTop behavior="auto" /> */}
+          <ScrollToTop />
           <Topbar />
           <Routes>
             <Route

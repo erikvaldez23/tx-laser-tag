@@ -13,41 +13,31 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 
-/* ---------- 3D: react-three-fiber / drei ---------- */
-import { Canvas } from "@react-three/fiber";
-import {
-  OrbitControls,
-  Environment,
-  Html,
-  useProgress,
-} from "@react-three/drei";
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
-import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
-import { useLoader } from "@react-three/fiber";
+
 
 /* -------------------------------- Config -------------------------------- */
 export const CAROUSEL_CONFIG = {
   title: "READY YOUR GEAR",
   subtitle: "Build the load-out that takes the territory.",
   slides: [
-    // Add `model` (obj + optional mtl) to enable the 3D popup for that slide:
-    {
-      src: "/weapons/pink-p90.png",
-      modalSrc: "/weapons/p90-detail.png",
-      alt: "P90 - Pink camo",
-      model: {
-        obj: "/3d/Gun_obj/model.glb",
-        mtl: "/3d/gun.rar", // optional (omit if the OBJ has embedded materials)
-        scale: 1.1,
-        position: [0, -0.25, 0],
-        rotation: [0, Math.PI / 8, 0],
-      },
-    },
-    { src: "/weapons/p90.png", alt: "P90 - Blue neon" },
-    { src: "/weapons/green-rifle.png", alt: "P90 - Forest" },
-    { src: "/weapons/orange-gun.png", alt: "P90 - Purple" },
-    { src: "/weapons/pistol.png", alt: "P90 - City" },
-    { src: "/weapons/purple-gun.png", alt: "P90 - City" },
+    { src: "/weapon-carousel/1 Carousel Havoc SI.png", alt: "Havoc SI", modalSrc: "/weapon-stats/1 Weapons Screen Havoc SI.png" },
+    { src: "/weapon-carousel/2 Carousel Havoc FA.png", alt: "Havoc FA", modalSrc: "/weapon-stats/2 Weapons Screen Havoc FA.png" },
+    { src: "/weapon-carousel/3 Carousel Havoc SMG.png", alt: "Havoc SMG", modalSrc: "/weapon-stats/3 Weapons Screen Havoc SMG.png" },
+    { src: "/weapon-carousel/4 Carousel Hornet.png", alt: "Hornet", modalSrc: "/weapon-stats/4 Weapons Screen Hornet 9mm.png" },
+    { src: "/weapon-carousel/5 Carousel ACR.png", alt: "ACR", modalSrc: "/weapon-stats/5 Weapons Screen ACR.png" },
+    { src: "/weapon-carousel/6 Carousel Bullpup SG.png", alt: "Bullpup SG", modalSrc: "/weapon-stats/6 Weapons Screen Bulpup SG.png" },
+    { src: "/weapon-carousel/7 Carousel BMG-50.png", alt: "BMG-50", modalSrc: "/weapon-stats/7 Weapons Screen BMG-50.png" },
+    { src: "/weapon-carousel/8 Carousel Havoc Sniper.png", alt: "Havoc Sniper", modalSrc: "/weapon-stats/8 Weapons Screen Havoc Sniper.png" },
+    { src: "/weapon-carousel/9 Carousel Matrix SMG.png", alt: "Matrix SMG", modalSrc: "/weapon-stats/9 Weapons Screen Matrix SMG.png" },
+    { src: "/weapon-carousel/10 Carousel Pink-90.png", alt: "Pink-90", modalSrc: "/weapon-stats/10 Weapons Screen Pink-90.png" },
+    { src: "/weapon-carousel/11 Carousel FN SCAR.png", alt: "FN SCAR", modalSrc: "/weapon-stats/11 Weapons Screen FN SCAR.png" },
+    { src: "/weapon-carousel/12 Carousel Tactical SG.png", alt: "Tactical SG", modalSrc: "/weapon-stats/12 Weapons Screen Tactical SG.png" },
+    { src: "/weapon-carousel/13 Carousel Warthog M4.png", alt: "Warthog M4", modalSrc: "/weapon-stats/13 Weapons Screen Warthog M4.png" },
+    { src: "/weapon-carousel/14 Carousel TAR-21.png", alt: "TAR-21", modalSrc: "/weapon-stats/14 Weapons Screen TAR-21 Sniper.png" },
+    { src: "/weapon-carousel/15 Carousel Incinerator.png", alt: "Incinerator", modalSrc: "/weapon-stats/15 Weapons Screen Incinerator Mark-1.png" },
+    { src: "/weapon-carousel/16 Carousel Tommy Gun.png", alt: "Tommy Gun", modalSrc: "/weapon-stats/16 Weapons Screen Tommy Gun.png" },
+    { src: "/weapon-carousel/17 Carousel Rocket Launcher.png", alt: "Rocket Launcher", modalSrc: "/weapon-stats/17 Weapons Screen Rocket Launcher.png" },
+    { src: "/weapon-carousel/18 Carousel Zombie SAW.png", alt: "Zombie SAW", modalSrc: "/weapon-stats/18 Weapons Screen M249 Zombie Saw.png" },
   ],
 
   stageHeight: { xs: 340, md: 460 },
@@ -57,7 +47,7 @@ export const CAROUSEL_CONFIG = {
   card: {
     radius: 28,
     width: { xs: 300, md: 780 },
-    height: { xs: 180, md: 440 },
+    height: { xs: 180, md: 480 },
     outlineAlpha: 0.4,
     shadowCenterAlpha: 0.55,
     shadowSideAlpha: 0.35,
@@ -80,70 +70,11 @@ export const CAROUSEL_CONFIG = {
 const SHADOW = (a) => `0 24px 80px rgba(0,0,0,${a})`;
 const SPRING = { type: "spring", stiffness: 160, damping: 26, mass: 0.9 };
 
-/* ---------------------------- 3D Helpers ---------------------------- */
 
-function Loader() {
-  const { progress } = useProgress();
-  return (
-    <Html center>
-      <Box
-        sx={{
-          px: 2,
-          py: 1,
-          borderRadius: 2,
-          bgcolor: "rgba(0,0,0,0.6)",
-          color: "#fff",
-          fontWeight: 700,
-          fontSize: 14,
-          boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
-        }}
-      >
-        Loading… {progress.toFixed(0)}%
-      </Box>
-    </Html>
-  );
-}
-
-/** Load and render an OBJ (+ optional MTL) with props for transform */
-function WeaponModel({
-  objUrl,
-  mtlUrl,
-  scale = 1,
-  position = [0, 0, 0],
-  rotation = [0, 0, 0],
-}) {
-  // If there's an MTL, load it and bind to OBJ loader
-  const materials = mtlUrl ? useLoader(MTLLoader, mtlUrl) : null;
-  const obj = useLoader(OBJLoader, objUrl, (loader) => {
-    if (materials) {
-      materials.preload();
-      loader.setMaterials(materials);
-    }
-  });
-
-  // Enable shadows and sane defaults
-  React.useEffect(() => {
-    obj.traverse((c) => {
-      if (c.isMesh) {
-        c.castShadow = true;
-        c.receiveShadow = true;
-      }
-    });
-  }, [obj]);
-
-  return (
-    <primitive
-      object={obj}
-      scale={scale}
-      position={position}
-      rotation={rotation}
-    />
-  );
-}
 
 /* ------------------------------ Carousel ------------------------------ */
 
-function useCarousel(length, initial = 0) {
+function useCarousel(length, initial = 0, enableKeys = true) {
   const [index, setIndex] = React.useState(initial);
   const clamp = (v) => (length ? (v + length) % length : 0);
   const next = React.useCallback(() => setIndex((i) => clamp(i + 1)), [length]);
@@ -151,13 +82,14 @@ function useCarousel(length, initial = 0) {
   const goto = React.useCallback((i) => setIndex(clamp(i)), [length]);
 
   React.useEffect(() => {
+    if (!enableKeys) return;
     const onKey = (e) => {
       if (e.key === "ArrowRight") next();
       if (e.key === "ArrowLeft") prev();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [next, prev]);
+  }, [next, prev, enableKeys]);
 
   return { index, next, prev, goto, setIndex };
 }
@@ -166,11 +98,11 @@ function positionFor(slot, cfg, isMdUp) {
   const xBase = isMdUp ? cfg.offsets.near.md : cfg.offsets.near.xs;
   const blurNear = isMdUp ? cfg.blur.near.md : cfg.blur.near.xs;
   switch (slot) {
-    case 0:  return { x: 0,         scale: cfg.scales.center, zIndex: 5, filter: "none",                               opacity: 1   };
-    case -1: return { x: -xBase,    scale: cfg.scales.near,   zIndex: 4, filter: `blur(${blurNear}px)`,               opacity: 0.8 };
-    case 1:  return { x: xBase,     scale: cfg.scales.near,   zIndex: 4, filter: `blur(${blurNear}px)`,               opacity: 0.8 };
-    case -2: return { x: -xBase*cfg.offsets.farMultiplier, scale: cfg.scales.far, zIndex: 3, filter: `blur(${blurNear+cfg.blur.farExtra}px)`, opacity: 0.5 };
-    case 2:  return { x:  xBase*cfg.offsets.farMultiplier, scale: cfg.scales.far, zIndex: 3, filter: `blur(${blurNear+cfg.blur.farExtra}px)`, opacity: 0.5 };
+    case 0: return { x: 0, scale: cfg.scales.center, zIndex: 5, filter: "none", opacity: 1 };
+    case -1: return { x: -xBase, scale: cfg.scales.near, zIndex: 4, filter: `blur(${blurNear}px)`, opacity: 0.8 };
+    case 1: return { x: xBase, scale: cfg.scales.near, zIndex: 4, filter: `blur(${blurNear}px)`, opacity: 0.8 };
+    case -2: return { x: -xBase * cfg.offsets.farMultiplier, scale: cfg.scales.far, zIndex: 3, filter: `blur(${blurNear + cfg.blur.farExtra}px)`, opacity: 0.5 };
+    case 2: return { x: xBase * cfg.offsets.farMultiplier, scale: cfg.scales.far, zIndex: 3, filter: `blur(${blurNear + cfg.blur.farExtra}px)`, opacity: 0.5 };
     default: return { x: 0, scale: 0.6, zIndex: 1, filter: "blur(3px)", opacity: 0 };
   }
 }
@@ -188,13 +120,39 @@ export default function GearCarousel(props) {
       ? window.innerWidth >= theme.breakpoints.values.md
       : true;
 
-  const { index, next, prev, goto } = useCarousel(cfg.slides.length, cfg.initialIndex);
-  const dragX = useMotionValue(0);
-
   // Lightbox (image OR 3D)
   const [lightbox, setLightbox] = React.useState({ open: false, index: 0 });
   const openLightbox = (i) => setLightbox({ open: true, index: i });
   const closeLightbox = () => setLightbox((v) => ({ ...v, open: false }));
+
+  const nextLightbox = React.useCallback(() => {
+    setLightbox((prev) => ({
+      ...prev,
+      index: (prev.index + 1) % cfg.slides.length,
+    }));
+  }, [cfg.slides.length]);
+
+  const prevLightbox = React.useCallback(() => {
+    setLightbox((prev) => ({
+      ...prev,
+      index: (prev.index - 1 + cfg.slides.length) % cfg.slides.length,
+    }));
+  }, [cfg.slides.length]);
+
+  // Lightbox keyboard nav
+  React.useEffect(() => {
+    if (!lightbox.open) return;
+    const onKey = (e) => {
+      if (e.key === "ArrowRight") nextLightbox();
+      if (e.key === "ArrowLeft") prevLightbox();
+      if (e.key === "Escape") closeLightbox();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightbox.open, nextLightbox, prevLightbox]);
+
+  const { index, next, prev, goto } = useCarousel(cfg.slides.length, cfg.initialIndex, !lightbox.open);
+  const dragX = useMotionValue(0);
 
   // relative slot around active (-2,-1,0,1,2)
   const rel = (i) => {
@@ -376,6 +334,7 @@ export default function GearCarousel(props) {
             bgcolor: "transparent",
             boxShadow: "none",
             overflow: "visible",
+            position: "relative",
           },
         }}
       >
@@ -396,74 +355,61 @@ export default function GearCarousel(props) {
           <CloseRoundedIcon />
         </IconButton>
 
+        {/* Navigation Buttons */}
+        <IconButton
+          onClick={prevLightbox}
+          aria-label="Previous Weapon"
+          sx={{
+            position: "absolute",
+            left: 16,
+            top: "50%",
+            transform: "translateY(-50%)",
+            zIndex: 2,
+            color: "#fff",
+            bgcolor: "rgba(0,0,0,0.4)",
+            "&:hover": { bgcolor: "rgba(0,0,0,0.55)" },
+            display: { xs: "none", sm: "flex" },
+          }}
+        >
+          <ArrowBackIosNewIcon />
+        </IconButton>
+
+        <IconButton
+          onClick={nextLightbox}
+          aria-label="Next Weapon"
+          sx={{
+            position: "absolute",
+            right: 16,
+            top: "50%",
+            transform: "translateY(-50%)",
+            zIndex: 2,
+            color: "#fff",
+            bgcolor: "rgba(0,0,0,0.4)",
+            "&:hover": { bgcolor: "rgba(0,0,0,0.55)" },
+            display: { xs: "none", sm: "flex" },
+          }}
+        >
+          <ArrowForwardIosIcon />
+        </IconButton>
+
         {/* Content */}
         <Box sx={{ position: "relative", p: { xs: 1.5, md: 2 } }}>
-          {activeSlide.model?.obj ? (
-            <Box sx={{ height: { xs: "60vh", md: "72vh" }, borderRadius: 2, overflow: "hidden" }}>
-              <Canvas
-                shadows
-                camera={{ fov: 45, position: [0, 1.2, 2.6] }}
-                gl={{ antialias: true }}
-              >
-                {/* Lights */}
-                <ambientLight intensity={0.4} />
-                <directionalLight
-                  position={[2, 4, 3]}
-                  intensity={1.1}
-                  castShadow
-                  shadow-mapSize-width={1024}
-                  shadow-mapSize-height={1024}
-                />
-                <directionalLight position={[-2, 1.5, -3]} intensity={0.6} />
-
-                {/* Ground for soft occlusion */}
-                <mesh rotation-x={-Math.PI / 2} position={[0, -0.5, 0]} receiveShadow>
-                  <planeGeometry args={[20, 20]} />
-                  <meshStandardMaterial color="#111" />
-                </mesh>
-
-                {/* Model */}
-                <React.Suspense fallback={<Loader />}>
-                  <WeaponModel
-                    objUrl={activeSlide.model.obj}
-                    mtlUrl={activeSlide.model.mtl}
-                    scale={activeSlide.model.scale ?? 1}
-                    position={activeSlide.model.position ?? [0, 0, 0]}
-                    rotation={activeSlide.model.rotation ?? [0, 0, 0]}
-                  />
-                  <Environment preset="warehouse" />
-                </React.Suspense>
-
-                <OrbitControls
-                  enablePan={false}
-                  minDistance={1.2}
-                  maxDistance={5}
-                  enableDamping
-                  dampingFactor={0.08}
-                  autoRotate
-                  autoRotateSpeed={0.6}
-                />
-              </Canvas>
-            </Box>
-          ) : (
-            // Fallback large image
-            <Box
-              component="img"
-              src={activeSlide.modalSrc || activeSlide.src}
-              alt={activeSlide.alt || "weapon large"}
-              draggable={false}
-              style={{ userSelect: "none" }}
-              sx={{
-                maxWidth: "100%",
-                maxHeight: "80vh",
-                borderRadius: 2,
-                objectFit: "contain",
-                boxShadow: "0 24px 80px rgba(0,0,0,0.6)",
-                display: "block",
-                mx: "auto",
-              }}
-            />
-          )}
+          <Box
+            component="img"
+            src={activeSlide.modalSrc || activeSlide.src}
+            alt={activeSlide.alt || "weapon large"}
+            draggable={false}
+            style={{ userSelect: "none" }}
+            sx={{
+              maxWidth: "100%",
+              maxHeight: "80vh",
+              borderRadius: 2,
+              objectFit: "contain",
+              boxShadow: "0 24px 80px rgba(0,0,0,0.6)",
+              display: "block",
+              mx: "auto",
+            }}
+          />
         </Box>
       </Dialog>
     </Box>

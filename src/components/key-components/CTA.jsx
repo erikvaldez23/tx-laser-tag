@@ -31,11 +31,11 @@ const Section = styled(Box)(({ theme, bgimg }) => ({
     position: "absolute",
     inset: 0,
     borderRadius: "inherit",
-    background: "linear-gradient(to bottom, rgba(0,0,0,.3), rgba(0,0,0,.3))",
+    background: "linear-gradient(to bottom, rgba(0,0,0,.6), rgba(0,0,0,.6))",
     zIndex: 0,
   },
 
-   // ⬇️ Taller on mobile
+  // ⬇️ Taller on mobile
   [theme.breakpoints.down("sm")]: {
     minHeight: "85svh",                // try 80–90svh to taste
     paddingBlock: theme.spacing(6),    // optional: add more vertical breathing room
@@ -62,7 +62,7 @@ export default function CTA({
     "Sun: 11am – 7pm",
   ],
   address = "2300 Coit Road #400, Plano, TX 75075",
-  backgroundImage = "",
+  backgroundImage = "/cta.jpg",
   primaryCta = { label: "Join VIP Access List" }, // href kept for compatibility (not used by default)
   secondaryCta = {
     label: "Get Directions",

@@ -4,8 +4,8 @@ import { Box, Typography, Container } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 
 // ✅ Put your images in /public or import from /src/assets (Vite-safe)
-import arenaRight from "/placeholder.jpg"; // first section (right)
-import arenaLeft from "/placeholder.jpg";  // second section (left)
+import arenaRight from "/about/about.jpg"; // first section (right)
+import arenaLeft from "/about/amenities.jpg";  // second section (left)
 
 /* ------------------------------- Tokens -------------------------------- */
 const ACCENT = "#f2c230";
@@ -15,7 +15,7 @@ const Section = styled(Box)(({ theme }) => ({
   position: "relative",
   width: "100%",
   color: alpha("#fff", 0.95),
-  paddingBlock: theme.spacing(12),
+  paddingBlock: theme.spacing(6),
 }));
 
 /**
@@ -133,12 +133,12 @@ const ImgBlock = ({ src, alt }) => (
 
       // keyframes
       "@keyframes pulseAura": {
-        "0%":   { opacity: 0.75, transform: "scale(1)" },
-        "50%":  { opacity: 1,    transform: "scale(1.06)" },
+        "0%": { opacity: 0.75, transform: "scale(1)" },
+        "50%": { opacity: 1, transform: "scale(1.06)" },
         "100%": { opacity: 0.75, transform: "scale(1)" },
       },
       "@keyframes sweepRing": {
-        "0%":   { transform: "rotate(0deg)" },
+        "0%": { transform: "rotate(0deg)" },
         "100%": { transform: "rotate(360deg)" },
       },
     }}

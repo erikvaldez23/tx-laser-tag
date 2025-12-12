@@ -13,14 +13,14 @@ import CTA from '../../key-components/CTA'
 export default function EventsPage() {
   return (
     <>
-    <EventsHero />
-    <PartyRoomPackages />
-    <FacilityPackages />
-    <EventImageCarousel />
-    <EventTypes />
-    <CTA />
-    <EventsFAQ />
-    {/* <CommunityEvents /> */}
+      <EventsHero />
+      <PartyRoomPackages />
+      <FacilityPackages />
+      <EventImageCarousel />
+      <EventTypes />
+      {/* <CTA /> */}
+      <EventsFAQ />
+      {/* <CommunityEvents /> */}
     </>
   );
 }
