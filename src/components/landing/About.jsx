@@ -13,9 +13,6 @@ const GridWrap = styled("div")(({ theme }) => ({
   display: "grid",
   gridTemplateColumns: "1fr",
   gap: theme.spacing(0),
-  [theme.breakpoints.up("sm")]: {
-    gridTemplateColumns: "repeat(2, 1fr)",
-  },
   [theme.breakpoints.up("md")]: {
     gridTemplateColumns: "repeat(3, 1fr)",
   },
@@ -26,22 +23,11 @@ const CardItem = styled("div")(({ theme }) => ({
   paddingInline: theme.spacing(4),
   paddingBlock: theme.spacing(5),
 
-  [theme.breakpoints.up("sm")]: {
-    borderLeft: "2px solid transparent",
-    background:
-      `linear-gradient(180deg, transparent, ${ACCENT}, transparent) left / 2px 100% no-repeat`,
-  },
-
-  "&:nth-child(2n+1)": {
-    background: "none",
-    [theme.breakpoints.up("md")]: {
-      background:
-        `linear-gradient(180deg, transparent, ${ACCENT}, transparent) left / 2px 100% no-repeat`,
-    },
-  },
   [theme.breakpoints.up("md")]: {
-    "&:nth-child(3n+1)": { background: "none" },
     paddingBlock: theme.spacing(7),
+    "&:not(:nth-of-type(3n+1))": {
+      background: `linear-gradient(180deg, transparent, ${ACCENT}, transparent) left / 2px 100% no-repeat`,
+    },
   },
 }));
 
@@ -66,7 +52,7 @@ const items = [
 const About = () => {
   return (
     <Box sx={{ py: { xs: 4, md: 10 }, background: "transparent" }}>
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -79,7 +65,7 @@ const About = () => {
                 {idx > 0 && (
                   <Box
                     sx={{
-                      display: { xs: "block", sm: "none" },
+                      display: { xs: "block", md: "none" },
                       height: 2,
                       width: "100%",
                       mb: 1.5,
