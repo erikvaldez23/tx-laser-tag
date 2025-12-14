@@ -13,6 +13,8 @@ import {
 import { styled, alpha } from "@mui/material/styles";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import YouTubeIcon from "@mui/icons-material/YouTube";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import XIcon from "@mui/icons-material/X";
 import { Link as RouterLink } from "react-router-dom";
@@ -144,9 +146,10 @@ export default function Footer({ logoSrc = "/logo.png" }) {
             <ColTitle>Socials</ColTitle>
             <Stack spacing={0} alignItems={{ xs: "center", sm: "flex-start" }}>
               <FooterLink href="https://facebook.com">Facebook</FooterLink>
-              <FooterLink href="https://linkedin.com">LinkedIn</FooterLink>
+              {/* <FooterLink href="https://linkedin.com">LinkedIn</FooterLink> */}
               <FooterLink href="https://instagram.com">Instagram</FooterLink>
-              <FooterLink href="https://x.com">X</FooterLink>
+              <FooterLink href="https://youtube.com">YouTube</FooterLink>
+              {/* <FooterLink href="https://x.com">X</FooterLink> */}
             </Stack>
           </Box>
 
@@ -215,14 +218,14 @@ export default function Footer({ logoSrc = "/logo.png" }) {
             <MuiLink href="https://facebook.com" color={MUTED}>
               <FacebookIcon fontSize="small" />
             </MuiLink>
-            <MuiLink href="https://linkedin.com" color={MUTED}>
+            {/* <MuiLink href="https://linkedin.com" color={MUTED}>
               <LinkedInIcon fontSize="small" />
             </MuiLink>
             <MuiLink href="https://x.com" color={MUTED}>
               <XIcon fontSize="small" />
-            </MuiLink>
+            </MuiLink> */}
             <MuiLink href="https://facebook.com" color={MUTED}>
-              <FacebookIcon fontSize="small" />
+              <InstagramIcon fontSize="small" />
             </MuiLink>
           </Stack>
 
