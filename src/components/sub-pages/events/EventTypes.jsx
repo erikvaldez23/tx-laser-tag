@@ -132,7 +132,7 @@ const Tile = styled(Paper)(({ theme }) => ({
   scrollSnapAlign: "start",
   display: "grid",
   placeItems: "center",
-  aspectRatio: "16/10",
+  aspectRatio: "10/10",
   color: alpha("#000", 0.65),
   fontSize: 12,
   userSelect: "none",
