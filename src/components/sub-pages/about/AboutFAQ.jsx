@@ -72,24 +72,24 @@ export default function AboutFAQ({
   subtitle = "Quick answers to common questions.",
   items = [
     {
+      q: "What is your cancelation policy?",
+      a: "Cancellations or rescheduling requests must be made at least 3 days prior to the scheduled event to receive a full refund or reschedule without penalty, subject to management approval."
+    },
+    {
       q: "How long is a session?",
-      a: "A standard laser tag session lasts 75 minutes, which includes approximately 15 minutes for safety briefings and gearing up, leaving 1 hour of active gameplay",
+      a: "A standard laser tag session lasts 75 minutes, which includes approximately 15 minutes for safety briefings and gearing up, leaving 1 hour of active gameplay."
     },
     {
       q: "Are there age or height restrictions to play?",
-      a: "Answer",
+      a: "Players must be at least 7 years old to participate. There are no height restrictions for playing at Texas Laser Combat."
     },
     {
-      q: "What should I wear for a tactial laser tag session?",
-      a: "Answer",
+      q: "Is there a parent viewing area available?",
+      a: "Yes, Texas Laser Combat provides a designated parent viewing area where you can watch the action safely and comfortably."
     },
     {
-      q: "Does Texas Laser Tag Comabt accept walk-in players?",
-      a: "Answer",
-    },
-    {
-      q: "What are the waivers, and who needs to complete them?",
-      a: "Answer",
+      q: "What should I wear for a tactical laser tag session?",
+      a: "Wear closed-toe shoes for safety. The arena is cool at the start, but can heat up as you play, so dress in comfortable, breathable clothing suitable for physical activity."
     },
   ],
 }) {

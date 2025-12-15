@@ -75,24 +75,24 @@ export default function EventsFAQ({
   subtitle = "Quick answers to common questions.",
   items = [
     {
-      q: 'How many people does one large (14") pizza serve at a party?',
-      a: "Each pizza has approximately 10 slices. Assuming 2 slices per person, one pizza serves about 5 people. Pizza orders should be placed in advance to ensure timely delivery.",
+      q: "What is your cancelation policy?",
+      a: "Cancellations or rescheduling requests must be made at least 3 days prior to the scheduled event to receive a full refund or reschedule without penalty, subject to management approval."
     },
     {
-      q: "How early should I arrive for my session or party?",
-      a: "Answer",
+      q: "How long is a session?",
+      a: "A standard laser tag session lasts 75 minutes, which includes approximately 15 minutes for safety briefings and gearing up, leaving 1 hour of active gameplay."
     },
     {
-      q: "Can I add last-minute guests to my party?",
-      a: "Answer",
+      q: "Are there age or height restrictions to play?",
+      a: "Players must be at least 7 years old to participate. There are no height restrictions for playing at Texas Laser Combat."
     },
     {
-      q: "What happens if some of my party guests do not show up? Am I still charged for them?",
-      a: "Answer",
+      q: "Is there a parent viewing area available?",
+      a: "Yes, Texas Laser Combat provides a designated parent viewing area where you can watch the action safely and comfortably."
     },
     {
-      q: "Can I bring outside food like ice cream, cake, or cupcakes to a party?",
-      a: "Answer",
+      q: "What should I wear for a tactical laser tag session?",
+      a: "Wear closed-toe shoes for safety. The arena is cool at the start, but can heat up as you play, so dress in comfortable, breathable clothing suitable for physical activity."
     },
   ],
 }) {

@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
+import { VolumeUp, VolumeOff } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 import Waitlist from "../forms/Waitlist";
 
 const ACCENT = "#f2c230";
@@ -66,14 +68,8 @@ const GridOverlay = styled(Box)(({ theme }) => ({
 
 const GlassCard = styled(Box)(({ theme }) => ({
   borderRadius: 24,
-  border: `1px solid ${alpha("#fff", 0.12)}`,
-  background: alpha("#ffffff", 0.06),
-  backdropFilter: "blur(10px)",
-  boxShadow: `0 20px 60px ${alpha("#000", 0.45)}, inset 0 1px 0 ${alpha("#fff", 0.06)}`,
   [theme.breakpoints.down("sm")]: {
     borderRadius: 20,
-    background: alpha("#ffffff", 0.07),
-    boxShadow: `0 12px 36px ${alpha("#000", 0.5)}, inset 0 1px 0 ${alpha("#fff", 0.05)}`,
   },
 }));
 
@@ -152,6 +148,14 @@ export default function HeroCountdown({
   const targetDate = useMemo(() => new Date(2026, 1, 2, 0, 0, 0), []);
   const { days, hours, mins, secs, finished } = useCountdown(targetDate);
   const videoRef = React.useRef(null);
+  const [isMuted, setIsMuted] = useState(true);
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
 
   /* 
      Robust video playback logic:
@@ -206,7 +210,7 @@ export default function HeroCountdown({
           defaultMuted
           playsInline
           preload="auto"
-          src="/videos/hero1.mp4"
+          src="/videos/hero.mp4"
           type="video/mp4"
         />
 
@@ -217,8 +221,34 @@ export default function HeroCountdown({
             inset: 0,
             background: "rgba(0,0,0,0.5)",
             zIndex: 1,
+            pointerEvents: "none", // Allow clicks to pass through to button if needed, assuming button is on top via z-index
           }}
         />
+
+        {/* Audio Control */}
+        <Box
+          sx={{
+            position: "absolute",
+            bottom: { xs: 20, md: 40 },
+            right: { xs: 20, md: 40 },
+            zIndex: 2,
+          }}
+        >
+          <IconButton
+            onClick={toggleMute}
+            sx={{
+              color: "white",
+              background: "rgba(255,255,255,0.1)",
+              backdropFilter: "blur(10px)",
+              border: "1px solid rgba(255,255,255,0.2)",
+              "&:hover": {
+                background: "rgba(255,255,255,0.2)",
+              },
+            }}
+          >
+            {isMuted ? <VolumeOff /> : <VolumeUp />}
+          </IconButton>
+        </Box>
       </VideoContainer>
       {/* <GridOverlay /> */}
       <Container
