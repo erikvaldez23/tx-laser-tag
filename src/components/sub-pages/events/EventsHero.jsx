@@ -23,8 +23,7 @@ const Headline = styled(motion.h1)(({ theme }) => ({
   fontWeight: 800,
   letterSpacing: "0.02em",
   textTransform: "uppercase",
-  fontFamily:
-    "'Staatliches', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'",
+  fontFamily: "PostNoBillsJaffna, sans-serif",
   fontSize: "clamp(40px, 9vw, 100px)",
 }));
 

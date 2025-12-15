@@ -84,6 +84,7 @@ const Digit = styled(Typography)(({ theme }) => ({
   letterSpacing: "0.02em",
   fontVariantNumeric: "tabular-nums lining-nums",
   textShadow: `0 8px 30px ${alpha("#000", 0.6)}`,
+  fontFamily: "PostNoBillsJaffna, sans-serif",
 }));
 
 const Label = styled(Typography)(({ theme }) => ({
@@ -103,6 +104,7 @@ const Separator = styled(Typography)(({ theme }) => ({
   fontSize: "clamp(32px, 7vw, 82px)",
   opacity: 0.7,
   transform: "translateY(-4px)",
+  fontFamily: "PostNoBillsJaffna, sans-serif",
   [theme.breakpoints.down("sm")]: {
     display: "none",
   },
@@ -124,6 +126,21 @@ const CountdownRow = styled(Stack)(({ theme }) => ({
   },
 }));
 
+const VideoContainer = styled(Box)(({ theme }) => ({
+  position: "absolute",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  zIndex: 0,
+  overflow: "hidden",
+  "& video": {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+  },
+}));
+
 export default function HeroCountdown({
   title = "TX LASER COMBAT",
   subtitle = "Grand Opening Countdown",
@@ -134,6 +151,41 @@ export default function HeroCountdown({
   const [openDialog, setOpenDialog] = useState(false);
   const targetDate = useMemo(() => new Date(2026, 1, 2, 0, 0, 0), []);
   const { days, hours, mins, secs, finished } = useCountdown(targetDate);
+  const videoRef = React.useRef(null);
+
+  /* 
+     Robust video playback logic:
+     1. Use ref to control playback
+     2. Handle 'canplay' event
+     3. Ensure muted is set
+     4. Handle promise rejection gracefully
+  */
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Browser policy requires mute for autoplay
+    video.muted = true;
+
+    const playVideo = () => {
+      if (video.paused) {
+        video.play().catch((e) => console.error("Autoplay failed:", e));
+      }
+    };
+
+    // If already ready, play immediately
+    if (video.readyState >= 3) {
+      playVideo();
+    }
+
+    // Otherwise wait for event
+    video.addEventListener("canplay", playVideo);
+
+    // Cleanup
+    return () => {
+      video.removeEventListener("canplay", playVideo);
+    };
+  }, []);
 
   const handleJoin = () => setOpenDialog(true);
   const handleClose = () => setOpenDialog(false);
@@ -145,6 +197,29 @@ export default function HeroCountdown({
 
   return (
     <Section>
+      <VideoContainer>
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          defaultMuted
+          playsInline
+          preload="auto"
+          src="/videos/hero1.mp4"
+          type="video/mp4"
+        />
+
+        {/* Overlay to darken video for better text contrast */}
+        <Box
+          sx={{
+            position: "absolute",
+            inset: 0,
+            background: "rgba(0,0,0,0.5)",
+            zIndex: 1,
+          }}
+        />
+      </VideoContainer>
       {/* <GridOverlay /> */}
       <Container
         maxWidth="lg"
@@ -156,7 +231,7 @@ export default function HeroCountdown({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <Stack spacing={1} alignItems="center" sx={{ textAlign: "center" }}>
+            {/* <Stack spacing={1} alignItems="center" sx={{ textAlign: "center" }}>
               <Typography
                 variant="overline"
                 sx={{
@@ -176,7 +251,7 @@ export default function HeroCountdown({
               <Typography sx={{ opacity: 0.7, fontSize: { xs: 14, sm: 15 } }}>
                 Opening day: <strong>February 2, 2026</strong>
               </Typography>
-            </Stack>
+            </Stack> */}
           </motion.div>
 
           <motion.div

@@ -31,8 +31,7 @@ const Headline = styled(motion.h1)(({ theme }) => ({
   fontWeight: 800,
   letterSpacing: "0.02em",
   textTransform: "uppercase",
-  fontFamily:
-    "'Staatliches', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans'",
+  fontFamily: "PostNoBillsJaffna, sans-serif",
   fontSize: "clamp(40px, 9vw, 100px)",
   color: "#fff",
 }));
@@ -93,7 +92,7 @@ export default function HeroEpic({
     <Wrap>
       <Container maxWidth="xl">
         <Stack
-          spacing={isMobile ? 3 : 4}
+          spacing={isMobile ? 3 : 2}
           alignItems="center"
           component={motion.div}
           initial={{ opacity: 0, y: 12 }}

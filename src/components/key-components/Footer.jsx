@@ -145,9 +145,9 @@ export default function Footer({ logoSrc = "/logo.png" }) {
           <Box>
             <ColTitle>Socials</ColTitle>
             <Stack spacing={0} alignItems={{ xs: "center", sm: "flex-start" }}>
-              <FooterLink href="https://facebook.com">Facebook</FooterLink>
+              <FooterLink href="https://www.facebook.com/people/TX-Laser-Combat/61585110921158/">Facebook</FooterLink>
               {/* <FooterLink href="https://linkedin.com">LinkedIn</FooterLink> */}
-              <FooterLink href="https://instagram.com">Instagram</FooterLink>
+              <FooterLink href="https://www.instagram.com/txlasercombat">Instagram</FooterLink>
               <FooterLink href="https://youtube.com">YouTube</FooterLink>
               {/* <FooterLink href="https://x.com">X</FooterLink> */}
             </Stack>

@@ -201,7 +201,7 @@ export default function GearCarousel(props) {
     >
       {/* Header */}
       <Container maxWidth={cfg.containerMaxWidth} sx={{ textAlign: "center", mb: { xs: 3, md: 4 } }}>
-        <Typography variant="h2" sx={{ fontWeight: 900, textTransform: "uppercase", fontSize: { xs: 36, md: 64 }, lineHeight: 1.1 }}>
+        <Typography variant="h2" sx={{ fontWeight: 900, textTransform: "uppercase", fontSize: { xs: 36, md: 64 }, lineHeight: 1.1, fontFamily: "PostNoBillsJaffna, sans-serif", letterSpacing: "0.04em" }}>
           {cfg.title}
         </Typography>
         <Typography sx={{ opacity: 0.8, mt: 1 }}>{cfg.subtitle}</Typography>

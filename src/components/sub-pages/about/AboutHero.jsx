@@ -28,8 +28,9 @@ const Headline = styled(motion.h1)(({ theme }) => ({
   lineHeight: 1,
   textAlign: "center",
   fontWeight: 800,
-  letterSpacing: "0.02em",
+  letterSpacing: "1rsem",
   textTransform: "uppercase",
+  fontFamily: "PostNoBillsJaffna, sans-serif",
 }));
 
 const Cta = styled(Button)(({ theme }) => ({
@@ -48,7 +49,7 @@ const Line = styled("span")(({ theme }) => ({
   position: "relative",
   display: "inline-block",
   paddingInline: theme.spacing(1),
-  letterSpacing: "0.02em",
+  letterSpacing: "0.04em",
 }));
 
 export default function EventsHero({
@@ -90,7 +91,7 @@ export default function EventsHero({
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <Headline
-            sx={{ fontSize: { xs: "3rem", sm: "5rem" } }}
+            sx={{ fontSize: { xs: "3rem", sm: "6rem" } }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.05 }}

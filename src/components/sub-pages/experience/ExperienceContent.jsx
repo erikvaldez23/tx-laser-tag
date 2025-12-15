@@ -115,7 +115,7 @@ export default function AmenitiesStaggered() {
             <Grid item xs={12} sm={6} sx={{ minWidth: 0, flexBasis: { sm: "50%" }, maxWidth: { sm: "50%" } }}>
               <TextBlock
                 title="Refuel between battles"
-                body="Need a quick refit? We’ve got you covered. Grab drinks and snacks from our concession area between matches, cool down in our comfortable seating, and get briefed for your next mission. For groups and parties, we also offer food add-ons and upgrades in designated areas."
+                body="Need a quick refuel? We’ve got you covered. Grab non-alcoholic drinks and snacks from our convenient vending machines or choose from one of our catering partners for delicious options to keep your party energized. Looking for more customization? Bring your own favorites, as outside food and beverages are welcome in designated areas."
               />
             </Grid>
             <Grid item xs={12} sm={6} sx={{ minWidth: 0, flexBasis: { sm: "50%" }, maxWidth: { sm: "50%" } }}>
