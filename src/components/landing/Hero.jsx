@@ -210,7 +210,7 @@ export default function HeroCountdown({
           defaultMuted
           playsInline
           preload="auto"
-          src="/videos/hero.mp4"
+          src="/videos/hero2.mp4"
           type="video/mp4"
         />
 
