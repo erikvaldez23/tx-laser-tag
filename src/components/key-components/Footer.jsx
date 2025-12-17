@@ -94,7 +94,7 @@ const SubmitBtn = styled(Button)(({ theme }) => ({
   "&:hover": { background: ACCENT_HOVER, boxShadow: `0 12px 28px ${ACCENT}66` },
 }));
 
-export default function Footer({ logoSrc = "/logo.png" }) {
+export default function Footer({ logoSrc = "/alt-logo.png" }) {
   const [email, setEmail] = React.useState("");
 
   const sitemap = [

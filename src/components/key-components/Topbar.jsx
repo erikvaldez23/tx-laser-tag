@@ -193,7 +193,7 @@ const WaitlistCta = styled(Button)(({ theme }) => ({
 
 /* ------------------------------ Component ------------------------------ */
 export default function TopbarResponsiveNav({
-  logoSrc = "/logo.png",
+  logoSrc = "/alt-logo.png",
   logoAlt = "TX Laser Tag",
   links = [
     { label: "Home", to: "/" },
