@@ -57,11 +57,12 @@ export default function Waitlist({
     [defaultValues]
   );
   const [form, setForm] = useState(initial);
+  const [status, setStatus] = useState("idle"); // idle, submitting, success, error
   const [touched, setTouched] = useState({});
 
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
   const nameValid = form.name.trim().length > 1;
-  const canSubmit = nameValid && emailValid && !loading;
+  const canSubmit = nameValid && emailValid && status !== "submitting";
 
   const helper = {
     name: touched.name && !nameValid ? "Please enter your name" : "",
@@ -72,8 +73,64 @@ export default function Waitlist({
     e.preventDefault();
     setTouched({ name: true, email: true });
     if (!canSubmit) return;
-    await onSubmit?.(form);
+
+    setStatus("submitting");
+
+    try {
+      const response = await fetch("http://localhost:3000/api/vip", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+      } else {
+        setStatus("error");
+      }
+    } catch (err) {
+      console.error("VIP signup error:", err);
+      setStatus("error");
+    }
   };
+
+  if (status === "success") {
+    return (
+      <Dialog
+        open={open}
+        onClose={onClose}
+        maxWidth="xs"
+        fullWidth
+        PaperProps={{ sx: { background: "transparent", boxShadow: "none" } }}
+      >
+        <Card sx={{ p: 4, textAlign: "center" }}>
+          <Typography variant="h5" sx={{ fontWeight: 900, color: ACCENT, mb: 2 }}>
+            You're on the list!
+          </Typography>
+          <Typography sx={{ mb: 3, color: alpha("#000", 0.7) }}>
+            Check your email for a welcome message from TX Laser Combat.
+          </Typography>
+          <Button
+            onClick={onClose}
+            sx={{
+              borderRadius: 2,
+              py: 1.25,
+              fontWeight: 800,
+              textTransform: "none",
+              color: "#0e0f11",
+              backgroundColor: ACCENT,
+              px: 4,
+              "&:hover": { backgroundColor: "#ffd24a" },
+            }}
+          >
+            Awesome
+          </Button>
+        </Card>
+      </Dialog>
+    );
+  }
 
   return (
     <Dialog
@@ -158,6 +215,11 @@ export default function Waitlist({
                 type="email"
                 sx={fieldAccentSX}
               />
+              {status === "error" && (
+                <Typography sx={{ color: "#ff6b6b", fontSize: 13, fontWeight: 600, textAlign: "center", mb: 1 }}>
+                  Oops! Something went wrong. Please try again.
+                </Typography>
+              )}
               <Button
                 type="submit"
                 disabled={!canSubmit}
@@ -178,7 +240,7 @@ export default function Waitlist({
                   },
                 }}
               >
-                {loading ? "Submitting..." : "Join VIP Access List"}
+                {status === "submitting" ? "Joining..." : "Join VIP Access List"}
               </Button>
               <Typography
                 sx={{ color: alpha("#000", 0.55), fontSize: 12, mt: 0.5 }}

@@ -161,6 +161,9 @@ export default function ApplyForm({
     if (file) handleFile(file);
   };
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+
   const submit = async (e) => {
     e.preventDefault();
     setTouched({
@@ -170,11 +173,42 @@ export default function ApplyForm({
       resume: true,
       skills: true,
     });
-    if (!canSubmit) return;
-    await onSubmit?.(form);
-    setSubmitted(true);
-    setCelebrate(true);
-    setTimeout(() => setCelebrate(false), 7000);
+
+    if (!canSubmit || isSubmitting) return;
+
+    setIsSubmitting(true);
+    setSubmitError(false);
+
+    try {
+      const formData = new FormData();
+      formData.append("role", form.role);
+      formData.append("name", form.name);
+      formData.append("phone", form.phone);
+      formData.append("noResume", form.noResume);
+      formData.append("skills", form.skills);
+      if (form.resume) {
+        formData.append("resume", form.resume);
+      }
+
+      const response = await fetch("http://localhost:3000/api/apply", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error("Submission failed");
+
+      // Optional: still call the prop-based onSubmit if needed
+      await onSubmit?.(form);
+
+      setSubmitted(true);
+      setCelebrate(true);
+      setTimeout(() => setCelebrate(false), 7000);
+    } catch (err) {
+      console.error("Application submission error:", err);
+      setSubmitError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const resetAndClose = () => {
@@ -620,9 +654,15 @@ export default function ApplyForm({
                       label="I don’t have a resume"
                     />
 
+                    {submitError && (
+                      <Typography sx={{ color: "#ff6b6b", fontSize: 13, fontWeight: 600, textAlign: "center" }}>
+                        Oops! We couldn't submit your application. Please check your connection and try again.
+                      </Typography>
+                    )}
+
                     <Button
                       type="submit"
-                      disabled={!canSubmit}
+                      disabled={!canSubmit || isSubmitting}
                       component={motion.button}
                       whileTap={{ scale: 0.98 }}
                       sx={{
@@ -642,7 +682,7 @@ export default function ApplyForm({
                         },
                       }}
                     >
-                      {loading ? "Submitting..." : "Submit application"}
+                      {isSubmitting || loading ? "Submitting..." : "Submit application"}
                     </Button>
 
                     <Typography sx={{ color: alpha("#000", 0.55), fontSize: 12 }}>

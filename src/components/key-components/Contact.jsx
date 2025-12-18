@@ -84,7 +84,7 @@ export default function Contact() {
     firstName: "",
     lastName: "",
     email: "",
-    phone: "",
+    phoneNumber: "",
     message: "",
   });
   const [status, setStatus] = React.useState("idle"); // idle, submitting, success, error
@@ -94,22 +94,35 @@ export default function Contact() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("submitting");
 
-    // Simulate API call
-    setTimeout(() => {
-      console.log("Form submitted:", formData);
-      setStatus("success");
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        message: "",
+    try {
+      const response = await fetch("http://localhost:3000/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
-    }, 1500);
+
+      if (response.ok) {
+        setStatus("success");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phoneNumber: "",
+          message: "",
+        });
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setStatus("error");
+    }
   };
 
   return (
@@ -149,6 +162,29 @@ export default function Contact() {
                   onClick={() => setStatus("idle")}
                 >
                   Send another message
+                </Button>
+              </Box>
+            ) : status === "error" ? (
+              <Box
+                sx={{
+                  p: 4,
+                  borderRadius: 4,
+                  backgroundColor: alpha("#ff6b6b", 0.1),
+                  border: `1px solid ${alpha("#ff6b6b", 0.2)}`,
+                  textAlign: "center",
+                }}
+              >
+                <Typography variant="h5" sx={{ fontWeight: 800, color: "#ff6b6b", mb: 1 }}>
+                  Oops!
+                </Typography>
+                <Typography sx={{ color: alpha("#fff", 0.8) }}>
+                  Something went wrong. Please try again later or contact us directly.
+                </Typography>
+                <Button
+                  sx={{ mt: 3, color: "#ff6b6b" }}
+                  onClick={() => setStatus("idle")}
+                >
+                  Try again
                 </Button>
               </Box>
             ) : (
@@ -191,9 +227,9 @@ export default function Contact() {
                   <StyledTextField
                     fullWidth
                     label="Phone Number"
-                    name="phone"
+                    name="phoneNumber"
                     type="tel"
-                    value={formData.phone}
+                    value={formData.phoneNumber}
                     onChange={handleChange}
                     variant="outlined"
                     disabled={status === "submitting"}
