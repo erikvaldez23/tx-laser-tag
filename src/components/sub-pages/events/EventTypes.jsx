@@ -165,8 +165,8 @@ const DATA_DEFAULT = [
     title: "Youth Events",
     items: [
       { id: "birthday-kids", label: "Birthday Parties", image: "/events/types/bday-kids.jpg" },
-      { id: "church", label: "Church Youth Groups", image: "/events/types/open-play2.jpg" },
-      { id: "camps", label: "Summer Camps", image: "/events/types/family.jpg" },
+      { id: "open-play", label: "Open Play", image: "/events/types/open-play2.jpg" },
+      { id: "family-fun", label: "Family Fun", image: "/events/types/family.jpg" },
     ],
   },
   {
@@ -174,9 +174,9 @@ const DATA_DEFAULT = [
     title: "Adult Social Groups",
     items: [
       { id: "singles", label: "Singles Meet Ups", image: "/events/types/meet-up.jpg" },
-      { id: "parents", label: "Parent Groups", image: "/events/types/family.jpg" },
-      { id: "retirement", label: "Retirement Outing", image: "/events/types/open-play.jpg" },
-      { id: "seniors", label: "Senior Clubs", image: "/events/types/open-play2.jpg" },
+      { id: "adult-family", label: "Family Fun", image: "/events/types/family.jpg" },
+      { id: "adult-open-play", label: "Open Play", image: "/events/types/open-play.jpg" },
+      { id: "parties", label: "Bachelor/ette Parties", image: "/events/bach-party.jpg" },
     ],
   },
   // {
@@ -194,8 +194,8 @@ const DATA_DEFAULT = [
     title: "Corporate Events",
     items: [
       { id: "team", label: "Team Building", image: "/events/corp-party.jpg" },
-      { id: "fundraisers-1", label: "Team Building 2", image: "/events/types/company.jpg" },
-      { id: "fundraisers-2", label: "Fundraisers 3", image: "/events/corp-party.jpg" },
+      { id: "holiday-parties", label: "Holiday Parties", image: "/events/types/company.jpg" },
+      { id: "fundraisers", label: "Fundraisers", image: "/events/company4.jpg" },
     ],
   },
 ];
@@ -351,9 +351,9 @@ export default function TypesOfEvents({
           </OverlayBar>
         </Box>
 
-        <Stack alignItems="center" sx={{ mt: 3 }}>
+        {/* <Stack alignItems="center" sx={{ mt: 3 }}>
           <Cta onClick={onBook}>Book online now</Cta>
-        </Stack>
+        </Stack> */}
       </Container>
     </Section>
   );

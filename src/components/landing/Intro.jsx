@@ -81,7 +81,7 @@ const CtaButton = styled(Button)(({ theme }) => ({
 export default function HeroIntroSplit({
   title = "A premier immersive experience",
   paragraphs = [
-    "At Texas Laser Combat, we deliver more than laser tag—we create full-scale missions that immerse you in strategy, teamwork, and adrenaline. Our DFW arena is built for players of all ages, where every mission challenges you to think fast, move smart, and win together in a safe, inclusive environment.",
+    "At Texas Laser Combat, we deliver more than laser tag—we create full-scale missions that immerse you in strategy, teamwork, and adrenaline. Our DFW arena is built for players ages 7+, where every mission challenges you to think fast, move smart, and win together in a safe, inclusive environment.",
     "Blending cutting-edge technology with creative scenarios, we’re redefining what tactical entertainment means. Texas Laser Combat is where families, friends, schools, and organizations come to connect, celebrate, and experience unforgettable adventures—making us the premier destination for mission-based fun.",
   ],
   ctaText = "Join our VIPs waitlist",
@@ -182,9 +182,9 @@ export default function HeroIntroSplit({
               </motion.div>
 
               <motion.div style={{ alignSelf: downMd ? "stretch" : "flex-start", width: downMd ? "100%" : "auto" }}>
-                <CtaButton onClick={handleJoin} size={downMd ? "medium" : "large"} fullWidth={downMd}>
+                {/* <CtaButton onClick={handleJoin} size={downMd ? "medium" : "large"} fullWidth={downMd}>
                   {ctaText}
-                </CtaButton>
+                </CtaButton> */}
               </motion.div>
             </Stack>
           </ContentArea>

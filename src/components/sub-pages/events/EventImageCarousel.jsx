@@ -64,8 +64,8 @@ export default function EventImageCarousel({
   blurb = "We take care of the planning, the gear, and the flow, so your event runs smoothly from start to finish.",
   images = [
     "/events/corp-party.jpg",
-    "/events/corp-party.jpg",
-    "/events/corp-party.jpg",
+    "/events/company4.jpg",
+    "/events/Kids1.jpg",
   ],
   intervalMs = 6000,
   onBook,
@@ -147,9 +147,9 @@ export default function EventImageCarousel({
             {blurb}
           </Typography>
 
-          <Cta onClick={onBook} aria-label="Book now">
+          {/* <Cta onClick={onBook} aria-label="Book now">
             Book now
-          </Cta>
+          </Cta> */}
         </Stack>
       </Container>
     </Section>

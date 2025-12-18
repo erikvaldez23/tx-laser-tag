@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Container, Grid, Paper, Typography, Button } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 const Section = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -24,7 +25,7 @@ const ImgCard = styled(Paper)(({ theme }) => ({
   position: "relative",
   width: "100%",
   height: "clamp(260px, 42vw, 520px)",
-  borderRadius: 14,
+  borderRadius: { xs: 2, md: 14 },
   background:
     "linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))",
   border: `1px solid ${alpha("#fff", 0.1)}`,
@@ -57,7 +58,7 @@ const Cta = styled(Button)(({ theme }) => ({
   marginTop: theme.spacing(2.5),
   textTransform: "none",
   fontWeight: 700,
-  borderRadius: 999,
+  borderRadius: { xs: 2, md: 14 },
   paddingInline: theme.spacing(2.5),
   paddingBlock: theme.spacing(1.1),
   background: "#e0ad22",
@@ -65,7 +66,7 @@ const Cta = styled(Button)(({ theme }) => ({
   "&:hover": { background: "#c89a1e" },
 }));
 
-function Row({ children }) {
+function Row({ children, sx = {} }) {
   return (
     <Grid
       container
@@ -74,7 +75,9 @@ function Row({ children }) {
       rowSpacing={{ xs: 4, md: 6 }}
       sx={{
         mb: { xs: 6, md: 10 },
+        flexDirection: { xs: "column", md: "row" },
         flexWrap: { xs: "wrap", md: "nowrap" },
+        ...sx,
       }}
     >
       {children}
@@ -83,6 +86,8 @@ function Row({ children }) {
 }
 
 function TextBlock({ title, body, withCta }) {
+  const navigate = useNavigate();
+
   return (
     <Box
       sx={{
@@ -93,7 +98,14 @@ function TextBlock({ title, body, withCta }) {
     >
       <H3 variant="h3">{title}</H3>
       <Body>{body}</Body>
-      {withCta ? <Cta variant="contained">Explore party menu packages</Cta> : null}
+      {withCta ? (
+        <Cta
+          variant="contained"
+          onClick={() => navigate("/events")}
+        >
+          Explore party menu packages
+        </Cta>
+      ) : null}
     </Box>
   );
 }
@@ -111,7 +123,7 @@ export default function AmenitiesStaggered() {
           /> */}
 
 
-          <Row>
+          <Row sx={{ flexDirection: { xs: "column-reverse", md: "row" } }}>
             <Grid item xs={12} sm={6} sx={{ minWidth: 0, flexBasis: { sm: "50%" }, maxWidth: { sm: "50%" } }}>
               <TextBlock
                 title="Refuel between battles"
@@ -136,7 +148,7 @@ export default function AmenitiesStaggered() {
             </Grid>
           </Row>
 
-          <Row>
+          <Row sx={{ flexDirection: { xs: "column-reverse", md: "row" } }}>
             <Grid item xs={12} sm={6} sx={{ minWidth: 0, flexBasis: { sm: "50%" }, maxWidth: { sm: "50%" } }}>
               <TextBlock
                 title="The atmosphere"

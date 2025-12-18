@@ -119,7 +119,7 @@ export default function Waitlist({
           </IconButton>
 
           <DialogTitle sx={{ p: 0, mb: 1.25, fontWeight: 900, fontSize: 26 }}>
-            Join the waitlist
+            Join the VIP Access List
           </DialogTitle>
 
           <Typography sx={{ color: alpha("#000", 0.7), fontSize: 14, mb: 2 }}>
@@ -183,7 +183,7 @@ export default function Waitlist({
               <Typography
                 sx={{ color: alpha("#000", 0.55), fontSize: 12, mt: 0.5 }}
               >
-                By joining our waitlist you agree to receive email
+                By joining our VIP Access List you agree to receive email
                 communications from TX Laser Combat to stay up to date with us.
               </Typography>
             </Stack>

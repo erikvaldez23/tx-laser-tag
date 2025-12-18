@@ -22,6 +22,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import UploadFileRoundedIcon from "@mui/icons-material/UploadFileRounded";
+import DownloadIcon from "@mui/icons-material/Download";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const ACCENT = "#f2c230";
 const CANVAS = "#0e0f11";
@@ -113,7 +115,7 @@ export default function ApplyForm({
   onClose,
   onSubmit,
   loading = false,
-  roles = ["Entry Ops Specialist", "Squad Instructor", "Director/Manager"],
+  roles = ["Entry Ops Specialist", "Squad Instructor", "Entry Ops Director", "Sales Director", "Squad Operations"],
   jobDescriptionsHref = "#",
 }) {
   const initial = useMemo(
@@ -132,6 +134,16 @@ export default function ApplyForm({
   const [dragActive, setDragActive] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [celebrate, setCelebrate] = useState(false);
+  const [showJobDescriptions, setShowJobDescriptions] = useState(false);
+
+  // Job positions with PDF paths
+  const jobPositions = [
+    { title: "Squad Instructor", pdfPath: "/job-descriptions/squad-instructor.pdf" },
+    { title: "Entry Ops Director", pdfPath: "/job-descriptions/entry-ops-director.pdf" },
+    { title: "Squad Operations", pdfPath: "/job-descriptions/squad-operations.pdf" },
+    { title: "Sales Director", pdfPath: "/job-descriptions/sales-director.pdf" },
+    { title: "Entry Ops Specialist", pdfPath: "/job-descriptions/entry-ops-specialist.pdf" },
+  ];
 
   const phoneOk = /^\+?[\d\s().-]{7,}$/.test(form.phone || "");
   const nameOk = (form.name || "").trim().length > 1;
@@ -170,6 +182,7 @@ export default function ApplyForm({
     setTouched({});
     setSubmitted(false);
     setCelebrate(false);
+    setShowJobDescriptions(false);
     onClose?.();
   };
 
@@ -190,7 +203,126 @@ export default function ApplyForm({
         }}
       >
         <AnimatePresence mode="wait">
-          {submitted ? (
+          {showJobDescriptions ? (
+            <Card
+              key="job-descriptions"
+              component={motion.div}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              <Box sx={{
+                position: "relative",
+                p: { xs: 3.5, sm: 4 },
+                minHeight: 600,
+                maxHeight: "80vh",
+                display: "flex",
+                flexDirection: "column",
+              }}>
+                <IconButton
+                  aria-label="Back to application"
+                  onClick={() => setShowJobDescriptions(false)}
+                  sx={{
+                    position: "absolute",
+                    top: 10,
+                    left: 10,
+                    color: alpha("#000", 0.7),
+                    transition:
+                      "color .2s, transform .2s, box-shadow .25s, background-color .2s",
+                    "&:hover": {
+                      color: ACCENT,
+                      backgroundColor: alpha(ACCENT, 0.12),
+                      transform: "translateX(-2px)",
+                    },
+                  }}
+                >
+                  <ArrowBackIcon />
+                </IconButton>
+                <IconButton
+                  aria-label="Close"
+                  onClick={resetAndClose}
+                  sx={{
+                    position: "absolute",
+                    top: 10,
+                    right: 10,
+                    color: alpha("#000", 0.7),
+                    transition:
+                      "color .2s, transform .2s, box-shadow .25s, background-color .2s",
+                    "&:hover": {
+                      color: ACCENT,
+                      backgroundColor: alpha(ACCENT, 0.12),
+                      transform: "rotate(90deg)",
+                      boxShadow: `0 0 0 6px ${alpha(
+                        ACCENT,
+                        0.12
+                      )}, 0 10px 28px ${alpha(ACCENT, 0.35)}`,
+                    },
+                    "&:active": { transform: "rotate(90deg) scale(0.94)" },
+                  }}
+                >
+                  <CloseIcon />
+                </IconButton>
+
+                <DialogTitle sx={{ p: 0, mb: 0.75, fontWeight: 900, fontSize: 26, mt: 2 }}>
+                  Job Descriptions
+                </DialogTitle>
+                <Typography sx={{ color: alpha("#000", 0.7), fontSize: 14, mb: 3 }}>
+                  Download position descriptions to learn more about each role
+                </Typography>
+
+                <Stack spacing={2} sx={{ flex: 1, overflowY: "auto", pr: 1 }}>
+                  {jobPositions.map((position, index) => (
+                    <Box
+                      key={index}
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        p: 2,
+                        borderRadius: 2,
+                        border: `1px solid ${alpha("#000", 0.12)}`,
+                        background: alpha("#000", 0.02),
+                        transition: "all .2s ease",
+                        "&:hover": {
+                          background: alpha(ACCENT, 0.08),
+                          borderColor: alpha(ACCENT, 0.3),
+                          transform: "translateY(-2px)",
+                          boxShadow: `0 4px 12px ${alpha("#000", 0.1)}`,
+                        },
+                      }}
+                    >
+                      <Typography sx={{ fontWeight: 700, fontSize: 15 }}>
+                        {position.title}
+                      </Typography>
+                      <Button
+                        component="a"
+                        href={position.pdfPath}
+                        download
+                        startIcon={<DownloadIcon />}
+                        sx={{
+                          borderRadius: 1.5,
+                          px: 2,
+                          py: 0.75,
+                          fontWeight: 700,
+                          textTransform: "none",
+                          color: "#0e0f11",
+                          backgroundColor: ACCENT,
+                          boxShadow: `0 4px 12px ${alpha(ACCENT, 0.3)}`,
+                          "&:hover": {
+                            backgroundColor: "#ffd24a",
+                            boxShadow: `0 6px 16px ${alpha(ACCENT, 0.4)}`,
+                          },
+                        }}
+                      >
+                        Download
+                      </Button>
+                    </Box>
+                  ))}
+                </Stack>
+              </Box>
+            </Card>
+          ) : submitted ? (
             <Card
               key="success"
               component={motion.div}
@@ -299,9 +431,11 @@ export default function ApplyForm({
                 <Typography sx={{ color: alpha("#000", 0.7), fontSize: 14, mb: 2 }}>
                   Come work with our amazing team!{" "}
                   <Link
-                    href={jobDescriptionsHref}
+                    component="button"
+                    type="button"
+                    onClick={() => setShowJobDescriptions(true)}
                     underline="hover"
-                    sx={{ color: ACCENT, fontWeight: 700 }}
+                    sx={{ color: ACCENT, fontWeight: 700, cursor: "pointer" }}
                   >
                     Job descriptions
                   </Link>
@@ -318,6 +452,12 @@ export default function ApplyForm({
                         onChange={(e) =>
                           setForm((f) => ({ ...f, role: e.target.value }))
                         }
+                        sx={{
+                          display: "grid",
+                          gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+                          gridAutoFlow: "row",
+                          gap: 0.5,
+                        }}
                       >
                         {roles.map((r) => (
                           <FormControlLabel

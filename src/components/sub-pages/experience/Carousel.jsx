@@ -40,14 +40,14 @@ export const CAROUSEL_CONFIG = {
     { src: "/weapon-carousel/18 Carousel Zombie SAW.png", alt: "Zombie SAW", modalSrc: "/weapon-stats/updated-stats/18 Update Weapons Screen M249 Zombie Saw.png" },
   ],
 
-  stageHeight: { xs: 340, md: 460 },
+  stageHeight: { xs: 240, md: 500 },
   containerMaxWidth: "lg",
   spacingY: { xs: 6, md: 20 },
 
   card: {
-    radius: 28,
-    width: { xs: 300, md: 780 },
-    height: { xs: 180, md: 480 },
+    radius: { xs: 10, md: 28 },
+    width: { xs: 320, md: 780 },
+    height: { xs: 200, md: 480 },
     outlineAlpha: 0.4,
     shadowCenterAlpha: 0.55,
     shadowSideAlpha: 0.35,
@@ -281,7 +281,18 @@ export default function GearCarousel(props) {
       </Box>
 
       {/* Controls */}
-      <Stack direction="row" spacing={3} alignItems="center" justifyContent="center" sx={{ mt: { xs: 2, md: 3 } }}>
+      <Stack
+        direction="row"
+        spacing={{ xs: 1, sm: 3 }}
+        alignItems="center"
+        justifyContent="center"
+        sx={{
+          mt: { xs: 1, md: 3 },
+          width: "100%",
+          px: 2,
+          boxSizing: "border-box"
+        }}
+      >
         {cfg.showArrows && (
           <IconButton onClick={prev} aria-label="Previous" sx={{ color: alpha("#fff", 0.9) }}>
             <ArrowBackIosNewIcon />
@@ -289,7 +300,16 @@ export default function GearCarousel(props) {
         )}
 
         {cfg.showDots && (
-          <Stack direction="row" spacing={1.25} alignItems="center">
+          <Stack
+            direction="row"
+            spacing={{ xs: 0.5, sm: 1.25 }}
+            alignItems="center"
+            sx={{
+              flexWrap: "wrap",
+              justifyContent: "center",
+              maxWidth: { xs: "240px", sm: "none" }
+            }}
+          >
             {cfg.slides.map((_, i) => (
               <Box
                 key={i}

@@ -188,7 +188,16 @@ export default function CommunityCommitment({
             color="inherit"
             sx={{ fontWeight: 700 }}
           >
-            Pink P90
+            Pink P90{" "}
+          </MuiLink>
+          and{" "}
+          <MuiLink
+            href={pinkLinkHref}
+            underline="always"
+            color="inherit"
+            sx={{ fontWeight: 700 }}
+          >
+            FN Scar
           </MuiLink>
           , we have pledged to donate a percentage of our proceeds to our nonprofit
           partners.

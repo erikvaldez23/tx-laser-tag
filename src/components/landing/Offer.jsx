@@ -1,5 +1,5 @@
 // src/components/sections/OffersShowcase.jsx
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Container,
@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { styled, alpha, useTheme } from "@mui/material/styles";
 import { motion } from "framer-motion";
+import { useNavigate, useLocation } from "react-router-dom";
 
 /* ---- Brand ---- */
 const ACCENT = "#f2c230";
@@ -187,35 +188,38 @@ function OfferCard({ it, overlayContent = false }) {
 /* ---- Component ---- */
 export default function OffersShowcase({
   title = "What We Offer",
-  items = [
+  items,
+}) {
+  const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  // Default items with navigation logic
+  const defaultItems = [
     {
       img: "/landing/experience.jpg",
       heading: "The experience",
       sub: "Immersive tactical game play",
       cta: "Learn more",
-      onClick: () => { },
+      onClick: () => navigate("/experience"),
     },
     {
       img: "/landing/parties.jpg",
       heading: "Groups and parties",
       sub: "Host events, corporate events & more",
       cta: "Learn more",
-      onClick: () => { },
+      onClick: () => navigate("/events"),
     },
     {
       img: "/landing/food.jpg",
       heading: "Food and beverages",
       sub: "Enjoy unique food offerings and catering",
       cta: "Learn more",
-      onClick: () => { },
+      onClick: () => navigate("/experience"),
     },
-  ],
-}) {
+  ];
 
-
-
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const displayItems = items || defaultItems;
 
   return (
     <Section>
@@ -234,7 +238,7 @@ export default function OffersShowcase({
         </Typography>
 
         <GridWrap>
-          {items.map((it, i) => (
+          {displayItems.map((it, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 18 }}

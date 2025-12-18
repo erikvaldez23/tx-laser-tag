@@ -37,7 +37,7 @@ const CTA = styled(Button)(({ theme }) => ({
 
 export default function Apply({
   title = "Join our team!",
-  description = `We're opening our first laser tag arena and looking for energetic, customer-focused team members to create unforgettable experiences for our guests.`,
+  description = `We're opening a tactical laser tag arena and looking for energetic, customer-focused team members to create unforgettable experiences for our guests.`,
   imageSrc = "/landing/team.jpg",
   imageAlt = "Hiring banner",
   onApply,
@@ -89,7 +89,13 @@ export default function Apply({
         </Box>
       </Container>
 
-      <ApplyForm open={open} onClose={handleClose} onSubmit={handleSubmit} roles={["Entry Ops Specialist", "Squad Instructor", "Director/Manager"]} jobDescriptionsHref="/jobs/descriptions" />
+      <ApplyForm
+        open={open}
+        onClose={handleClose}
+        onSubmit={handleSubmit}
+        roles={["Entry Ops Specialist", "Squad Instructor", "Entry Ops Director", "Sales Director", "Squad Operations"]}
+        jobDescriptionsHref="/jobs/descriptions"
+      />
     </Section>
   );
 }

@@ -40,12 +40,12 @@ const items = [
   {
     icon: <AccessibleForwardIcon sx={{ fontSize: 44 }} />,
     title: "Accessible Game Play",
-    body: "All age friendly with wheelchair accessibility",
+    body: "Including ages 7+ with wheelchair accessibility",
   },
   {
     icon: <LocationOnIcon sx={{ fontSize: 44 }} />,
     title: "Convenient Location",
-    body: "Located off Coit in Central Plano",
+    body: "Located off Coit Road in Central Plano",
   },
 ];
 

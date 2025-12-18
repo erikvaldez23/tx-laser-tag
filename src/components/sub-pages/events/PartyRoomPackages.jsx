@@ -82,6 +82,10 @@ const ImgShell = styled(Paper)(({ theme }) => ({
   userSelect: "none",
   overflow: "hidden",
   border: `1px solid ${alpha("#000", 0.08)}`,
+  [theme.breakpoints.down("sm")]: {
+    height: "auto",
+    aspectRatio: "16 / 9",
+  },
 }));
 
 /* Bottom glass overlay */
@@ -100,6 +104,22 @@ const Overlay = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   gap: theme.spacing(2),
+  [theme.breakpoints.down("sm")]: {
+    position: "relative",
+    left: "auto",
+    right: "auto",
+    bottom: "auto",
+    marginTop: theme.spacing(2),
+    background: alpha("#000", 0.75),
+  },
+}));
+
+const CardContent = styled(Box)(({ theme }) => ({
+  position: "relative",
+  [theme.breakpoints.down("sm")]: {
+    display: "flex",
+    flexDirection: "column",
+  },
 }));
 
 const TitleText = styled(Typography)(({ theme }) => ({
@@ -144,7 +164,7 @@ const packagesDefault = [
     id: "elite",
     title: "Elite Package",
     description:
-      "75-min shared for 8 players with tier 1 upgrades and private room for party & more!",
+      "75-min shared for 8 players with level 1 upgrades and private room for party & more!",
     image: "/events/elite.jpg",
   },
 ];
@@ -164,17 +184,19 @@ export default function PartyRoomPackages({
             <Cards>
               {items.map((pkg) => (
                 <CardWrap key={pkg.id}>
-                  <ImgShell>
-                    <Box
-                      component="img"
-                      src={pkg.image}
-                      alt={pkg.title}
-                      sx={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
+                  <CardContent>
+                    <ImgShell>
+                      <Box
+                        component="img"
+                        src={pkg.image}
+                        alt={pkg.title}
+                        sx={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </ImgShell>
 
                     <Overlay>
                       <Box sx={{ flex: 1, minWidth: 0 }}>
@@ -182,11 +204,11 @@ export default function PartyRoomPackages({
                         <Body>{pkg.description}</Body>
                       </Box>
 
-                      <BookBtn onClick={() => onBook?.(pkg)} size="small">
+                      {/* <BookBtn onClick={() => onBook?.(pkg)} size="small">
                         Book
-                      </BookBtn>
+                      </BookBtn> */}
                     </Overlay>
-                  </ImgShell>
+                  </CardContent>
                 </CardWrap>
               ))}
             </Cards>

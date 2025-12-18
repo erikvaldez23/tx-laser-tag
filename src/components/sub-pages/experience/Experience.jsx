@@ -9,7 +9,7 @@ export default function ExperiencePage() {
   return (
     <>
       <ExperienceHero />
-    <Map fit="contain" backdrop="#111" />
+      <Map fit="contain" backdrop="#111" />
 
       <Carousel />
       <ExperienceContent />
