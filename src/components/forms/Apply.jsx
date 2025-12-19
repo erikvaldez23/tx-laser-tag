@@ -190,7 +190,8 @@ export default function ApplyForm({
         formData.append("resume", form.resume);
       }
 
-      const response = await fetch("http://localhost:3000/api/apply", {
+      const response = await fetch("https://tx-laser-tag-server.onrender.com/api/apply", {
+        // const response = await fetch("http://localhost:3000/api/apply", {
         method: "POST",
         body: formData,
       });
