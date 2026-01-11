@@ -102,7 +102,7 @@ export default function Footer({ logoSrc = "/alt-logo.png" }) {
     { label: "About", to: "/about" },
     { label: "Events", to: "/events" },
     { label: "Experience", to: "/experience" },
-    { label: "Waiver", to: "/waiver" },
+    { label: "Waiver", href: "https://waiver.roller.app/TexasLaserCombat" },
   ];
 
   return (
@@ -132,8 +132,11 @@ export default function Footer({ logoSrc = "/alt-logo.png" }) {
               {sitemap.map((item) => (
                 <FooterLink
                   key={item.label}
-                  component={RouterLink}
+                  component={item.to ? RouterLink : "a"}
                   to={item.to}
+                  href={item.href}
+                  target={item.href ? "_blank" : undefined}
+                  rel={item.href ? "noopener noreferrer" : undefined}
                 >
                   {item.label}
                 </FooterLink>
@@ -263,12 +266,13 @@ export default function Footer({ logoSrc = "/alt-logo.png" }) {
               Privacy policy
             </MuiLink>
             <MuiLink
-              component={RouterLink}
-              to="/terms"
+              href="https://waiver.roller.app/TexasLaserCombat"
+              target="_blank"
+              rel="noopener noreferrer"
               underline="hover"
               color={MUTED}
             >
-              Terms &amp; conditions
+              Waiver
             </MuiLink>
             <MuiLink
               sx={{
