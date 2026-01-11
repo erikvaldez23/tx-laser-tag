@@ -145,7 +145,7 @@ export default function HeroCountdown({
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down("sm"));
   const [openDialog, setOpenDialog] = useState(false);
-  const targetDate = useMemo(() => new Date(2026, 1, 2, 0, 0, 0), []);
+  const targetDate = useMemo(() => new Date(2026, 1, 5, 0, 0, 0), []);
   const { days, hours, mins, secs, finished } = useCountdown(targetDate);
   const videoRef = React.useRef(null);
   const [isMuted, setIsMuted] = useState(true);

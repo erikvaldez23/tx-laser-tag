@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { styled, alpha, useTheme } from "@mui/material/styles";
 import { Link as RouterLink, useLocation } from "react-router-dom";
-import Waitlist from "../forms/Waitlist";
+
 
 /* ----------------------------- Styled ----------------------------- */
 const GlassBar = styled(AppBar)(({ theme }) => ({
@@ -213,15 +213,15 @@ export default function TopbarResponsiveNav({
   const toggle = (val) => () => setOpen(val);
 
   // Internal waitlist state (used if onJoinWaitlist isn't passed)
-  const [waitlistOpen, setWaitlistOpen] = React.useState(false);
+  // Roller Checkout Handler
   const handleJoinClick = () => {
-    if (onJoinWaitlist) onJoinWaitlist();
-    else setWaitlistOpen(true);
-  };
-  const handleWaitlistClose = () => setWaitlistOpen(false);
-  const handleWaitlistSubmit = async (data) => {
-    console.log("Topbar waitlist submission:", data);
-    setWaitlistOpen(false);
+    if (onJoinWaitlist) {
+      onJoinWaitlist();
+    } else if (window.RollerCheckout) {
+      window.RollerCheckout.show();
+    } else {
+      console.warn("Roller Checkout script not loaded");
+    }
   };
 
   const activeCheck = (to) =>
@@ -296,8 +296,8 @@ export default function TopbarResponsiveNav({
             </EdgeSlot>
           ) : (
             <EdgeSlot sx={{ ml: 1.5 }}>
-              <WaitlistCta onClick={handleJoinClick} aria-label="Join waitlist">
-                Join VIP Access List
+              <WaitlistCta onClick={handleJoinClick} aria-label="Book Now">
+                Book Now
               </WaitlistCta>
             </EdgeSlot>
           )}
@@ -393,7 +393,7 @@ export default function TopbarResponsiveNav({
                 "&:hover": { backgroundColor: "#ffd24a" },
               }}
             >
-              Join waitlist
+              Book Now
             </Button>
           </Box>
 
@@ -404,13 +404,7 @@ export default function TopbarResponsiveNav({
       </Drawer>
 
       {/* Embedded Waitlist form (used if no onJoinWaitlist prop is provided) */}
-      {!onJoinWaitlist && (
-        <Waitlist
-          open={waitlistOpen}
-          onClose={handleWaitlistClose}
-          onSubmit={handleWaitlistSubmit}
-        />
-      )}
+
     </>
   );
 }
