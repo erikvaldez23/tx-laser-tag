@@ -1,11 +1,5 @@
 [[redirects]]
   from = "/.well-known/apple-developer-merchantid-domain-association"
-  to = "/.well-known/apple-developer-merchantid-domain-association.txt"
+  to = "/.netlify/functions/apple-pay"
   status = 200
   force = true
-
-[[headers]]
-  for = "/.well-known/apple-developer-merchantid-domain-association.txt"
-  [headers.values]
-    Content-Type = "text/plain"
-    Content-Disposition = "inline"
