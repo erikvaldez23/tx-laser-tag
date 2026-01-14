@@ -238,17 +238,17 @@ app.post('/api/contact', async (req, res) => {
     }
 });
 
-// Apple Developer Merchant ID Domain Association Route
+// Apple Merchant ID Domain Association Route
 app.get('/.well-known/apple-developer-merchantid-domain-association', (req, res) => {
     const filePath = path.resolve(__dirname, '../../public/.well-known/apple-developer-merchantid-domain-association');
     
-    console.log(`[DEBUG] Serving Apple Developer file from: ${filePath}`);
-
     if (fs.existsSync(filePath)) {
         res.setHeader('Content-Type', 'text/plain');
-        res.sendFile(filePath);
+        // Read file explicitly to ensure we send exact content as text/plain
+        const content = fs.readFileSync(filePath, 'utf8');
+        res.send(content);
     } else {
-        console.error(`[ERROR] Apple Developer file not found at: ${filePath}`);
+        console.error(`[Error] Merchant ID file not found at ${filePath}`);
         res.status(404).send('File not found');
     }
 });
