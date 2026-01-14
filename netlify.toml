@@ -1,5 +1,0 @@
-[[redirects]]
-  from = "/.well-known/apple-developer-merchantid-domain-association"
-  to = "/.netlify/functions/apple-pay"
-  status = 200
-  force = true
