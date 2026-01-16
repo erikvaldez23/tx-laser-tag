@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: tx-laser-combat
+    env: static
+    buildCommand: npm run build
+    staticPublishPath: ./dist
+    headers:
+      - path: /.well-known/apple-developer-merchantid-domain-association
+        name: Content-Type
+        value: text/plain
+      - path: /.well-known/apple-developer-merchantid-domain-association
+        name: Content-Disposition
+        value: inline
+    routes:
+      - type: rewrite
+        source: /**
+        destination: /index.html
