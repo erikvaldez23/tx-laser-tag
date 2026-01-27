@@ -11,11 +11,29 @@ import EventsFAQ from './EventsFAQ';
 import CTA from '../../key-components/CTA'
 
 export default function EventsPage() {
+  const handleBook = (pkg) => {
+    if (pkg?.productId) {
+      const url = `https://ecom.roller.app/texaslasercombat/checkout/en-us/product/${pkg.productId}`;
+
+      if (window.RollerCheckout) {
+        window.RollerCheckout.show({ url });
+      } else {
+        window.open(url, '_blank');
+      }
+    } else {
+      if (window.RollerCheckout) {
+        window.RollerCheckout.show();
+      } else {
+        console.warn("Roller Checkout not loaded");
+      }
+    }
+  };
+
   return (
     <>
       <EventsHero />
-      <PartyRoomPackages />
-      <FacilityPackages />
+      <PartyRoomPackages onBook={handleBook} />
+      <FacilityPackages onBook={handleBook} />
       <EventImageCarousel />
       <EventTypes />
       {/* <CTA /> */}

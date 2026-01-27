@@ -18,6 +18,8 @@ import Apply from "./components/landing/Apply";
 // Sub Pages
 import AboutPage from "./components/sub-pages/about/About";
 import EventsPage from "./components/sub-pages/events/Events"
+import GroupEventsPage from "./components/sub-pages/events/GroupEvents";
+import CorporateEventsPage from "./components/sub-pages/events/CorporateEvents";
 import ExperiencePage from "./components/sub-pages/experience/Experience"
 import PrivacyPage from "./components/sub-pages/privacy/Privacy";
 
@@ -70,6 +72,8 @@ function App() {
             />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/events" element={<EventsPage />} />
+            <Route path="/events/group" element={<GroupEventsPage />} />
+            <Route path="/events/corporate" element={<CorporateEventsPage />} />
             <Route path="/experience" element={<ExperiencePage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/test-contact" element={<Contact />} />

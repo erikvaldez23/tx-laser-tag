@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { styled, alpha, useTheme } from "@mui/material/styles";
 import { Link as RouterLink, useLocation } from "react-router-dom";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 
 /* ----------------------------- Styled ----------------------------- */
@@ -191,6 +192,24 @@ const WaitlistCta = styled(Button)(({ theme }) => ({
   transition: "all .2s ease",
 }));
 
+/* Desktop Waiver Button (secondary) */
+const WaiverBtn = styled(Button)(({ theme }) => ({
+  textTransform: "none",
+  fontWeight: 700,
+  fontSize: 16,
+  borderRadius: 999,
+  paddingInline: theme.spacing(2),
+  paddingBlock: theme.spacing(1),
+  color: alpha("#fff", 0.9),
+  border: `1px solid ${alpha("#fff", 0.35)}`,
+  marginRight: theme.spacing(1),
+  "&:hover": {
+    borderColor: "#fff",
+    backgroundColor: alpha("#fff", 0.08),
+  },
+  transition: "all .2s ease",
+}));
+
 /* ------------------------------ Component ------------------------------ */
 export default function TopbarResponsiveNav({
   logoSrc = "/alt-logo.png",
@@ -198,7 +217,15 @@ export default function TopbarResponsiveNav({
   links = [
     { label: "Home", to: "/" },
     { label: "About", to: "/about" },
-    { label: "Events", to: "/events" },
+    {
+      label: "Events",
+      to: "/events",
+      subItems: [
+        { label: "Events Home", to: "/events" },
+        { label: "Group Events", to: "/events/group" },
+        { label: "Corporate Events", to: "/events/corporate" },
+      ],
+    },
     { label: "Experience", to: "/experience" },
   ],
   onJoinWaitlist,
@@ -211,6 +238,17 @@ export default function TopbarResponsiveNav({
 
   const [open, setOpen] = React.useState(false);
   const toggle = (val) => () => setOpen(val);
+
+  // Dropdown state for desktop
+  const [eventsAnchor, setEventsAnchor] = React.useState(null);
+  const isEventsOpen = Boolean(eventsAnchor);
+
+  const handleEventsEnter = (event) => {
+    setEventsAnchor(event.currentTarget);
+  };
+  const handleEventsLeave = () => {
+    setEventsAnchor(null);
+  };
 
   // Internal waitlist state (used if onJoinWaitlist isn't passed)
   // Roller Checkout Handler
@@ -226,6 +264,20 @@ export default function TopbarResponsiveNav({
 
   const activeCheck = (to) =>
     to === "/" ? location.pathname === "/" : location.pathname.startsWith(to);
+
+  // Hash link handler
+  const handleHashLink = (to) => {
+    if (to.includes("#")) {
+      const [path, hash] = to.split("#");
+      // If we are already on the path, just scroll
+      if (location.pathname === path) {
+        const el = document.getElementById(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    }
+  };
 
   return (
     <>
@@ -256,6 +308,96 @@ export default function TopbarResponsiveNav({
           <CenterRail aria-label="Primary navigation (desktop)" role="navigation">
             {links.map((link) => {
               const active = activeCheck(link.to);
+
+              if (link.subItems) {
+                return (
+                  <Box
+                    key={link.to}
+                    onMouseEnter={handleEventsEnter}
+                    onMouseLeave={handleEventsLeave}
+                    sx={{ position: "relative", display: "inline-block" }}
+                  >
+                    <NavLink
+                      component={RouterLink}
+                      to={link.to}
+                      className={active ? "active" : undefined}
+                      underline="none"
+                      aria-current={active ? "page" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={isEventsOpen ? "true" : undefined}
+                    >
+                      {link.label}
+                      <KeyboardArrowDownIcon
+                        sx={{
+                          fontSize: 20,
+                          ml: 0.5,
+                          transform: isEventsOpen ? "rotate(180deg)" : "rotate(0deg)",
+                          transition: "transform 0.2s ease",
+                          verticalAlign: "middle",
+                          mb: 0.3,
+                        }}
+                      />
+                    </NavLink>
+
+                    {/* Hover Dropdown */}
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "100%",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        pt: 1, // spacing for hover bridge
+                        display: isEventsOpen ? "block" : "none",
+                        zIndex: 9999,
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          minWidth: 200,
+                          bgcolor: "rgba(14,15,17,0.95)",
+                          backdropFilter: "blur(12px)",
+                          border: "1px solid rgba(255,255,255,0.1)",
+                          borderRadius: 3,
+                          boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
+                          p: 1,
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
+                      >
+                        {link.subItems.map((sub) => (
+                          <MuiLink
+                            key={sub.label}
+                            component={RouterLink}
+                            to={sub.to}
+                            underline="none"
+                            onClick={(e) => {
+                              handleHashLink(sub.to);
+                              setEventsAnchor(null);
+                            }}
+                            sx={{
+                              color: "#e0e0e0",
+                              fontSize: "1rem",
+                              fontWeight: 500,
+                              px: 2,
+                              py: 1,
+                              borderRadius: 2,
+                              transition: "all 0.15s ease",
+                              "&:hover": {
+                                bgcolor: "rgba(255,255,255,0.08)",
+                                color: "#ffd15b",
+                                transform: "translateX(4px)",
+                              },
+                            }}
+                          >
+                            {sub.label}
+                          </MuiLink>
+                        ))}
+                      </Box>
+                    </Box>
+                  </Box>
+                );
+              }
+
               return (
                 <NavLink
                   key={link.to}
@@ -296,6 +438,13 @@ export default function TopbarResponsiveNav({
             </EdgeSlot>
           ) : (
             <EdgeSlot sx={{ ml: 1.5 }}>
+              <WaiverBtn
+                href="https://waiver.roller.app/TexasLaserCombat"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Waiver
+              </WaiverBtn>
               <WaitlistCta onClick={handleJoinClick} aria-label="Book Now">
                 Book Now
               </WaitlistCta>
@@ -358,8 +507,45 @@ export default function TopbarResponsiveNav({
           <Divider sx={{ opacity: 0.1, borderColor: alpha("#fff", 0.2) }} />
 
           <DrawerList component="nav" aria-label="Primary navigation (mobile)">
-            {links.map(({ label, to }) => {
+            {links.map(({ label, to, subItems }) => {
               const active = activeCheck(to);
+
+              if (subItems) {
+                return (
+                  <React.Fragment key={to}>
+                    <ListItemButton
+                      component={RouterLink}
+                      to={to}
+                      onClick={toggle(false)}
+                      className={active ? "active" : undefined}
+                      aria-current={active ? "page" : undefined}
+                    >
+                      <ListItemText primary={label} />
+                    </ListItemButton>
+                    {/* Indented Sub Items */}
+                    {subItems.map((sub) => (
+                      <ListItemButton
+                        key={sub.label}
+                        component={RouterLink}
+                        to={sub.to}
+                        onClick={() => {
+                          handleHashLink(sub.to);
+                          setOpen(false);
+                        }}
+                        sx={{
+                          pl: 4,
+                          my: 0,
+                          py: 1,
+                          "& .MuiListItemText-primary": { fontSize: 16, opacity: 0.8 }
+                        }}
+                      >
+                        <ListItemText primary={sub.label} />
+                      </ListItemButton>
+                    ))}
+                  </React.Fragment>
+                );
+              }
+
               return (
                 <ListItemButton
                   key={to}
@@ -376,7 +562,24 @@ export default function TopbarResponsiveNav({
           </DrawerList>
 
           {/* Waitlist shortcut in the drawer */}
-          <Box sx={{ p: 2 }}>
+          <Box sx={{ p: 2, display: 'flex', gap: 2, flexDirection: 'column' }}>
+            <Button
+              fullWidth
+              variant="outlined"
+              href="https://waiver.roller.app/TexasLaserCombat"
+              target="_blank"
+              onClick={toggle(false)}
+              sx={{
+                textTransform: "none",
+                fontWeight: 700,
+                borderRadius: 2,
+                color: "#fff",
+                borderColor: alpha("#fff", 0.4),
+                "&:hover": { borderColor: "#fff", backgroundColor: alpha("#fff", 0.05) },
+              }}
+            >
+              Waiver
+            </Button>
             <Button
               fullWidth
               variant="contained"

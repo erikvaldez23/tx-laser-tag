@@ -156,13 +156,15 @@ const packagesDefault = [
     description:
       "75-min private session for 25 players and private room for party and more!",
     image: "/events/core.jpg",
+    productId: "1692224",
   },
   {
-    id: "elite",
+    id: "executive",
     title: "Executive Package",
     description:
       "75-min private session for 25 players with all upgrades unlocked and private room for party and more!",
     image: "/events/executive.jpg",
+    productId: "1692227",
   },
 ];
 
@@ -202,9 +204,9 @@ export default function PartyRoomPackages({
                         <Body>{pkg.description}</Body>
                       </Box>
 
-                      {/* <BookBtn onClick={() => onBook?.(pkg)} size="small">
-                        Book
-                      </BookBtn> */}
+                      <BookBtn onClick={() => onBook?.(pkg)} size="small">
+                        Book Now
+                      </BookBtn>
                     </Overlay>
                   </CardContent>
                 </CardWrap>
