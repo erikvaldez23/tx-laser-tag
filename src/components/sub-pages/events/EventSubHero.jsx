@@ -26,7 +26,7 @@ const HeroSection = styled(Box)(({ theme, bgImage, bgPosition }) => ({
         zIndex: 0,
     },
     [theme.breakpoints.down('md')]: {
-        minHeight: '500px',
+        minHeight: '600px', // Increased to accommodate longer text while showing image
         paddingBottom: theme.spacing(4),
     },
 }));

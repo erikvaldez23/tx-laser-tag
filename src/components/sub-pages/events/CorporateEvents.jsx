@@ -14,6 +14,8 @@ export default function CorporateEvents() {
                 description="Trade conference rooms for controlled adrenaline at Texas Laser Combat in Plano, Texas. Our immersive indoor laser arena is built for corporate team building events, company off-sites, and corporate celebrations that truly engage your team, strengthen collaboration, and create lasting memories, without the usual forced icebreakers."
                 ctaText="Book online"
                 image="/events/sub/hero.jpg"
+                contentBg="#15202b"
+                bgPosition="center 30%"
                 onCtaClick={() => window.RollerCheckout ? window.RollerCheckout.show() : window.open('https://ecom.roller.app/texaslasercombat/checkout/en-us/products', '_blank')}
             />
             <EventIntroSection
@@ -23,7 +25,7 @@ export default function CorporateEvents() {
                     "From team building sessions and company off-sites to holiday parties and client events, we handle the details so your group can focus on having fun. It’s an experience that works for all skill levels, all personalities, and teams of any size, without feeling forced or awkward."
                 ]}
                 ctaText="Book online"
-                image="/events/executive.jpg"
+                image="/events/company4.jpg"
                 onCtaClick={() => window.RollerCheckout ? window.RollerCheckout.show() : window.open('https://ecom.roller.app/texaslasercombat/checkout/en-us/products', '_blank')}
             />
             <EventFeatures

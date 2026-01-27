@@ -6,8 +6,12 @@ import { motion } from 'framer-motion';
 
 const Section = styled(Box)(({ theme }) => ({
     position: 'relative',
-    paddingTop: theme.spacing(12), // Give space for the hero bleed
-    paddingBottom: theme.spacing(12),
+    paddingTop: theme.spacing(20), // Increased spacing top
+    paddingBottom: theme.spacing(20), // Increased spacing bottom
+    [theme.breakpoints.down('md')]: {
+        paddingTop: theme.spacing(12),
+        paddingBottom: theme.spacing(12),
+    },
     color: '#fff',
     overflow: 'hidden',
     // Decorative dots in top-left corner
@@ -59,20 +63,14 @@ const ImageWrapper = styled(Box)(({ theme }) => ({
     borderRadius: theme.spacing(2),
     overflow: 'hidden',
     boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
-    '&::before': {
-        content: '""',
-        display: 'block',
-        paddingTop: '100%', // Square aspect ratio or similar
-    },
+    // Removed fixed aspect ratio hack to prevent cropping
 }));
 
 const StyledImage = styled('img')({
-    position: 'absolute',
-    top: 0,
-    left: 0,
     width: '100%',
-    height: '100%',
-    objectFit: 'cover',
+    height: 'auto', // let the image determine height
+    display: 'block',
+    objectFit: 'contain',
 });
 
 const ContentWrapper = styled(Box)(({ theme }) => ({
