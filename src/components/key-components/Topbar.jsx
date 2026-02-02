@@ -70,6 +70,7 @@ const NavLink = styled(MuiLink)(({ theme }) => ({
   fontSize: 22,
   [theme.breakpoints.up("md")]: { fontSize: 28 },
   letterSpacing: 0.2,
+  fontFamily: "Roboto",
   textDecoration: "none",
   color: alpha("#fff", 0.92),
   padding: theme.spacing(1, 1.25),
@@ -165,6 +166,7 @@ const DrawerList = styled(List)(({ theme }) => ({
   },
   "& .MuiListItemText-primary": {
     fontSize: 18,
+    fontFamily: "Roboto",
     letterSpacing: 0.2,
   },
 }));
@@ -184,6 +186,7 @@ const WaitlistCta = styled(Button)(({ theme }) => ({
   color: "#0e0f11",
   backgroundColor: "#f2c230",
   boxShadow: `0 10px 28px ${alpha("#f2c230", 0.35)}`,
+  fontFamily: "Podkova",
   "&:hover": {
     backgroundColor: "#ffd24a",
     boxShadow: `0 12px 32px ${alpha("#ffd24a", 0.45)}`,
@@ -202,6 +205,7 @@ const WaiverBtn = styled(Button)(({ theme }) => ({
   paddingBlock: theme.spacing(1),
   color: alpha("#fff", 0.9),
   border: `1px solid ${alpha("#fff", 0.35)}`,
+  fontFamily: "Podkova",
   marginRight: theme.spacing(1),
   "&:hover": {
     borderColor: "#fff",
@@ -291,7 +295,7 @@ export default function TopbarResponsiveNav({
                 src={logoSrc}
                 alt={logoAlt}
                 sx={{
-                  height: { xs: 56, sm: 68, md: 88 },
+                  height: { xs: 56, sm: 68, md: 120 },
                   width: "auto",
                   display: "block",
                   objectFit: "contain",

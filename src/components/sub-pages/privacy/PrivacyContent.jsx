@@ -78,7 +78,7 @@ export default function PrivacyContent() {
                         <br />
                         Texas Laser Combat
                         <br />
-                        2300 Coit Road #400, Plano, TX 75075
+                        2300 Coit Road (off Irvine Drive) #400, Plano, TX 75075
                         <br />
                         ops@txlasercombat.com
                         <br />

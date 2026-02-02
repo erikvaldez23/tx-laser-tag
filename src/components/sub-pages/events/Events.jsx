@@ -13,11 +13,10 @@ import CTA from '../../key-components/CTA'
 export default function EventsPage() {
   const handleBook = (pkg) => {
     if (pkg?.productId) {
-      const url = `https://ecom.roller.app/texaslasercombat/checkout/en-us/product/${pkg.productId}`;
-
       if (window.RollerCheckout) {
-        window.RollerCheckout.show({ url });
+        window.RollerCheckout.show({ productId: pkg.productId });
       } else {
+        const url = `https://ecom.roller.app/texaslasercombat/checkout/en-us/product/${pkg.productId}`;
         window.open(url, '_blank');
       }
     } else {

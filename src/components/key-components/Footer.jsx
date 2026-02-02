@@ -89,6 +89,7 @@ const SubmitBtn = styled(Button)(({ theme }) => ({
   fontWeight: 800,
   padding: "10px 18px",
   background: ACCENT,
+  fontFamily: "Podkova",
   color: "#101113",
   boxShadow: `0 8px 22px ${ACCENT}55`,
   "&:hover": { background: ACCENT_HOVER, boxShadow: `0 12px 28px ${ACCENT}66` },
@@ -160,7 +161,7 @@ export default function Footer({ logoSrc = "/alt-logo.png" }) {
           <FullSpanOnMobile>
             <ColTitle>Address</ColTitle>
             <Typography sx={{ color: MUTED, mb: 3 }}>
-              2300 Coit Road #400, Plano, TX 75075
+              2300 Coit Road (off Irvine Drive) #400, Plano, TX 75075
             </Typography>
 
             <ColTitle sx={{ mb: 1.5 }}>Stay up to date</ColTitle>

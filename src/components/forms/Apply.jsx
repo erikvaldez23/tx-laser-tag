@@ -115,7 +115,7 @@ export default function ApplyForm({
   onClose,
   onSubmit,
   loading = false,
-  roles = ["Entry Ops Specialist", "Squad Instructor", "Entry Ops Director", "Sales Director", "Squad Operations"],
+  roles = ["Entry Ops Specialist", "Squad Instructor", "Entry Ops Director", "Sales Director", "Squad Operations Director"],
   jobDescriptionsHref = "#",
 }) {
   const initial = useMemo(
@@ -140,7 +140,7 @@ export default function ApplyForm({
   const jobPositions = [
     { title: "Squad Instructor", pdfPath: "/job-descriptions/squad-instructor.pdf" },
     { title: "Entry Ops Director", pdfPath: "/job-descriptions/entry-ops-director.pdf" },
-    { title: "Squad Operations", pdfPath: "/job-descriptions/squad-operations.pdf" },
+    { title: "Squad Operations Director", pdfPath: "/job-descriptions/squad-operations-director.pdf" },
     { title: "Sales Director", pdfPath: "/job-descriptions/sales-director.pdf" },
     { title: "Entry Ops Specialist", pdfPath: "/job-descriptions/entry-ops-specialist.pdf" },
   ];

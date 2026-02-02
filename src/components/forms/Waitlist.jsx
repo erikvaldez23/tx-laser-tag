@@ -233,6 +233,7 @@ export default function Waitlist({
                   color: "#0e0f11",
                   backgroundColor: ACCENT,
                   boxShadow: `0 10px 26px ${alpha(ACCENT, 0.45)}`,
+                  fontFamily: "Podkova",
                   "&:hover": { backgroundColor: "#ffd24a" },
                   "&.Mui-disabled": {
                     color: alpha("#000", 0.38),

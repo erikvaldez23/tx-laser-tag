@@ -5,13 +5,14 @@ import EventFeatures from './EventFeatures';
 import PartyRoomPackages from './PartyRoomPackages';
 import EventImageCarousel from './EventImageCarousel';
 import CTA from '../../key-components/CTA';
+import EventsFAQ from './EventsFAQ';
 
 export default function GroupEvents() {
     return (
         <>
             <EventSubHero
                 title={<>GROUP<br />EVENTS</>}
-                description="Celebrate birthdays, milestones, and special occasions with an experience everyone can enjoy. Our group laser tag events are private, fully hosted, and designed to be fun, safe, and engaging for all ages and activity levels."
+                description="Celebrate birthdays, milestones and special occasions with an experience everyone can enjoy! Our group laser tag events can be private and are designated to be fun, safe, and engaging for all ages and activity levels."
                 ctaText="Book Your Group Event"
                 image="/events/sub/hero.jpg"
                 contentBg="#3E5C47" // Lighter slate for groups
@@ -21,7 +22,7 @@ export default function GroupEvents() {
             <EventIntroSection
                 heading="Built for squads, not just play"
                 text={[
-                    "Texas Laser Combat offers a fun, flexible group event experience designed for birthdays, school outings, senior groups, and community gatherings. Our private, fully hosted games create an inclusive environment where participants can play at their own pace while enjoying safe, immersive gameplay.",
+                    "Texas Laser Combat offers a fun, flexible group event experience designed for birthdays, school outings, senior groups, and community gatherings. Our private or shared arena games create an inclusive environment where participants can play at their own pace while enjoying safe, immersive gameplay.",
                     "From kids’ parties and youth group outings to senior activities and family celebrations, we handle the setup and flow so your group can focus on having fun. With adjustable game modes and experienced staff on site, it’s an engaging experience that works for all ages, abilities, and group sizes, without feeling overwhelming or chaotic."
                 ]}
                 ctaText="Book online"
@@ -35,11 +36,11 @@ export default function GroupEvents() {
                 features={[
                     {
                         title: "Group Celebrations",
-                        description: "Celebrate birthdays, milestones, and special occasions with a private, fully hosted laser tag experience that’s fun, safe, and engaging for all ages.",
+                        description: "Celebrate birthdays, milestones and special occasions with a laser tag experience that's fun, safe and engaging for all ages!",
                         icon: "team"
                     },
                     {
-                        title: "Seniors & Community Groups",
+                        title: "Seniors & Community Groups and Teams",
                         description: "Enjoy a low-impact, customizable laser tag experience designed for comfort, flexibility, and participation at any pace or skill level.",
                         icon: "company" // using 'company' icon which is building/business, generic enough or maybe swap to party
                     },
@@ -52,6 +53,7 @@ export default function GroupEvents() {
             />
             {/* <EventImageCarousel /> */}
             <CTA />
+            <EventsFAQ />
         </>
     );
 }

@@ -41,6 +41,7 @@ const Cta = styled(Button)(({ theme }) => ({
   paddingInline: theme.spacing(3),
   paddingBlock: theme.spacing(1.25),
   backgroundColor: "#c6a045",
+  fontFamily: "Podkova",
   color: "#1a1a1a",
   "&:hover": { backgroundColor: "#af8e3e" },
 }));

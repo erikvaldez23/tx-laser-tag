@@ -1,4 +1,3 @@
-// src/components/sections/CommunityCommitment.jsx
 import React from "react";
 import {
   Box,
@@ -6,27 +5,17 @@ import {
   Stack,
   Link as MuiLink,
   useTheme,
+  Container,
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 
-/* --------------------------- Full-bleed wrapper --------------------------- */
-const FullBleed = styled(Box)({
-  position: "relative",
-  left: "50%",
-  right: "50%",
-  marginLeft: "-50vw",
-  marginRight: "-50vw",
-  width: "100vw",
-  background: "transparent",
-});
 
+
+/* ----------------------- Centered panel container -------------------- */
 /* ----------------------- Centered panel container -------------------- */
 const Panel = styled(Box)(({ theme }) => ({
   "--gutter": "min(4vw, 32px)", // single source of truth for side padding
-  width: "100vw",
-  maxWidth: 1600, // optional cap
-  marginInline: "auto",
-
+  width: "100%",
   borderRadius: 30,
   overflow: "hidden",
   background: "linear-gradient(180deg, #2a2a2a 0%, #2b2b2b 100%)",
@@ -121,88 +110,90 @@ export default function CommunityCommitment({
   const theme = useTheme();
 
   return (
-    <FullBleed component="section" aria-label="Community Commitment" sx={{ mb: 10 }}>
-      <Panel>
-        <Track>
-          <Title
-            variant="h3"
-            sx={{
-              mb: 3,
-              fontSize: { xs: "2rem", md: "2.4rem" },
-              textAlign: { xs: "center", md: "left" }, // already centered on mobile
-            }}
-          >
-            {title}
-          </Title>
+    <Box component="section" aria-label="Community Commitment" sx={{ mb: 10 }}>
+      <Container maxWidth="xl">
+        <Panel>
+          <Track>
+            <Title
+              variant="h3"
+              sx={{
+                mb: 3,
+                fontSize: { xs: "2rem", md: "2.4rem" },
+                textAlign: { xs: "center", md: "left" }, // already centered on mobile
+              }}
+            >
+              {title}
+            </Title>
 
-          <GridWrap>
-            <LogosStack>
-              <Logo src={woundedWarriorLogo} alt="Wounded Warrior Project" />
-              <Logo src={bcrfLogo} alt="Breast Cancer Research Foundation" />
-            </LogosStack>
+            <GridWrap>
+              <LogosStack>
+                <Logo src={woundedWarriorLogo} alt="Wounded Warrior Project" />
+                <Logo src={bcrfLogo} alt="Breast Cancer Research Foundation" />
+              </LogosStack>
 
-            <Stack spacing={3} sx={{ alignItems: { xs: "center", md: "flex-start" } }}>
-              <Copy>
-                At Texas Laser Combat, our{" "}
-                <strong>veteran and woman-owned</strong> roots fuel a deep
-                commitment to community. A share of our proceeds from these
-                weapon upgrades proudly support the{" "}
-                <MuiLink
-                  href="https://www.woundedwarriorproject.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  underline="hover"
-                  color="inherit"
-                  sx={{ fontWeight: 600 }}
-                >
-                  Wounded Warrior Project
-                </MuiLink>
-                , aiding our disabled heroes, and the{" "}
-                <MuiLink
-                  href="https://www.bcrf.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  underline="hover"
-                  color="inherit"
-                  sx={{ fontWeight: 600 }}
-                >
-                  Breast Cancer Research Foundation
-                </MuiLink>
-                , driving life-saving research.
-              </Copy>
+              <Stack spacing={3} sx={{ alignItems: { xs: "center", md: "flex-start" } }}>
+                <Copy>
+                  At Texas Laser Combat, our{" "}
+                  <strong>veteran and woman-owned</strong> roots fuel a deep
+                  commitment to community. A share of our proceeds from these
+                  weapon upgrades proudly support the{" "}
+                  <MuiLink
+                    href="https://www.woundedwarriorproject.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    underline="hover"
+                    color="inherit"
+                    sx={{ fontWeight: 600 }}
+                  >
+                    Wounded Warrior Project
+                  </MuiLink>
+                  , aiding our disabled heroes, and the{" "}
+                  <MuiLink
+                    href="https://www.bcrf.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    underline="hover"
+                    color="inherit"
+                    sx={{ fontWeight: 600 }}
+                  >
+                    Breast Cancer Research Foundation
+                  </MuiLink>
+                  , driving life-saving research.
+                </Copy>
 
-              <Copy>
-                Through local events, charities and partnerships, we build
-                stronger bonds and promote active lifestyles—because fun and
-                impact go hand in hand.
-              </Copy>
-            </Stack>
-          </GridWrap>
-        </Track>
+                <Copy>
+                  Through local events, charities and partnerships, we build
+                  stronger bonds and promote active lifestyles—because fun and
+                  impact go hand in hand.
+                </Copy>
+              </Stack>
+            </GridWrap>
+          </Track>
 
-        <PledgeBar role="note">
-          For certain weapons upgrades such as our{" "}
-          <MuiLink
-            href={pinkLinkHref}
-            underline="always"
-            color="inherit"
-            sx={{ fontWeight: 700 }}
-          >
-            Pink P90{" "}
-          </MuiLink>
-          and{" "}
-          <MuiLink
-            href={pinkLinkHref}
-            underline="always"
-            color="inherit"
-            sx={{ fontWeight: 700 }}
-          >
-            FN Scar
-          </MuiLink>
-          , we have pledged to donate a percentage of our proceeds to our nonprofit
-          partners.
-        </PledgeBar>
-      </Panel>
-    </FullBleed>
+          <PledgeBar role="note">
+            For certain weapons upgrades such as our{" "}
+            <MuiLink
+              href={pinkLinkHref}
+              underline="always"
+              color="inherit"
+              sx={{ fontWeight: 700 }}
+            >
+              Pink P90{" "}
+            </MuiLink>
+            and{" "}
+            <MuiLink
+              href={pinkLinkHref}
+              underline="always"
+              color="inherit"
+              sx={{ fontWeight: 700 }}
+            >
+              FN Scar
+            </MuiLink>
+            , we have pledged to donate a percentage of our proceeds to our nonprofit
+            partners.
+          </PledgeBar>
+        </Panel>
+      </Container>
+    </Box>
   );
 }

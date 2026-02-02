@@ -16,7 +16,7 @@ const iconMap = {
 
 const Section = styled(Box)(({ theme, backgroundColor }) => ({
     paddingBlock: theme.spacing(10),
-    backgroundColor: backgroundColor || '#15202b', // Deep dark blue/slate or prop
+    backgroundColor: backgroundColor || '#1B2E40', // Deep dark blue/slate or prop
     color: '#fff',
     marginBottom: 50
 }));

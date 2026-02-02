@@ -74,6 +74,7 @@ const SubmitButton = styled(Button)(({ theme }) => ({
   textTransform: "none",
   fontSize: 16,
   alignSelf: "flex-start",
+  fontFamily: "Podkova",
   "&:hover": {
     backgroundColor: "#ffd95a",
   },

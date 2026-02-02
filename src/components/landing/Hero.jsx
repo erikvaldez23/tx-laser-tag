@@ -321,6 +321,7 @@ export default function HeroCountdown({
                 color: "#0e0f11",
                 backgroundColor: ACCENT,
                 boxShadow: `0 10px 30px ${alpha(ACCENT, 0.45)}`,
+                fontFamily: "Podkova",
                 "&:hover": { backgroundColor: "#ffd24a", boxShadow: `0 14px 36px ${alpha(ACCENT, 0.55)}`, transform: "translateY(-1px)" },
                 transition: "all .25s ease",
               }}

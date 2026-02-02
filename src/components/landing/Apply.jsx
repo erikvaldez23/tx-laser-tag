@@ -30,6 +30,7 @@ const CTA = styled(Button)(({ theme }) => ({
   padding: "10px 24px",
   background: ACCENT,
   color: "#101113",
+  fontFamily: "Podkova",
   boxShadow: `0 12px 32px ${ACCENT}55`,
   transition: "all .25s ease",
   "&:hover": { background: ACCENT_HOVER, boxShadow: `0 16px 40px ${ACCENT}66`, transform: "translateY(-1px)" },
@@ -93,7 +94,7 @@ export default function Apply({
         open={open}
         onClose={handleClose}
         onSubmit={handleSubmit}
-        roles={["Entry Ops Specialist", "Squad Instructor", "Entry Ops Director", "Sales Director", "Squad Operations"]}
+        roles={["Entry Ops Specialist", "Squad Instructor", "Entry Ops Director", "Sales Director", "Squad Operations Director"]}
         jobDescriptionsHref="/jobs/descriptions"
       />
     </Section>

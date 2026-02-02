@@ -82,7 +82,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
     fontWeight: 600,
     padding: '12px 32px',
     borderRadius: '4px',
-    fontFamily: 'Inter, sans-serif', // Assuming serif from design, or Inter
+    fontFamily: 'Podkova', // Assuming serif from design, or Inter
     '&:hover': {
         backgroundColor: '#a6a6a6',
     },

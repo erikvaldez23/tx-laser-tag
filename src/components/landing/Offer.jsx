@@ -60,6 +60,7 @@ const LearnBtn = styled(Button)(({ theme }) => ({
   WebkitBackdropFilter: "blur(8px)",
   boxShadow: "none",
   letterSpacing: 0.2,
+  fontFamily: "Podkova",
   transition: "all .25s ease",
   "&:hover": {
     background: alpha("#000", 0.12),

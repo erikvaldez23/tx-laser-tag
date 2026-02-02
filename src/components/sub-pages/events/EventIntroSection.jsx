@@ -80,10 +80,7 @@ const ContentWrapper = styled(Box)(({ theme }) => ({
 }));
 
 const Heading = styled(Typography)(({ theme }) => ({
-    fontFamily: 'PostNoBillsJaffna, sans-serif', // Assuming stick with display font for headers, or maybe Inter based on screenshot look
-    // Screenshot header looks like Inter or Roboto bold, not huge stencil. 
-    // Let's use standard sans-serif but bold.
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'PostNoBillsJaffna, sans-serif',
     fontWeight: 700,
     fontSize: '2.5rem',
     lineHeight: 1.2,
@@ -101,7 +98,7 @@ const Text = styled(Typography)(({ theme }) => ({
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({
-    backgroundColor: '#c6a045', // Gold color
+    backgroundColor: '#CCA831', // Gold color
     color: '#1a1a1a',
     textTransform: 'none',
     fontSize: '1rem',
@@ -109,6 +106,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
     padding: '12px 32px',
     borderRadius: '4px',
     alignSelf: 'flex-start',
+    fontFamily: "Podkova",
     '&:hover': {
         backgroundColor: '#af8e3e',
     },

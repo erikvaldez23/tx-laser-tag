@@ -145,6 +145,7 @@ const BookBtn = styled(Button)(({ theme }) => ({
   color: "#111",
   backgroundColor: "#f2c230",
   boxShadow: `0 10px 18px ${alpha("#f2c230", 0.35)}`,
+  fontFamily: "Podkova",
   "&:hover": { backgroundColor: "#ffd24a", boxShadow: `0 12px 22px ${alpha("#ffd24a", 0.45)}` },
 }));
 
@@ -177,43 +178,41 @@ export default function PartyRoomPackages({
   return (
     <Section sx={{ mb: 8 }}>
       <Container maxWidth="xl">
-        <FullBleed>
-          <Panel elevation={0}>
-            <Title variant="h3">{heading}</Title>
+        <Panel elevation={0}>
+          <Title variant="h3">{heading}</Title>
 
-            <Cards>
-              {items.map((pkg) => (
-                <CardWrap key={pkg.id}>
-                  <CardContent>
-                    <ImgShell>
-                      <Box
-                        component="img"
-                        src={pkg.image}
-                        alt={pkg.title}
-                        sx={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                        }}
-                      />
-                    </ImgShell>
+          <Cards>
+            {items.map((pkg) => (
+              <CardWrap key={pkg.id}>
+                <CardContent>
+                  <ImgShell>
+                    <Box
+                      component="img"
+                      src={pkg.image}
+                      alt={pkg.title}
+                      sx={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </ImgShell>
 
-                    <Overlay>
-                      <Box sx={{ flex: 1, minWidth: 0 }}>
-                        <TitleText>{pkg.title}</TitleText>
-                        <Body>{pkg.description}</Body>
-                      </Box>
+                  <Overlay>
+                    <Box sx={{ flex: 1, minWidth: 0 }}>
+                      <TitleText>{pkg.title}</TitleText>
+                      <Body>{pkg.description}</Body>
+                    </Box>
 
-                      <BookBtn onClick={() => onBook?.(pkg)} size="small">
-                        Book Now
-                      </BookBtn>
-                    </Overlay>
-                  </CardContent>
-                </CardWrap>
-              ))}
-            </Cards>
-          </Panel>
-        </FullBleed>
+                    <BookBtn onClick={() => onBook?.(pkg)} size="small">
+                      Book Now
+                    </BookBtn>
+                  </Overlay>
+                </CardContent>
+              </CardWrap>
+            ))}
+          </Cards>
+        </Panel>
       </Container>
     </Section>
   );

@@ -25,7 +25,7 @@ const Section = styled(Box)(({ theme, bgimg }) => ({
   color: "#fff",
   overflow: "hidden",
   isolation: "isolate",
-  borderRadius: 40,
+  // borderRadius: 40,
   "&::before": {
     content: '""',
     position: "absolute",
@@ -56,12 +56,12 @@ const Glass = styled(Box)(({ theme }) => ({
 export default function CTA({
   title = "Join the laser experience today!",
   hours = [
-    "Wed–Thurs: 4pm – 10pm",
-    "Fri: 4pm – 12am",
-    "Sat: 11am – 12am",
-    "Sun: 11am – 7pm",
+    "Wed–Thurs: 4pm – 10:30pm",
+    "Fri: 4pm – 11:30pm",
+    "Sat: 11am – 11:30pm",
+    "Sun: 11am – 8pm",
   ],
-  address = "2300 Coit Road #400, Plano, TX 75075",
+  address = "2300 Coit Road (off Irvine Drive) #400, Plano, TX 75075",
   backgroundImage = "/cta.jpg",
   primaryCta = { label: "Join VIP Access List" }, // href kept for compatibility (not used by default)
   secondaryCta = {
@@ -164,6 +164,7 @@ export default function CTA({
                     borderRadius: 999,
                     boxShadow: "none",
                     textTransform: "none",
+                    fontFamily: "Podkova",
                     background: "#f2c230",
                     color: "#000",
                     "&:hover": { background: "#ffd24a" },
@@ -187,6 +188,7 @@ export default function CTA({
                     color: "#fff",
                     borderColor: alpha("#fff", 0.6),
                     textTransform: "none",
+                    fontFamily: "Podkova",
                     "&:hover": {
                       borderColor: "#fff",
                       background: alpha("#fff", 0.06),
