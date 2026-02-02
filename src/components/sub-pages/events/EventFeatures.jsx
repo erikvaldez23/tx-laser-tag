@@ -15,13 +15,15 @@ const iconMap = {
 };
 
 const Section = styled(Box)(({ theme, backgroundColor }) => ({
-    paddingBlock: theme.spacing(10),
+    padding: theme.spacing(8), // Internal padding
     backgroundColor: backgroundColor || '#1B2E40', // Deep dark blue/slate or prop
     color: '#fff',
-    marginBottom: 50
+    [theme.breakpoints.down('md')]: {
+        padding: theme.spacing(4),
+    },
 }));
 
-const InnerContainer = styled(Container)(({ theme }) => ({
+const InnerContainer = styled(Box)(({ theme }) => ({
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
     gap: theme.spacing(8),
@@ -101,47 +103,49 @@ export default function EventFeatures({
     backgroundColor
 }) {
     return (
-        <Section sx={{ borderRadius: 20 }} backgroundColor={backgroundColor}>
-            <InnerContainer maxWidth="xl">
-                {/* Left: Content */}
-                <Box
-                    component={motion.div}
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <Heading variant="h2">{heading}</Heading>
+        <Container maxWidth="xl" sx={{ mb: 6 }}>
+            <Section sx={{ borderRadius: 8 }} backgroundColor={backgroundColor}>
+                <InnerContainer>
+                    {/* Left: Content */}
+                    <Box
+                        component={motion.div}
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <Heading variant="h2">{heading}</Heading>
 
-                    <FeatureList>
-                        {features.map((feature, idx) => {
-                            const Icon = iconMap[feature.icon] || GroupsIcon;
-                            return (
-                                <FeatureItem key={idx}>
-                                    <IconWrapper>
-                                        <Icon />
-                                    </IconWrapper>
-                                    <FeatureContent>
-                                        <FeatureTitle variant="h3">{feature.title}</FeatureTitle>
-                                        <FeatureDesc>{feature.description}</FeatureDesc>
-                                    </FeatureContent>
-                                </FeatureItem>
-                            )
-                        })}
-                    </FeatureList>
-                </Box>
+                        <FeatureList>
+                            {features.map((feature, idx) => {
+                                const Icon = iconMap[feature.icon] || GroupsIcon;
+                                return (
+                                    <FeatureItem key={idx}>
+                                        <IconWrapper>
+                                            <Icon />
+                                        </IconWrapper>
+                                        <FeatureContent>
+                                            <FeatureTitle variant="h3">{feature.title}</FeatureTitle>
+                                            <FeatureDesc>{feature.description}</FeatureDesc>
+                                        </FeatureContent>
+                                    </FeatureItem>
+                                )
+                            })}
+                        </FeatureList>
+                    </Box>
 
-                {/* Right: Image */}
-                <ImageSide
-                    component={motion.div}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                >
-                    <StyledImage src={image} alt="Event features" />
-                </ImageSide>
-            </InnerContainer>
-        </Section>
+                    {/* Right: Image */}
+                    <ImageSide
+                        component={motion.div}
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
+                        <StyledImage src={image} alt="Event features" />
+                    </ImageSide>
+                </InnerContainer>
+            </Section>
+        </Container>
     );
 }
