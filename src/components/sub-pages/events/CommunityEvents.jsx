@@ -83,7 +83,7 @@ const Tile = styled(Paper)(({ theme }) => ({
   placeItems: "center",
   aspectRatio: "16 / 10",
   color: alpha("#000", 0.65),
-  fontSize: 12,
+  fontSize: 13,
   userSelect: "none",
 }));
 
@@ -222,8 +222,8 @@ function CarouselGroupRow({ items, onTileClick }) {
 
 export default function EventGroups({
   groups = DATA_DEFAULT,
-  onTileClick,     
-  onContactClick,  
+  onTileClick,
+  onContactClick,
 }) {
   return (
     <SectionWrap>

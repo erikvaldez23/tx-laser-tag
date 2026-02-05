@@ -98,7 +98,7 @@ const Tile = styled(Paper)(({ theme }) => ({
   placeItems: "center",
   aspectRatio: "16/10",
   color: alpha("#000", 0.65),
-  fontSize: 12,
+  fontSize: 13,
   userSelect: "none",
 }));
 
@@ -152,9 +152,9 @@ export default function Weapons({
     const leftPct =
       scrollWidth > clientWidth
         ? Math.min(
-            (scrollLeft / (scrollWidth - clientWidth)) * maxLeft,
-            maxLeft
-          )
+          (scrollLeft / (scrollWidth - clientWidth)) * maxLeft,
+          maxLeft
+        )
         : 0;
     setThumb({ widthPct, leftPct });
   };
@@ -190,7 +190,7 @@ export default function Weapons({
 
   return (
     <Section>
-      <Container maxWidth="xl" sx={{pb: 15}}>
+      <Container maxWidth="xl" sx={{ pb: 15 }}>
         <Title>{heading}</Title>
 
         <Box position="relative">
@@ -201,7 +201,7 @@ export default function Weapons({
                   role="button"
                   tabIndex={0}
                   onClick={() => onTileClick?.(ev)}
-                  sx={{ backgroundImage: `url(${ev.image})`, backgroundSize:'cover', backgroundPosition:'center' }}
+                  sx={{ backgroundImage: `url(${ev.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
                 >
                 </Tile>
                 <Caption>{ev.label}</Caption>

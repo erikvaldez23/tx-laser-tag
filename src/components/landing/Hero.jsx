@@ -86,12 +86,12 @@ const Digit = styled(Typography)(({ theme }) => ({
 const Label = styled(Typography)(({ theme }) => ({
   fontWeight: 700,
   letterSpacing: "0.22em",
-  fontSize: "12px",
+  fontSize: "13px",
   opacity: 0.75,
   textTransform: "uppercase",
   [theme.breakpoints.down("sm")]: {
     letterSpacing: "0.18em",
-    fontSize: 11,
+    fontSize: 12,
   },
 }));
 

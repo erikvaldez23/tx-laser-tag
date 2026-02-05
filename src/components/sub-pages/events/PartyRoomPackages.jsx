@@ -78,7 +78,7 @@ const ImgShell = styled(Paper)(({ theme }) => ({
   display: "grid",
   placeItems: "center",
   color: alpha("#000", 0.6),
-  fontSize: 12,
+  fontSize: 13,
   userSelect: "none",
   overflow: "hidden",
   border: `1px solid ${alpha("#000", 0.08)}`,
@@ -131,7 +131,7 @@ const TitleText = styled(Typography)(({ theme }) => ({
 
 const Body = styled(Typography)(({ theme }) => ({
   color: alpha("#fff", 0.85),
-  fontSize: 12.5,
+  fontSize: 13.5,
   lineHeight: 1.5,
   marginTop: 4,
 }));

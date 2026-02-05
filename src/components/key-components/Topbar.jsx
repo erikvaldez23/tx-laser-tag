@@ -604,7 +604,7 @@ export default function TopbarResponsiveNav({
             </Button>
           </Box>
 
-          <Box sx={{ mt: "auto", p: 2, opacity: 0.7, fontSize: 12 }}>
+          <Box sx={{ mt: "auto", p: 2, opacity: 0.7, fontSize: 13 }}>
             © {new Date().getFullYear()} {logoAlt}
           </Box>
         </DrawerShell>

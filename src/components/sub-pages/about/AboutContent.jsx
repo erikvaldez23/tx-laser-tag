@@ -83,7 +83,7 @@ const Media = styled(Box)({
 
 /* --- Typo --- */
 const Eyebrow = styled(Typography)(({ theme }) => ({
-  fontSize: 14,
+  fontSize: 15,
   letterSpacing: 2.2,
   textTransform: "uppercase",
   color: alpha("#fff", 0.7),
@@ -137,7 +137,7 @@ export default function AboutContent() {
         <Box
           sx={{
             display: "grid",
-            gap: { xs: 10, md: 12 },
+            gap: { xs: 20, md: 26 },
           }}
         >
           {/* -------- Section 1: text LEFT, image RIGHT -------- */}

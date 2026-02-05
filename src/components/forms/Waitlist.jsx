@@ -180,7 +180,7 @@ export default function Waitlist({
             Join the VIP Access List
           </DialogTitle>
 
-          <Typography sx={{ color: alpha("#000", 0.7), fontSize: 14, mb: 2 }}>
+          <Typography sx={{ color: alpha("#000", 0.7), fontSize: 15, mb: 2 }}>
             Unlock exclusive perks as a Texas Laser Combat VIP! Be some of the
             first to know about  special events, sizzling promos, and grand
             opening benefits delivered straight to your inbox. Sign up now and
@@ -217,7 +217,7 @@ export default function Waitlist({
                 sx={fieldAccentSX}
               />
               {status === "error" && (
-                <Typography sx={{ color: "#ff6b6b", fontSize: 13, fontWeight: 600, textAlign: "center", mb: 1 }}>
+                <Typography sx={{ color: "#ff6b6b", fontSize: 14, fontWeight: 600, textAlign: "center", mb: 1 }}>
                   Oops! Something went wrong. Please try again.
                 </Typography>
               )}
@@ -245,7 +245,7 @@ export default function Waitlist({
                 {status === "submitting" ? "Joining..." : "Join VIP Access List"}
               </Button>
               <Typography
-                sx={{ color: alpha("#000", 0.55), fontSize: 12, mt: 0.5 }}
+                sx={{ color: alpha("#000", 0.55), fontSize: 13, mt: 0.5 }}
               >
                 By joining our VIP Access List you agree to receive email
                 communications from TX Laser Combat to stay up to date with us.

@@ -14,7 +14,7 @@ import { styled, alpha } from "@mui/material/styles";
 /* ----------------------- Centered panel container -------------------- */
 /* ----------------------- Centered panel container -------------------- */
 const Panel = styled(Box)(({ theme }) => ({
-  "--gutter": "min(4vw, 32px)", // single source of truth for side padding
+  "--gutter": "min(8vw, 64px)", // single source of truth for side padding
   width: "100%",
   borderRadius: 30,
   overflow: "hidden",
@@ -30,7 +30,7 @@ const Panel = styled(Box)(({ theme }) => ({
 const Track = styled(Box)(({ theme }) => ({
   width: "100%",
   marginInline: "auto",
-  paddingTop: theme.spacing(8),
+  paddingTop: theme.spacing(10),
   paddingBottom: 0,
 }));
 
@@ -63,7 +63,7 @@ const Logo = styled("img")(({ theme }) => ({
 }));
 
 const Title = styled(Typography)(({ theme }) => ({
-  fontFamily: `'Playfair Display', ui-serif, Georgia, serif`,
+  fontFamily: 'Podkova',
   fontWeight: 800,
   letterSpacing: 0.2,
   color: alpha("#fff", 0.96),
@@ -110,7 +110,7 @@ export default function CommunityCommitment({
   const theme = useTheme();
 
   return (
-    <Box component="section" aria-label="Community Commitment" sx={{ mb: 10 }}>
+    <Box component="section" aria-label="Community Commitment" sx={{ mb: 16 }}>
       <Container maxWidth="xl">
         <Panel>
           <Track>
@@ -119,7 +119,7 @@ export default function CommunityCommitment({
               sx={{
                 mb: 3,
                 fontSize: { xs: "2rem", md: "2.4rem" },
-                textAlign: { xs: "center", md: "left" }, // already centered on mobile
+                textAlign: { xs: "center", md: "center" }, // already centered on mobile
               }}
             >
               {title}

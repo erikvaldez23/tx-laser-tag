@@ -134,7 +134,7 @@ const Tile = styled(Paper)(({ theme }) => ({
   placeItems: "center",
   aspectRatio: "10/10",
   color: alpha("#000", 0.65),
-  fontSize: 12,
+  fontSize: 13,
   userSelect: "none",
 }));
 

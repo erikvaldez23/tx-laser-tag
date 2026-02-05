@@ -302,7 +302,7 @@ export default function ApplyForm({
                 <DialogTitle sx={{ p: 0, mb: 0.75, fontWeight: 900, fontSize: 26, mt: 2 }}>
                   Job Descriptions
                 </DialogTitle>
-                <Typography sx={{ color: alpha("#000", 0.7), fontSize: 14, mb: 3 }}>
+                <Typography sx={{ color: alpha("#000", 0.7), fontSize: 15, mb: 3 }}>
                   Download position descriptions to learn more about each role
                 </Typography>
 
@@ -327,7 +327,7 @@ export default function ApplyForm({
                         },
                       }}
                     >
-                      <Typography sx={{ fontWeight: 700, fontSize: 15 }}>
+                      <Typography sx={{ fontWeight: 700, fontSize: 16 }}>
                         {position.title}
                       </Typography>
                       <Button
@@ -395,7 +395,7 @@ export default function ApplyForm({
                   Application submitted!
                 </DialogTitle>
                 <Typography
-                  sx={{ color: alpha("#000", 0.7), fontSize: 14, mb: 2.5 }}
+                  sx={{ color: alpha("#000", 0.7), fontSize: 15, mb: 2.5 }}
                 >
                   Thank you for taking the time to apply to TX Laser Combat! We’re
                   looking forward to reviewing your application and will get back to
@@ -463,7 +463,7 @@ export default function ApplyForm({
                 <DialogTitle sx={{ p: 0, mb: 0.75, fontWeight: 900, fontSize: 26 }}>
                   Apply today
                 </DialogTitle>
-                <Typography sx={{ color: alpha("#000", 0.7), fontSize: 14, mb: 2 }}>
+                <Typography sx={{ color: alpha("#000", 0.7), fontSize: 15, mb: 2 }}>
                   Come work with our amazing team!{" "}
                   <Link
                     component="button"
@@ -479,7 +479,7 @@ export default function ApplyForm({
                 <DialogContent sx={{ p: 0 }}>
                   <Stack spacing={2.2}>
                     <Box>
-                      <Typography sx={{ fontWeight: 700, mb: 0.75, fontSize: 14 }}>
+                      <Typography sx={{ fontWeight: 700, mb: 0.75, fontSize: 15 }}>
                         Which role are you applying for?
                       </Typography>
                       <RadioGroup
@@ -656,7 +656,7 @@ export default function ApplyForm({
                     />
 
                     {submitError && (
-                      <Typography sx={{ color: "#ff6b6b", fontSize: 13, fontWeight: 600, textAlign: "center" }}>
+                      <Typography sx={{ color: "#ff6b6b", fontSize: 14, fontWeight: 600, textAlign: "center" }}>
                         Oops! We couldn't submit your application. Please check your connection and try again.
                       </Typography>
                     )}
@@ -686,7 +686,7 @@ export default function ApplyForm({
                       {isSubmitting || loading ? "Submitting..." : "Submit application"}
                     </Button>
 
-                    <Typography sx={{ color: alpha("#000", 0.55), fontSize: 12 }}>
+                    <Typography sx={{ color: alpha("#000", 0.55), fontSize: 13 }}>
                       By submitting your application, you consent to the collection
                       and processing of your personal data for selection purposes in
                       accordance with our Privacy Policy.

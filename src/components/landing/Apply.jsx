@@ -68,7 +68,7 @@ export default function Apply({
             {imageSrc ? (
               <Box component="img" alt={imageAlt} src={imageSrc} sx={{ width: "100%", height: "100%", objectFit: "cover" }} />
             ) : (
-              <Box sx={{ width: "100%", height: "100%", display: "grid", placeItems: "center", color: "#222", fontSize: 14, letterSpacing: 0.2 }}>
+              <Box sx={{ width: "100%", height: "100%", display: "grid", placeItems: "center", color: "#222", fontSize: 15, letterSpacing: 0.2 }}>
                 [Image placeholder]
               </Box>
             )}

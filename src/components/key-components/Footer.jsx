@@ -212,7 +212,7 @@ export default function Footer({ logoSrc = "/alt-logo.png" }) {
             justifyContent: { xs: "space-between", md: "flex-start" }, // ⬅️ start on desktop
             alignItems: { xs: "center", md: "center" },
             rowGap: 2,
-            fontSize: 14,
+            fontSize: 15,
             color: MUTED,
             textAlign: { xs: "center", md: "left" },
           }}

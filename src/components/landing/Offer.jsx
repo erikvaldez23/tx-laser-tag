@@ -144,7 +144,7 @@ function OfferCard({ it, overlayContent = false }) {
               display: "grid",
               placeItems: "center",
               color: "#222",
-              fontSize: 14,
+              fontSize: 15,
               letterSpacing: 0.2,
               background: "#bdbdbd",
             }}

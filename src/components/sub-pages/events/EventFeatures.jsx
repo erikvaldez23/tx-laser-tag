@@ -77,7 +77,7 @@ const FeatureTitle = styled(Typography)(({ theme }) => ({
 const FeatureDesc = styled(Typography)(({ theme }) => ({
     color: '#a0aec0',
     lineHeight: 1.6,
-    fontSize: '0.95rem',
+    fontSize: '1.05rem',
 }));
 
 const ImageSide = styled(Box)(({ theme }) => ({
@@ -103,7 +103,7 @@ export default function EventFeatures({
     backgroundColor
 }) {
     return (
-        <Container maxWidth="xl" sx={{ mb: 6 }}>
+        <Container maxWidth="xl" sx={{ mb: 16 }}>
             <Section sx={{ borderRadius: 8 }} backgroundColor={backgroundColor}>
                 <InnerContainer>
                     {/* Left: Content */}
