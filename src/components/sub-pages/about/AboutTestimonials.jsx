@@ -36,8 +36,8 @@ const Card = styled(motion.div)(({ theme }) => ({
   gap: theme.spacing(2),
   minWidth: 280,
   maxWidth: 420,
-  height: "200px", // uniform height on mobile
-  padding: theme.spacing(3),
+  height: "350px", // fixed height with scroll
+  padding: theme.spacing(4),
   borderRadius: 18,
   color: "#fff",
   background: alpha("#fff", 0.05),
@@ -46,7 +46,7 @@ const Card = styled(motion.div)(({ theme }) => ({
       ? "0 8px 30px rgba(0,0,0,.45)"
       : "0 8px 30px rgba(0,0,0,.12)",
   [theme.breakpoints.down("md")]: {
-    padding: theme.spacing(2.25), // tighter on mobile
+    padding: theme.spacing(3),
   },
 }));
 
@@ -69,31 +69,31 @@ export default function AboutTestimonials({
   subtitle = "Real stories from people who trust us.",
   testimonials = [
     {
-      name: "Liora Beckett",
+      name: "Courtney",
       role: "Parent",
       rating: 5,
-      quote: "An unforgettable experience for the whole family!",
+      quote: "Our group ranged in age from 11 to 50, and every single one of us had an absolute blast. We’d never been to TX Laser Combat before, but now that we have, we won’t go anywhere else going forward.",
       avatar: "/avatars/alex.jpg",
     },
     {
-      name: "Kairos Velasquez",
+      name: "Aleese",
       role: "Laser Tag Enthusiast",
       rating: 5,
-      quote: "The best laser tag arena I've ever been to!",
+      quote: "Had a great experience here with my 10 yr old and his friends. They break it up into smaller games and make it fun and interactive. Will definitely be back.",
       avatar: "/avatars/priya.jpg",
     },
     {
-      name: "Saffron Lund",
+      name: "Ginger",
       role: "Event Planner",
       rating: 5,
-      quote: "Our go-to spot for birthday parties!",
+      quote: "Despite the challenges you were handed, your team truly went above and beyond—everything was handled beautifully and felt completely effortless on our end. The planning, execution, and overall experience could not have been better. Most importantly, the kids had the absolute best time, which made the day so special for all of us. We truly cannot sing your praises highly enough.",
       avatar: "/avatars/jordan.jpg",
     },
     {
-      name: "Talon Everson",
+      name: "Malaina",
       role: "Youth Group Leader",
       rating: 5,
-      quote: "Great staff, great fun!",
+      quote: "Loved this. Great time! Our family of 8 will definitely be back!",
       avatar: "/avatars/jordan.jpg",
     },
   ],
@@ -260,9 +260,9 @@ export default function AboutTestimonials({
                     <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
                       {t.name}
                     </Typography>
-                    <Typography variant="body2" sx={{ opacity: 0.7, mt: -0.25 }}>
+                    {/* <Typography variant="body2" sx={{ opacity: 0.7, mt: -0.25 }}>
                       {t.role}
-                    </Typography>
+                    </Typography> */}
                   </Box>
                 </Stack>
 
@@ -286,10 +286,22 @@ export default function AboutTestimonials({
                   sx={{
                     lineHeight: 1.7,
                     opacity: 0.95,
-                    display: "-webkit-box",
-                    WebkitLineClamp: 3,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
+                    overflowY: "auto",
+                    flex: 1,
+                    pr: 1,
+                    "&::-webkit-scrollbar": {
+                      width: "4px",
+                    },
+                    "&::-webkit-scrollbar-track": {
+                      background: "transparent",
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                      background: alpha("#fff", 0.2),
+                      borderRadius: "4px",
+                    },
+                    "&::-webkit-scrollbar-thumb:hover": {
+                      background: alpha("#fff", 0.4),
+                    },
                   }}
                 >
                   “{t.quote}”

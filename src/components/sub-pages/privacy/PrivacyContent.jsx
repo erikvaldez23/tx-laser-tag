@@ -82,7 +82,7 @@ export default function PrivacyContent() {
                         <br />
                         ops@txlasercombat.com
                         <br />
-                        (972) 809-9164
+                        (469) 638-8499
                     </Paragraph>
                 </ContentContainer>
             </Container>

@@ -152,7 +152,7 @@ export default function Footer({ logoSrc = "/alt-logo.png" }) {
               <FooterLink href="https://www.facebook.com/people/TX-Laser-Combat/61585110921158/">Facebook</FooterLink>
               {/* <FooterLink href="https://linkedin.com">LinkedIn</FooterLink> */}
               <FooterLink href="https://www.instagram.com/txlasercombat">Instagram</FooterLink>
-              <FooterLink href="https://youtube.com">YouTube</FooterLink>
+              {/* <FooterLink href="https://youtube.com">YouTube</FooterLink> */}
               {/* <FooterLink href="https://x.com">X</FooterLink> */}
             </Stack>
           </Box>
@@ -255,8 +255,8 @@ export default function Footer({ logoSrc = "/alt-logo.png" }) {
             >
               ops@txlasercombat.com
             </MuiLink>
-            <MuiLink href="tel:+12141234567" underline="hover" color={MUTED}>
-              (972) 809-9164
+            <MuiLink href="tel:+14696388499" underline="hover" color={MUTED}>
+              (469) 638-8499
             </MuiLink>
             <MuiLink
               component={RouterLink}
