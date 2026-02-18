@@ -192,6 +192,14 @@ export default function HeroCountdown({
   }, []);
 
   const handleJoin = () => setOpenDialog(true);
+  const handleBookNow = () => {
+    if (window.RollerCheckout) {
+      window.RollerCheckout.show();
+    } else {
+      console.warn("Roller Checkout script not loaded");
+    }
+  };
+
   const handleClose = () => setOpenDialog(false);
   const handleSubmit = async (data) => {
     // TODO: replace with your API call
@@ -309,7 +317,7 @@ export default function HeroCountdown({
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
           >
             <Button
-              onClick={finished ? undefined : handleJoin}
+              onClick={finished ? handleBookNow : handleJoin}
               size={isSm ? "medium" : "large"}
               sx={{
                 px: { xs: 3, sm: 3.5 },
