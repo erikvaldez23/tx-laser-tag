@@ -317,7 +317,7 @@ export default function HeroCountdown({
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
           >
             <Button
-              onClick={finished ? handleBookNow : handleJoin}
+              onClick={handleJoin}
               size={isSm ? "medium" : "large"}
               sx={{
                 px: { xs: 3, sm: 3.5 },
@@ -334,7 +334,7 @@ export default function HeroCountdown({
                 transition: "all .25s ease",
               }}
             >
-              {finished ? "We’re Live — Enter" : ctaText}
+              {ctaText}
             </Button>
           </motion.div>
         </Stack>
