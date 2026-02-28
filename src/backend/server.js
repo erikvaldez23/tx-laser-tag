@@ -6,6 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 import multer from 'multer';
+import mongoose from 'mongoose';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,6 +35,30 @@ const upload = multer({
     storage: multer.memoryStorage(),
     limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
 });
+
+// Connect to MongoDB
+const connectDB = async () => {
+    try {
+        if (!process.env.MONGODB_URI) {
+            console.error('[DEBUG] MONGODB_URI is not defined in environment variables');
+            return;
+        }
+        await mongoose.connect(process.env.MONGODB_URI);
+        console.log('✅ Connected to MongoDB successfully');
+    } catch (error) {
+        console.error('❌ MongoDB connection error:', error);
+    }
+};
+connectDB();
+
+// Define VIP Schema & Model
+const vipSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    timestamp: { type: Date, default: Date.now }
+});
+
+const VIPUser = mongoose.model('VIPUser', vipSchema);
 
 // Middleware
 app.use(cors());
@@ -115,7 +140,7 @@ app.post('/api/vip', async (req, res) => {
     const { name, email } = req.body;
     console.log(`\n💎 New VIP Signup: ${name} (${email})`);
 
-    // 1. Log to CSV
+    // 1. Log to CSV & MongoDB
     const csvPath = path.resolve(__dirname, '../../vip_signups.csv');
     const timestamp = new Date().toISOString();
     const csvLine = `"${timestamp}","${name}","${email}"\n`;
@@ -127,8 +152,13 @@ app.post('/api/vip', async (req, res) => {
         }
         fs.appendFileSync(csvPath, csvLine);
         console.log(`   - Logged to CSV: ${csvPath}`);
+        
+        // Save to MongoDB
+        const newVip = new VIPUser({ name, email });
+        await newVip.save();
+        console.log(`   - Logged to MongoDB`);
     } catch (err) {
-        console.error('   ❌ Error writing to CSV:', err);
+        console.error('   ❌ Error writing to DB/CSV:', err);
     }
 
     // 2. Alert Owner
@@ -140,7 +170,7 @@ app.post('/api/vip', async (req, res) => {
             <h3>New VIP Alert!</h3>
             <p><strong>Name:</strong> ${name}</p>
             <p><strong>Email:</strong> ${email}</p>
-            <p>This user has been added to your <code>vip_signups.csv</code> file.</p>
+            <p>This user has been added to the VIP Access List Database.</p>
         `
     };
 
@@ -173,20 +203,36 @@ app.post('/api/vip', async (req, res) => {
     }
 });
 
-// VIP Access List View Route (Plain Text)
-app.get('/api/vip-list', (req, res) => {
-    const csvPath = path.resolve(__dirname, '../../vip_signups.csv');
-    
-    if (!fs.existsSync(csvPath)) {
-        return res.status(404).send('VIP list is currently empty.');
-    }
-
+// VIP Access List View Route (JSON from DB or CSV fallback)
+app.get('/api/vip-list', async (req, res) => {
     try {
+        // Try getting from MongoDB first
+        if (mongoose.connection.readyState === 1) {
+            const vips = await VIPUser.find().sort({ timestamp: -1 });
+            
+            if (vips.length > 0) {
+                let plainText = '=== Texas Laser Combat VIP Access List (MongoDB) ===\n\n';
+                vips.forEach(vip => {
+                    const date = new Date(vip.timestamp).toLocaleString();
+                    plainText += `[${date}] ${vip.name.padEnd(20)} | ${vip.email}\n`;
+                });
+                res.setHeader('Content-Type', 'text/plain');
+                return res.send(plainText);
+            }
+        }
+        
+        // Fallback to CSV if DB is empty or disconnected
+        const csvPath = path.resolve(__dirname, '../../vip_signups.csv');
+        
+        if (!fs.existsSync(csvPath)) {
+            return res.status(404).send('VIP list is currently empty.');
+        }
+
         const data = fs.readFileSync(csvPath, 'utf8');
         const lines = data.split('\n');
         
         // Format the CSV as nice plain text
-        let plainText = '=== Texas Laser Combat VIP Access List ===\n\n';
+        let plainText = '=== Texas Laser Combat VIP Access List (CSV Fallback) ===\n\n';
         
         // Skip header
         for (let i = 1; i < lines.length; i++) {
@@ -195,9 +241,9 @@ app.get('/api/vip-list', (req, res) => {
             // Basic CSV parser for "val","val" format
             const parts = lines[i].split('","').map(s => s.replace(/"/g, ''));
             if (parts.length >= 3) {
-                const [timestamp, name, email] = parts;
+                const [timestamp, csvName, csvEmail] = parts;
                 const date = new Date(timestamp).toLocaleString();
-                plainText += `[${date}] ${name.padEnd(20)} | ${email}\n`;
+                plainText += `[${date}] ${csvName.padEnd(20)} | ${csvEmail}\n`;
             }
         }
         
