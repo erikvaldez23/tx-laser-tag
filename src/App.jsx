@@ -1,4 +1,4 @@
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider, Box } from "@mui/material";
 import "./App.css";
 
@@ -9,11 +9,7 @@ import ScrollToTop from "./components/key-components/ScrollToTop";
 import Contact from "./components/key-components/Contact";
 
 // Landing Page
-import Hero from "./components/landing/Hero";
-import Intro from "./components/landing/Intro";
-import About from "./components/landing/About";
-import Offer from "./components/landing/Offer";
-import Apply from "./components/landing/Apply";
+import HomePage from "./components/landing/HomePage";
 
 // Sub Pages
 import AboutPage from "./components/sub-pages/about/About";
@@ -22,6 +18,7 @@ import GroupEventsPage from "./components/sub-pages/events/GroupEvents";
 import CorporateEventsPage from "./components/sub-pages/events/CorporateEvents";
 import ExperiencePage from "./components/sub-pages/experience/Experience"
 import PrivacyPage from "./components/sub-pages/privacy/Privacy";
+import NotFoundPage from "./components/sub-pages/not-found/NotFound";
 
 const theme = createTheme({
   palette: {
@@ -53,30 +50,14 @@ function App() {
           <ScrollToTop />
           <Topbar />
           <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  <Hero />
-                  <Intro />
-                  <About />
-                  <Offer />
-                  <Apply />
-                  {/* <HeroClark />
-                <Quote />
-                <Events2 />
-                <ImpactPillars />
-                <CTA /> */}
-                </>
-              }
-            />
+            <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/events" element={<EventsPage />} />
             <Route path="/events/group" element={<GroupEventsPage />} />
             <Route path="/events/corporate" element={<CorporateEventsPage />} />
             <Route path="/experience" element={<ExperiencePage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
-            <Route path="/test-contact" element={<Contact />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
           <Footer />
         </Router>

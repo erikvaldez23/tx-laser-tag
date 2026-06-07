@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Block system/private paths
+Disallow: /src/
+Disallow: /.env
+Disallow: /node_modules/
+Disallow: /dist/
+Disallow: /.well-known/
+
+# Allow important CSS/JS rendering assets
+Allow: /assets/
+Allow: /*.js
+Allow: /*.css
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.webp
+Allow: /*.svg
+Allow: /*.woff2
+
+Sitemap: https://txlasercombat.com/sitemap.xml

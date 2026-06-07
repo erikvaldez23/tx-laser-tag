@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://txlasercombat.com/</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://txlasercombat.com/og-image.jpg</image:loc>
+      <image:title>Texas Laser Combat – Premier Tactical Laser Tag in Plano, TX</image:title>
+    </image:image>
+  </url>
+
+  <!-- About Page -->
+  <url>
+    <loc>https://txlasercombat.com/about</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://txlasercombat.com/about/about.jpg</image:loc>
+      <image:title>About Texas Laser Combat – Veteran &amp; Woman-Owned Business</image:title>
+    </image:image>
+  </url>
+
+  <!-- Events Hub -->
+  <url>
+    <loc>https://txlasercombat.com/events</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Group Events -->
+  <url>
+    <loc>https://txlasercombat.com/events/group</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Corporate Events -->
+  <url>
+    <loc>https://txlasercombat.com/events/corporate</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Experience Page -->
+  <url>
+    <loc>https://txlasercombat.com/experience</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://txlasercombat.com/experience/atmosphere.jpg</image:loc>
+      <image:title>Texas Laser Combat Arena – Wasteland-Themed Immersive Laser Tag</image:title>
+    </image:image>
+  </url>
+
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://txlasercombat.com/privacy</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>

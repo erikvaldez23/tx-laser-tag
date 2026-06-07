@@ -198,7 +198,7 @@ export default function HeroCountdown({
   };
 
   return (
-    <Section>
+    <Section component="section" aria-label="Texas Laser Combat — tactical laser tag arena in Plano, TX">
       <VideoContainer>
         <video
           ref={videoRef}
@@ -208,9 +208,11 @@ export default function HeroCountdown({
           defaultMuted
           playsInline
           preload="auto"
-          src="/videos/hero2.mp4"
-          type="video/mp4"
-        />
+          aria-hidden="true"
+          {...{ "webkit-playsinline": "" }}
+        >
+          <source src="/videos/hero-video.mp4" type="video/mp4" />
+        </video>
 
         <Box
           sx={{

@@ -164,19 +164,19 @@ const DATA_DEFAULT = [
     id: "youth",
     title: "Youth Events",
     items: [
-      { id: "birthday-kids", label: "Birthday Parties", image: "/events/types/bday-kids.jpg" },
-      { id: "open-play", label: "Open Play", image: "/events/types/open-play2.jpg" },
-      { id: "family-fun", label: "Family Fun", image: "/events/types/family.jpg" },
+      { id: "birthday-kids", label: "Birthday Parties", image: "/events/updates/birthday-parties.png" },
+      { id: "open-play", label: "Open Play", image: "/events/updates/open-play.jpeg" },
+      { id: "family-fun", label: "Family Fun", image: "/events/updates/family-fun.png" },
     ],
   },
   {
     id: "adult",
     title: "Adult Social Groups",
     items: [
-      { id: "singles", label: "Singles Meet Ups", image: "/events/types/meet-up.jpg" },
-      { id: "adult-family", label: "Family Fun", image: "/events/types/family.jpg" },
-      { id: "adult-open-play", label: "Open Play", image: "/events/types/open-play.jpg" },
-      { id: "parties", label: "Bachelor/ette Parties", image: "/events/bach-party.jpg" },
+      { id: "singles", label: "Singles Meet Ups", image: "/events/updates/meet-ups.jpg" },
+      { id: "adult-family", label: "Family Fun", image: "/events/updates/family-fun.png" },
+      { id: "adult-open-play", label: "Open Play", image: "/events/updates/open-play.jpeg" },
+      { id: "parties", label: "Bachelor/ette Parties", image: "/events/updates/meet-ups.jpg" },
     ],
   },
   // {
@@ -193,9 +193,9 @@ const DATA_DEFAULT = [
     id: "corporate",
     title: "Corporate Events",
     items: [
-      { id: "team", label: "Team Building", image: "/events/corp-party.jpg" },
-      { id: "holiday-parties", label: "Holiday Parties", image: "/events/types/company.jpg" },
-      { id: "fundraisers", label: "Fundraisers", image: "/events/company4.jpg" },
+      { id: "team", label: "Team Building", image: "/events/updates/team-building.jpg" },
+      { id: "holiday-parties", label: "Holiday Parties", image: "/events/updates/holiday-parties.png" },
+      { id: "fundraisers", label: "Fundraisers", image: "/events/updates/fundraisers.JPG" },
     ],
   },
 ];
@@ -217,7 +217,13 @@ export default function TypesOfEvents({
     data.forEach((group) => {
       map[group.title] = withStableKeys(group.items, group.id);
     });
-    const all = withStableKeys(data.flatMap((g) => g.items), "all");
+    const seen = new Set();
+    const deduped = data.flatMap((g) => g.items).filter((item) => {
+      if (seen.has(item.label)) return false;
+      seen.add(item.label);
+      return true;
+    });
+    const all = withStableKeys(deduped, "all");
     return { All: all, ...map };
   }, [data]);
 

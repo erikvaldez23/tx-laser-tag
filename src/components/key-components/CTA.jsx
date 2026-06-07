@@ -61,7 +61,7 @@ export default function CTA({
     "Sun: 11am – 8pm",
   ],
   address = "2300 Coit Road (off Irvine Drive) #400, Plano, TX 75075",
-  backgroundImage = "/cta.jpg",
+  backgroundImage = "/events/corporate-events/join.jpg",
   primaryCta = { label: "Join VIP Access List" },
   secondaryCta = {
     label: "Get Directions",

@@ -186,21 +186,21 @@ export default function OffersShowcase({
 
   const defaultItems = [
     {
-      img: "/landing/experience.jpg",
+      img: "/landing/experience2.jpeg",
       heading: "The experience",
       sub: "Immersive tactical game play",
       cta: "Learn more",
       onClick: () => navigate("/experience"),
     },
     {
-      img: "/landing/parties.jpg",
+      img: "/landing/parties2.png",
       heading: "Groups and parties",
       sub: "Host events, corporate events & more",
       cta: "Learn more",
       onClick: () => navigate("/events"),
     },
     {
-      img: "/landing/food.jpg",
+      img: "/landing/food2.jpg",
       heading: "Food and beverages",
       sub: "Enjoy unique food offerings and catering",
       cta: "Learn more",

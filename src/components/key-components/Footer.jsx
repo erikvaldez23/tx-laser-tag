@@ -122,7 +122,7 @@ export default function Footer({ logoSrc = "/alt-logo.png" }) {
             />
           </FullSpanOnMobile>
 
-          <Box>
+          <Box component="nav" aria-label="Footer navigation">
             <ColTitle>Sitemap</ColTitle>
             <Stack spacing={0} alignItems={{ xs: "center", sm: "flex-start" }}>
               {sitemap.map((item) => (
@@ -143,18 +143,34 @@ export default function Footer({ logoSrc = "/alt-logo.png" }) {
           <Box>
             <ColTitle>Socials</ColTitle>
             <Stack spacing={0} alignItems={{ xs: "center", sm: "flex-start" }}>
-              <FooterLink href="https://www.facebook.com/people/TX-Laser-Combat/61585110921158/">Facebook</FooterLink>
-              {/* <FooterLink href="https://linkedin.com">LinkedIn</FooterLink> */}
-              <FooterLink href="https://www.instagram.com/txlasercombat">Instagram</FooterLink>
-              {/* <FooterLink href="https://youtube.com">YouTube</FooterLink> */}
-              {/* <FooterLink href="https://x.com">X</FooterLink> */}
+              <FooterLink
+                href="https://www.facebook.com/people/TX-Laser-Combat/61585110921158/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Facebook
+              </FooterLink>
+              <FooterLink
+                href="https://www.instagram.com/txlasercombat"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Instagram
+              </FooterLink>
             </Stack>
           </Box>
 
           <FullSpanOnMobile>
             <ColTitle>Address</ColTitle>
-            <Typography sx={{ color: MUTED, mb: 3 }}>
-              2300 Coit Road (off Irvine Drive) #400, Plano, TX 75075
+            <Typography component="address" sx={{ color: MUTED, mb: 3, fontStyle: "normal" }}>
+              <a
+                href="https://maps.google.com/?q=2300+Coit+Road+%23400+Plano+TX+75075"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
+                2300 Coit Road (off Irvine Drive) #400, Plano, TX 75075
+              </a>
             </Typography>
 
             <ColTitle sx={{ mb: 1.5 }}>Stay up to date</ColTitle>
@@ -211,16 +227,22 @@ export default function Footer({ logoSrc = "/alt-logo.png" }) {
         >
           {/* Left cluster: socials (icons) */}
           <Stack direction="row" spacing={2}>
-            <MuiLink href="https://facebook.com" color={MUTED}>
+            <MuiLink
+              href="https://www.facebook.com/people/TX-Laser-Combat/61585110921158/"
+              target="_blank"
+              rel="noopener noreferrer"
+              color={MUTED}
+              aria-label="Texas Laser Combat on Facebook"
+            >
               <FacebookIcon fontSize="small" />
             </MuiLink>
-            {/* <MuiLink href="https://linkedin.com" color={MUTED}>
-              <LinkedInIcon fontSize="small" />
-            </MuiLink>
-            <MuiLink href="https://x.com" color={MUTED}>
-              <XIcon fontSize="small" />
-            </MuiLink> */}
-            <MuiLink href="https://facebook.com" color={MUTED}>
+            <MuiLink
+              href="https://www.instagram.com/txlasercombat"
+              target="_blank"
+              rel="noopener noreferrer"
+              color={MUTED}
+              aria-label="Texas Laser Combat on Instagram"
+            >
               <InstagramIcon fontSize="small" />
             </MuiLink>
           </Stack>

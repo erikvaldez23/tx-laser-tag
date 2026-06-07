@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, Typography, Container } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
-import arenaRight from "/about/about.jpg"; // first section (right)
-import arenaLeft from "/about/amenities.jpg";  // second section (left)
+import arenaRight from "/about/updates/about-us.png"; // first section (right)
+import arenaLeft from "/about/updates/Immersive.JPG";  // second section (left)
 
 const ACCENT = "#f2c230";
 

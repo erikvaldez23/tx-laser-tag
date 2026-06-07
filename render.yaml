@@ -5,12 +5,70 @@ services:
     buildCommand: npm run build
     staticPublishPath: ./dist
     headers:
+      # Apple Pay merchant association
       - path: /.well-known/apple-developer-merchantid-domain-association
         name: Content-Type
         value: text/plain
       - path: /.well-known/apple-developer-merchantid-domain-association
         name: Content-Disposition
         value: inline
+
+      # Immutable hashed assets (Vite adds content hash to filenames)
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+
+      # Images — long cache, revalidate
+      - path: "/*.png"
+        name: Cache-Control
+        value: public, max-age=2592000, stale-while-revalidate=86400
+      - path: "/*.jpg"
+        name: Cache-Control
+        value: public, max-age=2592000, stale-while-revalidate=86400
+      - path: "/*.webp"
+        name: Cache-Control
+        value: public, max-age=2592000, stale-while-revalidate=86400
+      - path: "/*.svg"
+        name: Cache-Control
+        value: public, max-age=2592000, stale-while-revalidate=86400
+
+      # Fonts — very long cache
+      - path: "/*.woff2"
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+
+      # Videos — moderate cache
+      - path: "/*.mp4"
+        name: Cache-Control
+        value: public, max-age=604800
+
+      # SEO files — short cache so updates propagate quickly
+      - path: /robots.txt
+        name: Cache-Control
+        value: public, max-age=86400
+      - path: /sitemap.xml
+        name: Cache-Control
+        value: public, max-age=86400
+
+      # HTML — no cache (always fresh)
+      - path: /index.html
+        name: Cache-Control
+        value: no-cache, no-store, must-revalidate
+
+      # Security headers
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=(self)
+
     routes:
       - type: rewrite
         source: /**
