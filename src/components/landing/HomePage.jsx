@@ -50,7 +50,7 @@ const homepageSchema = [
         "closes": "20:00"
       }
     ],
-    "image": "https://txlasercombat.com/og-image.jpg",
+    "image": "https://txlasercombat.com/alt-logo.png",
     "logo": "https://txlasercombat.com/alt-logo.png",
     "priceRange": "$$",
     "currenciesAccepted": "USD",
