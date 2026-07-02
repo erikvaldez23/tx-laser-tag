@@ -63,7 +63,7 @@ const Cards = styled(Box)(({ theme }) => ({
 }));
 
 const CardWrap = styled(Box)(({ theme }) => ({
-  gridColumn: "span 3",
+  gridColumn: "span 2",
   [theme.breakpoints.down("lg")]: { gridColumn: "span 2" },
   [theme.breakpoints.down("sm")]: { gridColumn: "auto" },
 }));
@@ -158,7 +158,7 @@ const packagesDefault = [
     id: "recruit",
     title: "Recruit Package",
     description:
-      "75-min shared session for 8 players with private room for party & more!",
+      "75-minute public arena session for 4-8 players with private room for party & more!",
     image: "/events/recruit.jpg",
     productId: "1692026",
   },
@@ -166,9 +166,17 @@ const packagesDefault = [
     id: "elite",
     title: "Elite Package",
     description:
-      "75-min shared for 8 players with level 1 upgrades and private room for party & more!",
+      "75-minute public arena session with upgraded weapons for 4-8 players with private room for party & more!",
     image: "/events/elite.jpg",
     productId: "1692180",
+  },
+  {
+    id: "atomic",
+    title: "Atomic Package",
+    description:
+      "75-minute private arena session with upgraded weapons for 4-8 players with private room for party & more!",
+    image: "/events/atomic.jpg",
+    productId: "",
   },
 ];
 

@@ -38,6 +38,7 @@ export const CAROUSEL_CONFIG = {
     { src: "/weapon-carousel/16 Carousel Tommy Gun.png", alt: "Tommy Gun", modalSrc: "/weapon-stats/updated-stats/16 Update Weapons Screen Tommy Gun.png" },
     { src: "/weapon-carousel/17 Carousel Rocket Launcher.png", alt: "Rocket Launcher", modalSrc: "/weapon-stats/updated-stats/17 Update Weapons Screen Rocket Launcher.png" },
     { src: "/weapon-carousel/18 Carousel Zombie SAW.png", alt: "Zombie SAW", modalSrc: "/weapon-stats/updated-stats/18 Update Weapons Screen M249 Zombie Saw.png" },
+    { src: "/weapon-carousel/19 Carousel YT-4 YEET.jpg", alt: "YT-4 Yeet", modalSrc: "/weapon-stats/updated-stats/19 Weapons Screen YT-4.jpg" },
   ],
 
   stageHeight: { xs: 240, md: 500 },
@@ -194,7 +195,8 @@ export default function GearCarousel(props) {
         position: "relative",
         width: "100%",
         color: "#fff",
-        py: cfg.spacingY,
+        pt: { xs: 3, md: 8 },
+        pb: cfg.spacingY,
         overflow: "hidden",
       }}
     >

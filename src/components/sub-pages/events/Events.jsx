@@ -55,7 +55,7 @@ const eventsSchema = [
         "name": "What is your cancellation policy for events?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Cancellations or rescheduling requests must be made at least 3 days prior to the scheduled event to receive a full refund or reschedule without penalty, subject to management approval."
+          "text": "If canceled with more than 72 hours' notice, full refund. With 24-72 hours' notice, forfeit 50% of paid amount, remaining portion can also be refunded to a Gift Card. With less than 24 hours' notice or no-show, forfeit 100% of paid amount. If walking out, full amount retained. No refunds for completed sessions, participant misconduct, or non-compliance. Rescheduling incurs no penalty."
         }
       },
       {

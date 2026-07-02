@@ -73,10 +73,10 @@ export default function AboutTestimonials({
       avatar: "/avatars/alex.jpg",
     },
     {
-      name: "Aleese",
-      role: "Laser Tag Enthusiast",
+      name: "Vanessa",
+      role: "Customer",
       rating: 5,
-      quote: "Had a great experience here with my 10 yr old and his friends. They break it up into smaller games and make it fun and interactive. Will definitely be back.",
+      quote: "Excellent staff and experience. Wonderful as a work function.",
       avatar: "/avatars/priya.jpg",
     },
     {
@@ -87,10 +87,10 @@ export default function AboutTestimonials({
       avatar: "/avatars/jordan.jpg",
     },
     {
-      name: "Malaina",
-      role: "Youth Group Leader",
+      name: "Crystal Alaina",
+      role: "Parent",
       rating: 5,
-      quote: "Loved this. Great time! Our family of 8 will definitely be back!",
+      quote: "10/10 recommend. My 16 yr old and his friends loved it. The adults loved it as well.",
       avatar: "/avatars/jordan.jpg",
     },
   ],

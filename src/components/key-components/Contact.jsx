@@ -80,7 +80,7 @@ const SubmitButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-export default function Contact() {
+export default function Contact({ id = "get-in-touch" }) {
   const [formData, setFormData] = React.useState({
     firstName: "",
     lastName: "",
@@ -129,7 +129,7 @@ export default function Contact() {
   };
 
   return (
-    <Section>
+    <Section id={id}>
       <Container maxWidth="xl">
         <GridWrap>
           {/* Left Column: Header & Subheader */}

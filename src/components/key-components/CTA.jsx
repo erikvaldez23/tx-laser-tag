@@ -55,7 +55,7 @@ const Glass = styled(Box)(({ theme }) => ({
 export default function CTA({
   title = "Join the laser experience today!",
   hours = [
-    "Wed–Thurs: 4pm – 10:30pm",
+    "Mon–Thurs: 4pm – 10:30pm",
     "Fri: 4pm – 11:30pm",
     "Sat: 11am – 11:30pm",
     "Sun: 11am – 8pm",

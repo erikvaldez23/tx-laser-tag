@@ -71,8 +71,8 @@ export default function AboutFAQ({
   subtitle = "Quick answers to common questions.",
   items = [
     {
-      q: "What is your cancelation policy?",
-      a: "Cancellations or rescheduling requests must be made at least 3 days prior to the scheduled event to receive a full refund or reschedule without penalty, subject to management approval."
+      q: "What is your cancellation policy?",
+      a: "If canceled with more than 72 hours' notice, full refund. With 24-72 hours' notice, forfeit 50% of paid amount, remaining portion can also be refunded to a Gift Card. With less than 24 hours' notice or no-show, forfeit 100% of paid amount. If walking out, full amount retained. No refunds for completed sessions, participant misconduct, or non-compliance. Rescheduling incurs no penalty."
     },
     {
       q: "How long is a session?",
@@ -89,6 +89,38 @@ export default function AboutFAQ({
     {
       q: "What should I wear for a tactical laser tag session?",
       a: "Wear closed-toe shoes for safety. The arena is cool at the start, but can heat up as you play, so dress in comfortable, breathable clothing suitable for physical activity."
+    },
+    {
+      q: "What are the waivers, and who needs to complete them?",
+      a: "Waivers outline the risks associated with laser tag and must be signed for each player before participating. Parents or guardians are required to sign waivers for all players under 18 years of age. Waivers should be completed in advance online for faster check-in and are valid for 1 year."
+    },
+    {
+      q: "Is laser combat safe for players' eyes?",
+      a: "Yes, our laser tag equipment uses infrared technology (the same as a TV remote), not real lasers, making it completely safe for players' eyes."
+    },
+    {
+      q: "Does Texas Laser Combat accept walk-in players?",
+      a: "Yes, walk-in players are welcome to join sessions if there is availability. We recommend checking the calendar on our website or calling ahead to confirm space."
+    },
+    {
+      q: "Does Texas Laser Combat accept cash or checks for payment?",
+      a: "No, we do not accept checks unless authorized by management under extenuating circumstances. Preferred payment methods include credit/debit cards and electronic payments including Apple and Google Pay."
+    },
+    {
+      q: "Why might Texas Laser Combat be closed on a day they are normally open?",
+      a: "The facility may close due to extreme weather conditions to ensure the safety of staff and customers, or if the entire arena is reserved for a private event."
+    },
+    {
+      q: "How can I check availability for an event or individual play?",
+      a: "Visit our website and click on the booking tab to check availability for events or individual play sessions. You can also contact our Entry Ops team for assistance."
+    },
+    {
+      q: "Do gift cards at Texas Laser Combat expire?",
+      a: "No, our electronic gift cards do not expire unless otherwise specified in the email accompanying the gift card."
+    },
+    {
+      q: "Does Texas Laser Combat accept donation requests?",
+      a: "Yes, we accept donation requests. Please complete the online donation request form on our website, and we will respond within 1-2 weeks."
     },
   ],
 }) {

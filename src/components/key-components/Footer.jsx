@@ -100,6 +100,7 @@ export default function Footer({ logoSrc = "/alt-logo.png" }) {
     { label: "About", to: "/about" },
     { label: "Events", to: "/events" },
     { label: "Experience", to: "/experience" },
+    { label: "Lost & Found", to: "/about#get-in-touch" },
     { label: "Waiver", href: "https://waiver.roller.app/TexasLaserCombat" },
   ];
 
@@ -263,7 +264,8 @@ export default function Footer({ logoSrc = "/alt-logo.png" }) {
             }}
           >
             <MuiLink
-              href="mailto:contact@txlasercombat.com"
+              component={RouterLink}
+              to="/about#get-in-touch"
               underline="hover"
               color={MUTED}
             >

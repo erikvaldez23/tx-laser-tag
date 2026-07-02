@@ -58,15 +58,13 @@ const Title = styled(Typography)(({ theme }) => ({
 const Cards = styled(Box)(({ theme }) => ({
   display: "grid",
   gap: theme.spacing(4),
-  gridTemplateColumns: "repeat(6, minmax(0, 1fr))",
-  [theme.breakpoints.down("lg")]: { gridTemplateColumns: "repeat(4, 1fr)" },
-  [theme.breakpoints.down("sm")]: { gridTemplateColumns: "1fr" },
+  placeContent: "center",
 }));
 
 const CardWrap = styled(Box)(({ theme }) => ({
-  gridColumn: "span 3",
-  [theme.breakpoints.down("lg")]: { gridColumn: "span 2" },
-  [theme.breakpoints.down("sm")]: { gridColumn: "auto" },
+  width: "100%",
+  maxWidth: 480,
+  marginInline: "auto",
 }));
 
 const ImgShell = styled(Paper)(({ theme }) => ({
@@ -154,23 +152,15 @@ const packagesDefault = [
     id: "core package",
     title: "Core Package",
     description:
-      "75-min private session for 25 players and private room for party and more!",
+      "75-minute private arena session for 4-30 players!",
     image: "/events/core.jpg",
     productId: "1692224",
-  },
-  {
-    id: "executive",
-    title: "Executive Package",
-    description:
-      "75-min private session for 25 players with all upgrades unlocked and private room for party and more!",
-    image: "/events/executive.jpg",
-    productId: "1692227",
   },
 ];
 
 /* --------------------------- Component --------------------------- */
 export default function PartyRoomPackages({
-  heading = "Facility packages",
+  heading = "Facility Rentals",
   items = packagesDefault,
   onBook,
 }) {

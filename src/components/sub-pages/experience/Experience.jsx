@@ -3,8 +3,8 @@ import SEOHead from "../../seo/SEOHead";
 import ExperienceHero from "./ExperienceHero";
 import Map from "./Map";
 import ExperienceContent from "./ExperienceContent";
-import Weapons from "./Weapons";
 import Carousel from "./Carousel";
+import GameModes from "./GameModes";
 
 const experienceSchema = [
   {
@@ -50,8 +50,9 @@ export default function ExperiencePage() {
       />
       <main>
         <ExperienceHero />
-        <Map fit="contain" backdrop="#111" />
         <Carousel />
+        <GameModes />
+        <Map fit="contain" backdrop="#111" />
         <ExperienceContent />
       </main>
     </>
