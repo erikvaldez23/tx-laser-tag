@@ -80,7 +80,7 @@ export default function AboutFAQ({
     },
     {
       q: "Are there age or height restrictions to play?",
-      a: "Players must be at least 7 years old to participate. There are no height restrictions for playing at Texas Laser Combat."
+      a: `You must be 7 years old or 46" in order to play.`
     },
     {
       q: "Is there a parent viewing area available?",

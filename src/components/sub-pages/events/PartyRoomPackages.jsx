@@ -158,7 +158,7 @@ const packagesDefault = [
     id: "recruit",
     title: "Recruit Package",
     description:
-      "75-minute public arena session for 4-8 players with private room for party & more!",
+      "75-minute public arena session for 4+ players with private room for party & more!",
     image: "/events/recruit.jpg",
     productId: "1692026",
   },
@@ -166,7 +166,7 @@ const packagesDefault = [
     id: "elite",
     title: "Elite Package",
     description:
-      "75-minute public arena session with upgraded weapons for 4-8 players with private room for party & more!",
+      "75-minute public arena session with upgraded weapons for 4+ players with private room for party & more!",
     image: "/events/elite.jpg",
     productId: "1692180",
   },
@@ -174,7 +174,7 @@ const packagesDefault = [
     id: "atomic",
     title: "Atomic Package",
     description:
-      "75-minute private arena session with upgraded weapons for 4-8 players with private room for party & more!",
+      "75-minute private arena session with upgraded weapons for 30+ players with private room for party & more!",
     image: "/events/atomic.jpg",
     productId: "",
   },
