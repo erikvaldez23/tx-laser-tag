@@ -9,6 +9,20 @@ import {
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 
+const DonationBtn = styled(Button)(({ theme }) => ({
+  borderRadius: 999,
+  textTransform: "none",
+  fontWeight: 800,
+  padding: "10px 24px",
+  background: "#f2c230",
+  color: "#101113",
+  fontFamily: "Podkova",
+  boxShadow: `0 12px 32px rgba(242,194,48,0.33)`,
+  alignSelf: "flex-start",
+  transition: "all .25s ease",
+  "&:hover": { background: "#ffd95a", boxShadow: `0 16px 40px rgba(242,194,48,0.4)`, transform: "translateY(-1px)" },
+}));
+
 const Section = styled(Box)(({ theme }) => ({
   paddingBlock: theme.spacing(8),
   color: "#fff",
@@ -140,6 +154,10 @@ export default function Contact({ id = "get-in-touch" }) {
             <Typography variant="body1" sx={{ color: alpha("#fff", 0.7), lineHeight: 1.6 }}>
               Have questions? Reach out to our team, and we'll get back to you as soon as possible.
             </Typography>
+            {/* TODO: donation form URL pending */}
+            <DonationBtn component="a" href="#">
+              Donation Form
+            </DonationBtn>
           </HeaderColumn>
 
           {/* Right Column: Form */}
