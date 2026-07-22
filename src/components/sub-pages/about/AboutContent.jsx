@@ -136,7 +136,7 @@ export default function AboutContent() {
             <Copy>
               <Eyebrow>Welcome</Eyebrow>
               <Title variant="h4">
-                Welcome to Texas Laser Combat, North Dallas’s newest premier
+                Welcome to Texas Laser Combat, North Dallas’ newest premier
                 destination for tactical laser tag adventures in Plano, TX.
               </Title>
               <Body>
