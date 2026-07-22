@@ -58,7 +58,7 @@ const Cards = styled(Box)(({ theme }) => ({
   display: "grid",
   gap: theme.spacing(4),
   gridTemplateColumns: "repeat(6, minmax(0, 1fr))",
-  [theme.breakpoints.down("lg")]: { gridTemplateColumns: "repeat(4, 1fr)" },
+  [theme.breakpoints.down("lg")]: { gridTemplateColumns: "repeat(4, minmax(0, 1fr))" },
   [theme.breakpoints.down("sm")]: { gridTemplateColumns: "1fr" },
 }));
 
@@ -104,6 +104,7 @@ const Overlay = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   gap: theme.spacing(2),
+  overflow: "hidden",
   [theme.breakpoints.down("sm")]: {
     position: "relative",
     left: "auto",
@@ -134,6 +135,7 @@ const Body = styled(Typography)(({ theme }) => ({
   fontSize: 13.5,
   lineHeight: 1.5,
   marginTop: 4,
+  wordBreak: "break-word",
 }));
 
 const BookBtn = styled(Button)(({ theme }) => ({
@@ -145,6 +147,7 @@ const BookBtn = styled(Button)(({ theme }) => ({
   color: "#111",
   backgroundColor: "#f2c230",
   fontFamily: "Podkova",
+  flexShrink: 0,
   boxShadow: `0 10px 18px ${alpha("#f2c230", 0.35)}`,
   "&:hover": {
     backgroundColor: "#ffd24a",
