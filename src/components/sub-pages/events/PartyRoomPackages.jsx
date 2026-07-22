@@ -71,7 +71,8 @@ const CardWrap = styled(Box)(({ theme }) => ({
 /* Light grey image area */
 const ImgShell = styled(Paper)(({ theme }) => ({
   position: "relative",
-  height: 500,
+  height: "auto",
+  aspectRatio: "3 / 4",
   borderRadius: 12,
   background: "#bfbfbf",
   boxShadow: "none",
@@ -83,7 +84,6 @@ const ImgShell = styled(Paper)(({ theme }) => ({
   overflow: "hidden",
   border: `1px solid ${alpha("#000", 0.08)}`,
   [theme.breakpoints.down("sm")]: {
-    height: "auto",
     aspectRatio: "16 / 9",
   },
 }));
