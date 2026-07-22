@@ -140,7 +140,6 @@ export default function Contact({ id = "get-in-touch" }) {
             <Typography variant="body1" sx={{ color: alpha("#fff", 0.7), lineHeight: 1.6 }}>
               Have questions? Reach out to our team, and we'll get back to you as soon as possible.
             </Typography>
-
           </HeaderColumn>
 
           {/* Right Column: Form */}
