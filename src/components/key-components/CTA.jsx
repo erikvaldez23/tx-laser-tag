@@ -51,15 +51,26 @@ const Glass = styled(Box)(({ theme }) => ({
   width: "100%",
 }));
 
+/* Fall schedule — single group, effective Aug 1 */
+export const DEFAULT_HOUR_GROUPS = [
+  {
+    title: "Hours",
+    hours: [
+      "Wed–Thurs: 4pm – 10:30pm",
+      "Fri: 4pm – 11:30pm",
+      "Sat: 11am – 11:30pm",
+      "Sun: 11am – 8pm",
+    ],
+  },
+];
+
 /* ---------------------------- Component ---------------------------- */
 export default function CTA({
   title = "Join the laser experience today!",
-  hours = [
-    "Mon–Thurs: 4pm – 10:30pm",
-    "Fri: 4pm – 11:30pm",
-    "Sat: 11am – 11:30pm",
-    "Sun: 11am – 8pm",
-  ],
+  // Legacy flat-array prop — kept for backward compat; takes precedence over
+  // hourGroups when explicitly passed so existing callers never break.
+  hours,
+  hourGroups = DEFAULT_HOUR_GROUPS,
   address = "2300 Coit Road (off Irvine Drive) #400, Plano, TX 75075",
   backgroundImage = "/events/corporate-events/join.jpg",
   primaryCta = { label: "Join VIP Access List" },
@@ -71,6 +82,10 @@ export default function CTA({
   onBookNowClick,
 }) {
   const theme = useTheme();
+
+  // Resolve to the titled-group format used by the renderer.
+  const resolvedGroups =
+    hours !== undefined ? [{ title: "Hours", hours }] : hourGroups;
 
   const [waitlistOpen, setWaitlistOpen] = React.useState(false);
   const openWaitlist = () => setWaitlistOpen(true);
@@ -112,24 +127,38 @@ export default function CTA({
             </Typography>
 
             <Glass sx={{ maxWidth: 560 }}>
-              <Stack spacing={1.25}>
-                <Typography
-                  variant="subtitle1"
-                  sx={{ fontWeight: 700, letterSpacing: 0.2 }}
-                >
-                  Hours
-                </Typography>
-                <Stack spacing={0.5}>
-                  {hours.map((line, i) => (
-                    <Typography
-                      key={i}
-                      variant="body1"
-                      sx={{ lineHeight: 1.6, opacity: 0.95 }}
-                    >
-                      {line}
-                    </Typography>
-                  ))}
-                </Stack>
+              <Stack spacing={2}>
+                {resolvedGroups.map((group, gi) => (
+                  <React.Fragment key={gi}>
+                    {gi > 0 && (
+                      <Box
+                        sx={{
+                          height: "1px",
+                          background: alpha("#fff", 0.15),
+                        }}
+                      />
+                    )}
+                    <Box>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{ fontWeight: 700, letterSpacing: 0.2, mb: 0.75 }}
+                      >
+                        {group.title}
+                      </Typography>
+                      <Stack spacing={0.5}>
+                        {group.hours.map((line, i) => (
+                          <Typography
+                            key={i}
+                            variant="body1"
+                            sx={{ lineHeight: 1.6, opacity: 0.95 }}
+                          >
+                            {line}
+                          </Typography>
+                        ))}
+                      </Stack>
+                    </Box>
+                  </React.Fragment>
+                ))}
 
                 <Typography
                   variant="body1"
