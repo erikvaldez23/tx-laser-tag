@@ -71,19 +71,19 @@ const CardWrap = styled(Box)(({ theme }) => ({
 /* Light grey image area */
 const ImgShell = styled(Paper)(({ theme }) => ({
   position: "relative",
-  height: "auto",
-  aspectRatio: "3 / 4",
+  height: 500,
   borderRadius: 12,
-  background: "#bfbfbf",
+  background: "#111",
   boxShadow: "none",
   display: "grid",
   placeItems: "center",
-  color: alpha("#000", 0.6),
+  color: alpha("#fff", 0.4),
   fontSize: 13,
   userSelect: "none",
   overflow: "hidden",
   border: `1px solid ${alpha("#000", 0.08)}`,
   [theme.breakpoints.down("sm")]: {
+    height: "auto",
     aspectRatio: "16 / 9",
   },
 }));
@@ -203,7 +203,8 @@ export default function PartyRoomPackages({
                       sx={{
                         width: "100%",
                         height: "100%",
-                        objectFit: "cover",
+                        objectFit: "contain",
+                        objectPosition: "center",
                       }}
                     />
                   </ImgShell>
