@@ -175,7 +175,7 @@ const packagesDefault = [
     title: "Atomic Package",
     description:
       "75-minute private arena session with upgraded weapons for 30+ players with private room for party & more!",
-    image: "/events/atomic.jpg",
+    image: "/events/executive.jpg",
     productId: "",
   },
 ];
