@@ -39,6 +39,8 @@ export const CAROUSEL_CONFIG = {
     { src: "/weapon-carousel/17 Carousel Rocket Launcher.png", alt: "Rocket Launcher", modalSrc: "/weapon-stats/updated-stats/17 Update Weapons Screen Rocket Launcher.png" },
     { src: "/weapon-carousel/18 Carousel Zombie SAW.png", alt: "Zombie SAW", modalSrc: "/weapon-stats/updated-stats/18 Update Weapons Screen M249 Zombie Saw.png" },
     { src: "/weapon-carousel/19 Carousel YT-4 YEET.jpg", alt: "YT-4 Yeet", modalSrc: "/weapon-stats/updated-stats/19 Weapons Screen YT-4.jpg" },
+    // Temporarily hidden — M870 coming soon. Uncomment to restore.
+    // { src: "/weapon-carousel/20 Carousel M870.png", alt: "M870", modalSrc: "/weapon-stats/updated-stats/20 Update Weapons Screen M870.png" },
   ],
 
   stageHeight: { xs: 240, md: 500 },
