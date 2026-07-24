@@ -31,7 +31,8 @@ export const CAROUSEL_CONFIG = {
     { src: "/weapon-carousel/9 Carousel Matrix SMG.png", alt: "Matrix SMG", modalSrc: "/weapon-stats/updated-stats/9 Update Weapons Screen Matrix SMG.png" },
     { src: "/weapon-carousel/10 Carousel Pink-90.png", alt: "Pink-90", modalSrc: "/weapon-stats/updated-stats/10 Update Weapons Screen Pink-90.png" },
     { src: "/weapon-carousel/11 Carousel FN SCAR.png", alt: "FN SCAR", modalSrc: "/weapon-stats/updated-stats/11 Update Weapons Screen FN SCAR.png" },
-    { src: "/weapon-carousel/12 Carousel Tactical SG.png", alt: "Tactical SG", modalSrc: "/weapon-stats/updated-stats/12 Update Weapons Screen Tactical SG.png" },
+    // Temporarily hidden — M870 (listed as "Tactical SG") coming soon. Uncomment to restore.
+    // { src: "/weapon-carousel/12 Carousel Tactical SG.png", alt: "Tactical SG", modalSrc: "/weapon-stats/updated-stats/12 Update Weapons Screen Tactical SG.png" },
     { src: "/weapon-carousel/13 Carousel Warthog M4.png", alt: "Warthog M4", modalSrc: "/weapon-stats/updated-stats/13 Update Weapons Screen Warthog M4.png" },
     { src: "/weapon-carousel/14 Carousel TAR-21.png", alt: "TAR-21", modalSrc: "/weapon-stats/updated-stats/14 Update Weapons Screen TAR-21 Sniper.png" },
     { src: "/weapon-carousel/15 Carousel Incinerator.png", alt: "Incinerator", modalSrc: "/weapon-stats/updated-stats/15 Update Weapons Screen Incinerator Mark-1.png" },
