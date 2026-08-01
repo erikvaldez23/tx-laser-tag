@@ -53,7 +53,7 @@ const aboutSchema = [
         "name": "Are there age or height restrictions to play laser tag?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Players must be at least 7 years old to participate. There are no height restrictions for playing at Texas Laser Combat."
+          "text": "You must be 7 years old or 46\" in order to play."
         }
       },
       {

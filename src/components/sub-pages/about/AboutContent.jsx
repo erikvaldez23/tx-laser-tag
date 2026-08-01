@@ -136,7 +136,7 @@ export default function AboutContent() {
             <Copy>
               <Eyebrow>Welcome</Eyebrow>
               <Title variant="h4">
-                Welcome to Texas Laser Combat, North Dallas’s newest premier
+                Welcome to Texas Laser Combat, North Dallas’ newest premier
                 destination for tactical laser tag adventures in Plano, TX.
               </Title>
               <Body>
@@ -177,7 +177,7 @@ export default function AboutContent() {
               <Title variant="h4">Immersive Multi-Level Arena</Title>
               <Body sx={{ mb: 2 }}>
                 Our <Strong>15,000-square-foot arena</Strong> offers immersive,
-                wasteland-themed gameplay for up to 50, with strategy missions,
+                wasteland-themed gameplay for up to 60, with strategy missions,
                 vibration-feedback headsets, and lightweight weapons—making every{" "}
                 <Strong>75-minute session</Strong> epic.
               </Body>

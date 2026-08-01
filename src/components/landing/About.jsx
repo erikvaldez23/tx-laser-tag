@@ -45,7 +45,7 @@ const items = [
   {
     icon: <LocationOnIcon sx={{ fontSize: 44 }} />,
     title: "Convenient Location",
-    body: "Located off Coit Road in Central Plano",
+    body: "Located off Coit and Irvine in Central Plano",
   },
 ];
 
