@@ -51,19 +51,10 @@ const Glass = styled(Box)(({ theme }) => ({
   width: "100%",
 }));
 
-/* Seasonal hour groups — exported so Branch-2 PR can import and override the default */
+/* Fall schedule — single group, effective Aug 1 */
 export const DEFAULT_HOUR_GROUPS = [
   {
     title: "Hours",
-    hours: [
-      "Mon–Thurs: 4pm – 10:30pm",
-      "Fri: 4pm – 11:30pm",
-      "Sat: 11am – 11:30pm",
-      "Sun: 11am – 8pm",
-    ],
-  },
-  {
-    title: "Fall Hours (Effective Aug 1)",
     hours: [
       "Wed–Thurs: 4pm – 10:30pm",
       "Fri: 4pm – 11:30pm",
